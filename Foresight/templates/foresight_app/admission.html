@@ -1,8 +1,7 @@
+{% extends 'foresight_app/base.html' %}
 {% load static %}
-{% block header %}
-{% include 'foresight_app/header.html' %}
-{% endblock %}
-{% include "foresight_app/admission_modal.html" %}
+
+{% block content %}
 
   <style>
     * {
@@ -234,6 +233,4 @@
     });
   </script>
 
-{% block footer %}
-{% include 'foresight_app/footer.html' %}
-{% endblock %}
+   {% endblock %}

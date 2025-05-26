@@ -1,134 +1,79 @@
 {% load static %}
-{% include "foresight_app/admission_modal.html" %}
 
 <section class="cta-section cta-animate">
-    <div class="cta-left" >
-      <div class="logo">
-        <h1 class="animate-left">Foresight</h1>
-        <p class="animate-left">Institute of Hotel Management</p>
-      </div>
-      <div class="cta-text">
-        <h2 class="animate-left">Join The<br>Success!</h2>
-        <button  onclick="openForm()" class="animate-left btn fade-in-up delay-2 ">Enroll Now</button>
-      </div>
+  <div class="cta-left">
+    <div class="logo">
+      <h1 class="animate-left">Foresight</h1>
+      <p class="animate-left">Institute of Hotel Management</p>
     </div>
-  
-    <div class="cta-right">
-      <div class="info-block animate-left">
-        <h3>Info</h3>
-        <p>+91 90489 66056</p>
-        <p>+91 90489 66026</p>
-        <p>+91 90489 68023</p>
-        <p>info@foresightihm.com</p>
-      </div>
-      <div class="info-block animate-left">
-        <h3>Address</h3>
-        <p>Foresight Institute 2nd floor</p>
-        <p>Devagiri Building</p>
-        <p>Opposite Kozhikode Medical College</p>
-        <p>Pin: 673008</p>
-        <p>Ummalathoor, Kozhikode</p>
-      </div>
-      
-      <div class="info-block animate-left">
-        <h3>Follow</h3>
-        <a href="#">LinkedIn</a>
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-      </div>
+    <div class="cta-text">
+      <h2 class="animate-left">Join The<br>Success!</h2>
+      <button onclick="openForm()" class="animate-left btn fade-in-up delay-2">Enroll Now</button>
     </div>
-  
-    <div class="scroll-top animate-up">
-      <span>&uarr;</span>
+  </div>
+
+  <div class="cta-right">
+    <div class="info-block animate-left">
+      <h3>Info</h3>
+      <p>+91 90489 66056</p>
+      <p>+91 90489 66026</p>
+      <p>+91 90489 68023</p>
+      <p>info@foresightihm.com</p>
     </div>
-  </section>
-  
-  <style>
-    /* Animation styles */
-    .animate-left,
-    .animate-up {
-      opacity: 0;
-    }
-  
-    @keyframes slideInLeft {
-      from {
-        transform: translateX(-60px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-  
-    .animate-left.visible {
-      animation: slideInLeft 1s ease-out forwards;
-    }
-  
-    @keyframes slideInUp {
-      from {
-        transform: translateY(60px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-  
-    .animate-up.visible {
-      animation: slideInUp 1s ease-out forwards;
-    }
-  
-    /* Original observer style */
-    .cta-animate {
-      opacity: 0;
-      transform: translateY(100px);
-      transition: all 0.5s ease-out;
-    }
-  
-    .cta-animate.animate {
-      animation: slideInUp 1s ease-out forwards;
-    }
-  </style>
-  
-  <script>
-    // Your existing animation logic for whole section
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-  
-    const ctaSection = document.querySelector('.cta-animate');
-    observer.observe(ctaSection);
-  
-    // New animation for individual elements only (not borders)
-    const animatedItems = document.querySelectorAll('.animate-left, .animate-up');
-  
-    const animationObserver = new IntersectionObserver((entries) => {
+    <div class="info-block animate-left">
+      <h3>Address</h3>
+      <p>Foresight Institute 2nd floor</p>
+      <p>Devagiri Building</p>
+      <p>Opposite Kozhikode Medical College</p>
+      <p>Pin: 673008</p>
+      <p>Ummalathoor, Kozhikode</p>
+    </div>
+    <div class="info-block animate-left">
+      <h3>Follow</h3>
+      <a href="#">LinkedIn</a>
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+
+  <div class="scroll-top animate-up">
+    <span>&uarr;</span>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Foresight. All rights reserved. | <a href="{% url 'credit' %}">Credits</a></p>
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+
+<script>
+  const observer = new IntersectionObserver(
+    entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          animationObserver.unobserve(entry.target);
+          entry.target.classList.add('animate');
         }
       });
-    }, {
-      threshold: 0.3
-    });
-  
-    animatedItems.forEach(item => animationObserver.observe(item));
-  </script>
-    
+    },
+    { threshold: 0.5 }
+  );
 
-  <footer>
-    <p>© 2025 Foresight. All rights reserved. | <a href="{% url 'credit' %}">Credits</a></p>
-  </footer>
-  <script src="{% static 'js/script.js' %}"></script>
-</body>
-</html> 
+  const ctaSection = document.querySelector('.cta-animate');
+  observer.observe(ctaSection);
+
+  const animatedItems = document.querySelectorAll('.animate-left, .animate-up');
+
+  const animationObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        animationObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.3
+  });
+
+  animatedItems.forEach(item => animationObserver.observe(item));
+</script>

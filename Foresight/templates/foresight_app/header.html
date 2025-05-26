@@ -1,44 +1,24 @@
 {% load static %}
-{% include "foresight_app/admission_modal.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Foresight</title>
-<link rel="icon" type="image/png" href="{% static 'images/logo_home.png' %}" sizes="64x64">
-<link rel="shortcut icon" href="{% static 'images/logo_home.png' %}">
-
-  <!-- <link rel="stylesheet" href="style.css" /> -->
-  <link rel="stylesheet" href="{% static 'css/test.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-
-</head>
-<body>
-
-  <header>
-    <div class="logo-img-absolute">
-      <img src="{% static 'images/logo_home.png' %}" alt="Logo">
-    </div>
-    <nav class="navbar">
-      <div class="logo-text-container">
-        <div class="logo">
-          <h1 class="" style="font-size: 20px;">Foresight</h1>
-          <p class="" style="color: black;">Institute of Hotel Management</p>
-        </div>
+<header>
+  <div class="logo-img-absolute">
+    <img src="{% static 'images/logo_home.png' %}" alt="Logo">
+  </div>
+  <nav class="navbar">
+    <div class="logo-text-container">
+      <div class="logo">
+        <h1 style="font-size: 20px; margin-top: 4px;">Foresight</h1>
       </div>
-      <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-      <ul class="nav-links" id="nav-links">
-        <div class="close-icon" id="menu-close">&times;</div>
-        <a href="{% url 'home' %}" style="margin-top: 2%;">Home</a>
-      <a href="{% url 'admission' %}" style="margin-top: 2%;">Admission</a>
-      <a href="{% url 'learning_modules' %}" style="margin-top: 2%;">Programs offered</a>
-      <a href="{% url 'resources' %}" style="margin-top: 2%;">Resources</a>
-      <!-- <a href="{% url 'our_team' %}" style="margin-top: 2%;">Our Team</a> -->
-      <a href="{% url 'contact' %}" style="margin-top: 2%;">Contact</a>
-      <!-- <a href="{% url 'admin_login' %}" style="margin-top: 2%;" class="login">Log In</a> -->
-      <a href="#"  onclick="openForm()" class="enroll">Enroll Now</a>    
-      </ul>
-    </nav>
-  </header>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <ul class="nav-links" id="nav-links">
+      <div class="close-icon" id="menu-close">&times;</div>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'admission' %}">Admission</a>
+      <a href="{% url 'learning_modules' %}">Programs offered</a>
+      <a href="{% url 'resources' %}">Resources</a>
+      <a href="{% url 'contact' %}">Contact</a>
+      <a href="#" onclick="openForm()" class="enroll">Enroll Now</a>
+    </ul>
+  </nav>
+</header>

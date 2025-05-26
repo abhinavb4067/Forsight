@@ -1,9 +1,8 @@
 
+{% extends 'foresight_app/base.html' %}
 {% load static %}
 
-{% block header %}
-{% include 'foresight_app/header.html' %}
-{% endblock %}
+{% block content %}
   
   <div class="learning-header">
     <h2>Meet The Team</h2>
@@ -67,10 +66,7 @@
         <!-- <a href="#"><div class="icon google"><img src="https://img.icons8.com/ios-filled/24/ffffff/google-logo.png" alt="Gmail"/></div></a> -->
   </div>
   
-  {% block footer %}
-  {% include 'foresight_app/footer.html' %}
-  {% endblock %}
-
+ 
  
 
 {% if messages %}
@@ -89,6 +85,4 @@
 {% endif %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
- 
-</body>
-</html>
+   {% endblock %}

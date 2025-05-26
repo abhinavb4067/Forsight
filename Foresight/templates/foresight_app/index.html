@@ -1,15 +1,12 @@
+{% extends 'foresight_app/base.html' %}
 {% load static %}
-{% include "foresight_app/admission_modal.html" %}
 
-{% block header %}
-{% include 'foresight_app/header.html' %}
-{% endblock %}
-
+{% block content %}
   
   <section class="hero" style="background-image: url('{% static "images/new_bg.jpg" %}');">
     <div class="hero-content">
-      <h1 class="fade-in-up">Foresight Institute of Hotel Management</h1>
-      <p class="fade-in-up delay-1">Specialized in Cruise Career Training and Placement</p>
+      <h1 class="fade-in-up">Foresight Institute of Hotel Management and Cruise Ship Career Program</h1>
+      <!-- <p class="fade-in-up delay-1">Specialized in Cruise Career Training and Placement</p> -->
       <a href="#enroll" onclick="openForm()" class="btn fade-in-up delay-2">Enroll Now</a>
     </div>
     
@@ -237,11 +234,11 @@
       <div class="content-wrapper">
         <div class="left">
           <h1>About Foresight</h1>
-          <p class="subtitle">Specialized in Cruise Career Training and Placement</p>
+          <!-- <p class="subtitle">Specialized in Cruise Career Training and Placement</p> -->
         </div>
         <div class="right">
         
-          <p>At Foresight Institute of Hotel Management, we are backed by the expertise of a management team with over 11 years of experience in hospitality training and international placements. Our team also leads the Royal Institute of Cruise Ship Career Program and Pre-Recruitment Training Center, through which we have successfully guided over 500 candidates into prestigious cruise lines across the globe. Foresight builds on this strong foundation to offer quality education and real career pathways in hotel management.</p>
+          <p>At Foresight , we are backed by the expertise of a management team with over 11 years of experience in hospitality training and international placements. Our team also leads the Royal Institute of Cruise Ship Career Program and Pre-Recruitment Training Center, through which we have successfully guided over 500 candidates into prestigious cruise lines across the globe. Foresight builds on this strong foundation to offer quality education and real career pathways in hotel management.</p>
           <a href="{% url 'resources' %}" class="read-more-btn">Read More</a>
         </div>
         
@@ -307,10 +304,7 @@
 }
 
   </style>
-  {% block footer %}
-  {% include 'foresight_app/footer.html' %}
-  {% endblock %}
-  
+
 {% if messages %}
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -327,4 +321,4 @@
 {% endif %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
- 
+    {% endblock %}

@@ -57,7 +57,7 @@
   
   .logo-img-absolute {
     position: fixed;
-    top: 1.2rem;
+    top: 1rem;
     left: 1rem;
     z-index: 1001;
     pointer-events: none;
@@ -77,7 +77,7 @@
   }
   
   .logo-text-container {
-    margin-left: 50px;
+    margin-left: 40px;
   }
   
   .logo-text {
@@ -373,11 +373,11 @@
     color: #a78bfa;
   }
   
-  .logo p {
+  /* .logo p {
     font-size: 14px;
     color: #aaa;
     margin-top: 4px;
-  }
+  } */
   
   .cta-text h2 {
     font-size: 60px;

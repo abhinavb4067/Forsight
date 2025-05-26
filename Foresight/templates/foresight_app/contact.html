@@ -1,7 +1,7 @@
+{% extends 'foresight_app/base.html' %}
 {% load static %}
 
-{% include "foresight_app/admission_modal.html" %}
-
+{% block content %}
 
   <style>
 
@@ -176,9 +176,7 @@
 
   </style>
 
-{% block header %}
-{% include 'foresight_app/header.html' %}
-{% endblock %}
+
   <style>
  
   .success-message {
@@ -289,6 +287,5 @@
 </script>
 {% endif %}
 
-    {% block footer %}
-    {% include 'foresight_app/footer.html' %}
-    {% endblock %}
+   {% endblock %}
+
