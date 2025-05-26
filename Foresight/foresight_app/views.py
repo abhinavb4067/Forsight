@@ -796,4 +796,4 @@ def toggle_replied(request):
 def admission(request):
     privacy_policy = PrivacyPolicy.objects.first()
 
-    return render(request, 'foresight_app/admission_modal.html',{'privacy_policy': privacy_policy})
+    return render(request, 'foresight_app/admission.html',{'privacy_policy': privacy_policy})
