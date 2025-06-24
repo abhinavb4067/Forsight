@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Class Students - Static Table with Search & Save</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .controls input[type="text"],
+    .controls input[type="date"],
+    .controls select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      min-width: 200px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin: 0 auto;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      color: #000;
+    }
+
+    .student-name {
+      color: blue;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 5px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .close {
+      color: red;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .save-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .save-button:hover {
+      background-color: #45a049;
+    }
+
+    @media screen and (max-width: 600px) {
+      table, th, td {
+        font-size: 14px;
+      }
+      .modal-content {
+        width: 95%;
+      }
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+ <header class="w-full bg-white shadow-md fixed top-0 left-0 z-40 flex items-center justify-center h-16 px-4 relative">
+  <!-- Back Arrow -->
+  <a href="teacher_dashboard.html" class="absolute left-4 text-black font-bold text-2xl" style="text-decoration: none;">
+    &#x2B05;
+  </a>
+
+  <!-- Title -->
+  <div class="text-xl font-bold text-gray-800">Foresight</div>
+</header>
+
+<div class="pt-24" style="display: flex; align-items: center; justify-content: space-between;">
+  
+
+
+  <div style="width: 90px;"></div>
+</div>
+<style>
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .controls input[type="text"],
+  .controls input[type="date"],
+  .controls select,
+  .controls button {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px; /* Same width for all 4 */
+    box-sizing: border-box; /* ensures padding doesn't break width */
+  }
+
+  @media screen and (max-width: 600px) {
+    .controls {
+      flex-direction: column; /* stack on mobile */
+      align-items: center;
+    }
+  }
+</style>
+<h2 class="text-2xl font-semibold mb-4 texta text-center">Class Name</h2>
+
+<div class="controls">
+  <input type="text" id="searchBox" placeholder="Search Student...">
+  <input type="date" id="datePicker">
+  <select id="periodSelect">
+    <option value="Period 1">Period 1</option>
+    <option value="Period 2">Period 2</option>
+    <option value="Period 3">Period 3</option>
+    <option value="Period 4">Period 4</option>
+  </select>
+</div>
+
+<div class="px-4 md:px-8 w-full">
+  <table id="studentTable" class="w-full">
+    <thead>
+      <tr>
+        <th>Roll No</th>
+        <th>Student Name</th>
+        <th>Attendance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>
+          <span class="student-name" onclick="openModal('John Doe', 'https://via.placeholder.com/100', 'Age: 16, Roll No: 1')">John Doe</span>
+        </td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>
+          <span class="student-name" onclick="openModal('Jane Smith', 'https://via.placeholder.com/100', 'Age: 15, Roll No: 2')">Jane Smith</span>
+        </td>
+        <td><input type="checkbox"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<button class="save-button" onclick="saveAttendance()">Save Attendance</button>
+
+<!-- Modal -->
+<div id="studentModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Student Details</h2>
+    <img id="studentPhoto" src="" alt="Student Photo">
+    <p id="studentDetails"></p>
+  </div>
+</div>
+
+<script>
+  function openModal(name, photo, details) {
+    document.getElementById('studentPhoto').src = photo;
+    document.getElementById('studentDetails').innerText = details;
+    document.getElementById('studentModal').style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById('studentModal').style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('studentModal');
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  // Save Attendance function
+  function saveAttendance() {
+    const selectedDate = document.getElementById('datePicker').value;
+    const selectedPeriod = document.getElementById('periodSelect').value;
+    alert("Attendance for " + selectedPeriod + " on " + selectedDate + " is saved!");
+  }
+
+  // Search functionality
+  document.getElementById('searchBox').addEventListener('keyup', function() {
+    const searchValue = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#studentTable tbody tr');
+
+    rows.forEach(row => {
+      const name = row.cells[1].innerText.toLowerCase();
+      row.style.display = name.includes(searchValue) ? '' : 'none';
+    });
+  });
+
+  // Set today's date by default
+  document.addEventListener("DOMContentLoaded", function() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    document.getElementById('datePicker').value = `${yyyy}-${mm}-${dd}`;
+  });
+</script>
+
+</body>
+</html>

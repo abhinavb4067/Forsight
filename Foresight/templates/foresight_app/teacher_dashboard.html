@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teacher Dashboard - Class List</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+<!-- Navbar -->
+  <header class="w-full bg-white shadow-md fixed top-0 left-0 z-40 flex items-center justify-center h-16">
+    <div class="text-xl font-bold text-gray-800">Foresight</div>
+  </header>
+
+  <!-- Sidebar -->
+<div id="sidebar" class="fixed  top-0 left-0 h-full w-64 bg-white shadow-xl p-6 transform -translate-x-full transition-transform duration-300 z-50 md:translate-x-0 rounded-r-lg">
+  <div class="flex justify-between items-center mb-6 md:hidden">
+    <h2 class="text-xl font-bold text-gray-800">Menu</h2>
+    <button id="closeSidebar" class="text-3xl text-gray-600 hover:text-gray-900">&times;</button>
+  </div>
+  <nav class="space-y-4 mt-10 md:mt-0">
+    <a href="enquiries.html"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Class</a>
+    
+    <a href="#" class="block">
+      <button class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-semibold transition-all shadow">
+        Logout
+      </button>
+    </a>
+  </nav>
+</div>
+
+
+<!-- Overlay (for closing on outside click in mobile) -->
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+<!-- Mobile Menu Button -->
+<button id="menuButton" class="md:hidden fixed top-4 left-4 z-50 p-2">
+  <span class="block w-6 h-0.5 bg-black mb-1"></span>
+  <span class="block w-6 h-0.5 bg-black mb-1"></span>
+  <span class="block w-6 h-0.5 bg-black"></span>
+</button>
+
+<script>
+  const menuButton = document.getElementById('menuButton');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const closeSidebar = document.getElementById('closeSidebar');
+  const sidebarLinks = sidebar.querySelectorAll('a'); // Select all links inside the sidebar
+
+  menuButton.addEventListener('click', () => {
+    sidebar.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+    menuButton.classList.add('hidden'); // Hide the menu button
+  });
+
+  const closeMenu = () => {
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+    menuButton.classList.remove('hidden'); // Show the menu button again
+  };
+
+  closeSidebar.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  // Close sidebar when any sidebar link is clicked (on mobile)
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 768) { // Apply only on mobile
+        closeMenu();
+      }
+    });
+  });
+</script>
+ <!-- Main Content -->
+  <div class="pt-24 md:ml-64 p-4 space-y-10">
+<!-- All classes -->
+<section id="staffSection" class="bg-white p-6 rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4">Class</h2>
+  <table class="w-full text-sm text-left">
+    <thead>
+      <tr>
+        <th class="border p-2">Class</th>
+        <th class="border p-2">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="border p-2">5A</td>
+        <td class="border p-2"><a href="class.html">View students</a></td>
+        </tr>
+        <tr>
+        <td class="border p-2 ">3A</td>
+                <td class="border p-2"><a href="">View students</a></td>
+
+       
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+</body>
+</html>

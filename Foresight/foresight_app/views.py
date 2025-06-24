@@ -206,6 +206,7 @@ def dashboard(request):
         enquiries = enquiries.filter(submitted_at__date__gte=enquiry_date_from)
 
     posts=Post.objects.all()
+    classs=Class.objects.all()
     policies = PrivacyPolicy.objects.all()
     return render(request, 'foresight_app/dashboard.html', {
         'students': students,
@@ -217,7 +218,8 @@ def dashboard(request):
         'enquiry_date_from': enquiry_date_from,
         'enquiry_date_to': enquiry_date_to,
         'posts':posts,
-        'policies': policies
+        'policies': policies,
+        'class_list':classs
     })
 def add_privacy_policy(request):
     if request.method == 'POST':
@@ -797,3 +799,27 @@ def admission(request):
     privacy_policy = PrivacyPolicy.objects.first()
 
     return render(request, 'foresight_app/admission.html',{'privacy_policy': privacy_policy})
+
+
+
+def add_class(request):
+    if request.method == 'POST':
+        class_name = request.POST.get('name')
+        if class_name:
+            Class.objects.create(name=class_name)
+    return redirect('dashboard')
+
+def edit_class(request, pk):
+    name = get_object_or_404(Class, pk=pk)
+    if request.method == 'POST':
+        updated_name = request.POST.get('name')
+        if updated_name:
+            name.name = updated_name
+            name.save()
+    return redirect('dashboard')
+
+def delete_class(request, pk):
+    name = get_object_or_404(Class, pk=pk)
+    name.delete()
+    return redirect('dashboard')
+

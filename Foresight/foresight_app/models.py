@@ -96,3 +96,5 @@ class PrivacyPolicy(models.Model):
     def __str__(self):
         return f"Privacy Policy ({self.id})"
 
+class Class(models.Model):
+    name = models.TextField()

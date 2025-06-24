@@ -33,6 +33,9 @@ urlpatterns = [
     path('add_privacy_policy/', views.add_privacy_policy, name='add_privacy_policy'),
     path('edit_privacy_policy/<int:pk>/', views.edit_privacy_policy, name='edit_privacy_policy'),
     path('delete_privacy_policy/<int:pk>/', views.delete_privacy_policy, name='delete_privacy_policy'),
+        path('add_class/', views.add_class, name='add_class'),
+        path('edit_class/<int:pk>/', views.edit_class, name='edit_class'),
+        path('delete_class/<int:pk>/', views.delete_class, name='delete_class'),
     
 
 
