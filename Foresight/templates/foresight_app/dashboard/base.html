@@ -72,7 +72,250 @@
     });
   });
 </script>
+  <div id="privacy-section">
 
+  <div class="table-container">
+    <h2 class="mb-4">Privacy Policy Management</h2>
+  
+<!-- Add Button -->
+{% if policies %}
+  <button class="btn btn-success" onclick="showPrivacyNotice()">➕ Add New Policy</button>
+{% else %}
+  <button class="btn btn-success" onclick="openModal('privacyAddModal')">➕ Add New Policy</button>
+{% endif %}
+<!-- Notification -->
+<div id="privacyNotice" class="notice-hidden">
+  ⚠️ Please edit the existing privacy policy instead of adding a new one.
+</div>
+<style>
+  #privacyNotice {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffeeba;
+    color: #856404;
+    padding: 12px 20px;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    font-size: 14px;
+    z-index: 9999;
+  }
+
+  .notice-hidden {
+    display: none;
+  }
+
+  .notice-show {
+    display: block;
+    animation: fadeOut 4s forwards;
+  }
+
+  @keyframes fadeOut {
+    0%   { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { opacity: 0; display: none; }
+  }
+</style>
+
+<script>
+  function showPrivacyNotice() {
+    const notice = document.getElementById('privacyNotice');
+    notice.classList.remove('notice-hidden');
+    notice.classList.add('notice-show');
+
+    // Remove after fade
+    setTimeout(() => {
+      notice.classList.remove('notice-show');
+    }, 4000);
+  }
+</script>
+
+  
+    <!-- Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Policy</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if policies %}
+          {% for policy in policies %}
+            <tr>
+              <td>{{ policy.policy}}</td>
+              <td>
+                <button class="btn btn-primary" onclick="openModal('privacyEditModal{{ policy.id }}')">Edit</button>
+                <a href="{% url 'delete_privacy_policy' policy.id %}" onclick="return confirm('Are you sure?')">
+                  <button class="btn btn-danger">Delete</button>
+                </a>
+              </td>
+            </tr>
+    
+            <!-- Edit Modal -->
+            <div id="privacyEditModal{{ policy.id }}" class="custom-modal-container">
+              <div class="custom-modal-box">
+                <span class="close-button" onclick="closeModalprivacy('privacyEditModal{{ policy.id }}')">&times;</span>
+                <form action="{% url 'edit_privacy_policy' policy.id %}" method="POST">
+                  {% csrf_token %}
+                  <div class="modal-header">
+                    <h5>Edit Privacy Policy</h5>
+                  </div>
+                  <div class="modal-body">
+                    <textarea name="policy" rows="8">{{ policy.policy }}</textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="3" class="text-center">No privacy policies available. Please add a new policy.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+    
+  </div>
+  </div>
+
+  
+  <!-- Add Modal -->
+  <div id="privacyAddModal" class="custom-modal-container">
+    <div class="custom-modal-box">
+      <span class="close-button" onclick="closeModalprivacy('privacyAddModal')">&times;</span>
+      <form action="{% url 'add_privacy_policy' %}" method="POST">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5>Add New Privacy Policy</h5>
+        </div>
+        <div class="modal-body">
+          <textarea name="policy" rows="8" placeholder="Enter new policy..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    // Open modal
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+  
+    // Close modal
+    function closeModalprivacy(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  
+    // Close modal when clicking outside content
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.custom-modal-container');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    }
+  </script>
+<style>
+  .custom-modal-container {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .custom-modal-box {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 70%;
+    max-width: 800px;
+    position: relative;
+  }
+
+  /* Add padding to the modal body to prevent content from touching the borders */
+  .modal-body {
+    padding: 20px;
+  }
+
+  .close-button {
+  position: absolute;
+  right: 15px; /* Change to right to move to the right side */
+  top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+
+  .modal-header h5 {
+    margin: 0 0 10px;
+  }
+
+  .modal-footer {
+    margin-top: 15px;
+    text-align: right;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    resize: vertical;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    margin: 3px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .table-container th, .table-container td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+</style>
 
 
 </body>

@@ -823,3 +823,8 @@ def delete_class(request, pk):
     name.delete()
     return redirect('dashboard')
 
+def base_dash(request):
+    policies = PrivacyPolicy.objects.all()
+
+    return render(request, 'foresight_app/dashboard/base.html',{'policies': policies})
+

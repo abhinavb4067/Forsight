@@ -36,6 +36,7 @@ urlpatterns = [
         path('add_class/', views.add_class, name='add_class'),
         path('edit_class/<int:pk>/', views.edit_class, name='edit_class'),
         path('delete_class/<int:pk>/', views.delete_class, name='delete_class'),
+        path('base_dash/', views.base_dash, name='base_dash'),
     
 
 
