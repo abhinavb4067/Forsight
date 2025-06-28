@@ -19,21 +19,13 @@
     <button id="closeSidebar" class="text-3xl text-gray-600 hover:text-gray-900">&times;</button>
   </div>
   <nav class="space-y-4 mt-10 md:mt-0">
-    <a href="{% url 'enquiries' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Enquiries</a>
-    <a href="{% url 'all_students' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Students</a>
-    <a href="{% url 'all_classes' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Attendance</a>
-    <a href="{% url 'set_student_passwords' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Set Student Passwords</a>
-    <a href="{% url 'posts' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Posts</a>
-    <a href="{% url 'class' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">class</a>
-    <a href="{% url 'assign_students_toclass' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Students to class</a>
-    <a href="{% url 'staff_management' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Staff</a>
-    <a href="{% url 'privacy' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Privacy Policy</a>
-    <a href="{% url 'log_out' %}" class="block">
+    <a href="{% url 'student_dashboard' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Attendance</a>
+
+    <a href="{% url 'logout_student' %}" class="block">
       <button class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-semibold transition-all shadow">
         Logout
       </button>
     </a>
-    
   </nav>
 </div>
 
@@ -80,7 +72,49 @@
   });
 </script>
 
-{% block content %}{% endblock %}
+<!-- attndance seeying section -->
+ <main class="pt-20 md:ml-64 p-6">
+  <section id="enquires" class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">My Attendance</h2>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full border border-gray-300">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2 border">Date</th>
+            <th class="px-4 py-2 border">Period 1</th>
+            <th class="px-4 py-2 border">Period 2</th>
+            <th class="px-4 py-2 border">Period 3</th>
+            <th class="px-4 py-2 border">Period 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in attendance_records %}
+          <tr class="bg-white hover:bg-gray-50 transition">
+            <td class="px-4 py-2 border text-sm">{{ record.date }}</td>
+            <td class="px-4 py-2 border text-sm">
+              {% if record.perid_1 %} ✅ {% else %} ❌ {% endif %}
+            </td>
+            <td class="px-4 py-2 border text-sm">
+              {% if record.perid_2 %} ✅ {% else %} ❌ {% endif %}
+            </td>
+            <td class="px-4 py-2 border text-sm">
+              {% if record.perid_3 %} ✅ {% else %} ❌ {% endif %}
+            </td>
+            <td class="px-4 py-2 border text-sm">
+              {% if record.perid_4 %} ✅ {% else %} ❌ {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="text-center px-4 py-2 text-gray-500">No attendance records found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
 
 
 </body>

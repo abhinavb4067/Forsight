@@ -84,16 +84,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="border p-2">5A</td>
-        <td class="border p-2"><a href="class.html">View students</a></td>
-        </tr>
-        <tr>
-        <td class="border p-2 ">3A</td>
-                <td class="border p-2"><a href="">View students</a></td>
+    {% for class in all_class %}
+<tr>
+  <td class="border p-2">{{ class.name }}</td>
+  <td class="border p-2">
+    <a href="{% url 'students' class.id %}">View students</a>
+  </td>
+</tr>
+{% endfor %}
 
-       
-      </tr>
     </tbody>
   </table>
 </section>

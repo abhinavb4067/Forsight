@@ -7,6 +7,9 @@ from django.utils import timezone
 from django.db import models
 from django.utils import timezone
 from phonenumber_field.modelfields import PhoneNumberField
+
+
+
 class StudentRegistration(models.Model):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(blank=True, null=True)  
@@ -42,14 +45,24 @@ class StudentRegistration(models.Model):
     work_from = models.CharField(max_length=50, blank=True, null=True)
     work_to = models.CharField(max_length=50, blank=True, null=True)
 
-
+    password = models.CharField(max_length=100, blank=True, null=True)
+    
     created_at = models.DateTimeField(default=timezone.now)
+
 
 
     def __str__(self):
         return self.full_name
 
+class Class(models.Model):
+    name = models.TextField()
 
+
+
+class Batch(models.Model):
+    batch=models.CharField(max_length=9)
+    class_name = models.ForeignKey(Class, on_delete=models.CASCADE)
+    student=models.ForeignKey(StudentRegistration, on_delete=models.CASCADE)
 
 # models.py
 from django.db import models
@@ -96,5 +109,31 @@ class PrivacyPolicy(models.Model):
     def __str__(self):
         return f"Privacy Policy ({self.id})"
 
-class Class(models.Model):
-    name = models.TextField()
+class Attendance(models.Model):
+    student=models.ForeignKey(StudentRegistration, on_delete=models.CASCADE)
+    date=models.DateField(blank=True, null=True)
+    perid_1=models.BooleanField(blank=True, null=True)
+    perid_2=models.BooleanField(blank=True, null=True)
+    perid_3=models.BooleanField(blank=True, null=True)
+    perid_4=models.BooleanField(blank=True, null=True)
+
+
+from django.db import models
+from django.contrib.auth.hashers import make_password
+
+class Staff(models.Model):
+    name = models.CharField(max_length=100)
+    qualification = models.TextField()
+    photo = models.ImageField(upload_to='staff_photos/', null=True, blank=True)
+    mobile = models.CharField(max_length=15)
+    email = models.EmailField(unique=True)
+    salary = models.DecimalField(max_digits=10, decimal_places=2)
+    password = models.CharField(max_length=128)  # Store hashed password
+
+    def save(self, *args, **kwargs):
+        if not self.pk or not Staff.objects.filter(pk=self.pk, password=self.password).exists():
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name

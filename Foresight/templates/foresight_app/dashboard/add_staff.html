@@ -1,0 +1,186 @@
+{% extends 'foresight_app/dashboard/base.html' %}
+
+{% block content %}
+
+<div class="pt-24 md:ml-64 p-4 space-y-10">
+  {% if messages %}
+  <div class="space-y-2">
+    {% for message in messages %}
+    <div class="{% if message.tags == 'error' %}bg-red-100 text-red-800{% else %}bg-green-100 text-green-800{% endif %} p-3 rounded">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Add/Edit Staff Modal -->
+  <div id="staffModal" class="fixed inset-0 z-50 flex justify-center items-center p-4 bg-black bg-opacity-50 {% if not staff_to_edit %}hidden{% endif %}">
+    <div class="bg-white p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-auto">
+      <h2 class="text-xl font-semibold mb-4" id="staffModalTitle">{% if staff_to_edit %}Edit{% else %}Add{% endif %} Staff</h2>
+      <form id="staffForm" action="{% url 'create_or_update_staff' %}" method="POST" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+        {% if staff_to_edit %}
+        <input type="hidden" name="id" value="{{ staff_to_edit.id }}">
+        {% endif %}
+
+        <input type="text" id="staffNameInput" name="name" placeholder="Name" class="w-full p-3 border rounded" required value="{{ staff_to_edit.name|default:'' }}">
+        <textarea id="staffQualificationInput" name="qualification" placeholder="Qualification" rows="2" class="w-full p-3 border rounded" required>{{ staff_to_edit.qualification|default:'' }}</textarea>
+        <input type="file" id="staffImageFileInput" name="photo" class="w-full p-3 border rounded" accept="image/*" {% if not staff_to_edit %}required{% endif %}>
+        <input type="text" id="staffMobileInput" name="mobile" placeholder="Mobile" class="w-full p-3 border rounded" required value="{{ staff_to_edit.mobile|default:'' }}">
+        <input type="email" id="staffEmailInput" name="email" placeholder="Email" class="w-full p-3 border rounded" required value="{{ staff_to_edit.email|default:'' }}">
+        <input type="number" id="staffSalaryInput" name="salary" placeholder="Salary" class="w-full p-3 border rounded" required value="{{ staff_to_edit.salary|default:'' }}">
+        <input type="password" id="staffPasswordInput" name="password" placeholder="Password" class="w-full p-3 border rounded" {% if not staff_to_edit %}required{% endif %}>
+
+        <div class="flex justify-end space-x-2">
+          <a href="{% url 'staff_management' %}" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</a>
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="staffDeleteConfirmModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex justify-center items-center p-4">
+    <div class="bg-white p-6 rounded-lg w-full max-w-sm text-center max-h-[90vh] overflow-auto">
+      <h2 class="text-lg font-semibold mb-4">Are you sure you want to delete this staff member?</h2>
+      <div class="flex justify-center space-x-4">
+        <button id="staffCancelDelete" type="button" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
+        <form method="POST" id="staffDeleteForm">
+          {% csrf_token %}
+          <button id="staffConfirmDelete" type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Staff Table -->
+  <section id="staffSection" class="bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold mb-4">Staff Management</h2>
+    <button id="staffOpenAddModal" class="bg-blue-500 text-white px-4 py-2 rounded mb-4">Add Staff</button>
+    <table class="w-full text-sm text-left">
+      <thead>
+        <tr>
+          <th class="border p-2">Name</th>
+          <th class="border p-2 hidden sm:table-cell">Qualification</th>
+          <th class="border p-2 hidden sm:table-cell">Photo</th>
+          <th class="border p-2 hidden sm:table-cell">Mobile</th>
+          <th class="border p-2 hidden sm:table-cell">Email</th>
+          <th class="border p-2 hidden sm:table-cell">Salary</th>
+          <th class="border p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for staff in staff_list %}
+        <tr data-id="{{ staff.id }}">
+          <td class="border p-2">{{ staff.name }}</td>
+          <td class="border p-2 hidden sm:table-cell">{{ staff.qualification }}</td>
+          <td class="border p-2 hidden sm:table-cell">
+            {% if staff.photo %}
+            <img src="{{ staff.photo.url }}" alt="Staff Photo" class="w-20 h-20 object-cover rounded">
+            {% endif %}
+          </td>
+          <td class="border p-2 hidden sm:table-cell">{{ staff.mobile }}</td>
+          <td class="border p-2 hidden sm:table-cell">{{ staff.email }}</td>
+          <td class="border p-2 hidden sm:table-cell">{{ staff.salary }}</td>
+          <td class="border p-2 space-x-1">
+            <button class="staffViewBtnMobile sm:hidden bg-yellow-500 text-white px-2 py-1 rounded text-xs">View</button>
+            <a href="?edit={{ staff.id }}" class="staffEditBtn bg-green-500 text-white px-2 py-1 rounded text-xs sm:text-sm">Edit</a>
+            <a href="#" data-id="{{ staff.id }}" class="staffDeleteBtn bg-red-500 text-white px-2 py-1 rounded text-xs sm:text-sm">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Staff View Modal -->
+  <div id="staffViewModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex justify-center items-center p-4" onclick="this.classList.add('hidden')">
+    <div class="bg-white p-6 rounded-lg w-full max-w-md max-h-[90vh] overflow-auto" onclick="event.stopPropagation()">
+      <h2 class="text-xl font-semibold mb-4">Staff Details</h2>
+      <div class="space-y-2 text-sm">
+        <div><strong>Name:</strong> <span id="staffViewName"></span></div>
+        <div><strong>Qualification:</strong> <span id="staffViewQualification"></span></div>
+        <div><strong>Mobile:</strong> <span id="staffViewMobile"></span></div>
+        <div><strong>Email:</strong> <span id="staffViewEmail"></span></div>
+        <div><strong>Salary:</strong> ₹<span id="staffViewSalary"></span></div>
+        <div><strong>Photo:</strong><br><img id="staffViewImage" src="" class="w-32 h-32 object-cover rounded mt-2" /></div>
+      </div>
+      <div class="mt-4 text-right">
+        <button onclick="document.getElementById('staffViewModal').classList.add('hidden')" class="bg-gray-600 text-white px-4 py-2 rounded">Close</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const staffModal = document.getElementById('staffModal');
+  const openAddModalBtn = document.getElementById('staffOpenAddModal');
+  const staffForm = document.getElementById('staffForm');
+  let editingStaffId = null;
+
+  openAddModalBtn.addEventListener('click', () => {
+    editingStaffId = null;
+    document.getElementById('staffModalTitle').textContent = 'Add Staff';
+    staffForm.reset();
+    staffModal.classList.remove('hidden');
+  });
+
+  document.querySelectorAll('.staffViewBtnMobile').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const row = e.target.closest('tr');
+      const cells = row.children;
+      const img = row.querySelector('img');
+
+      document.getElementById('staffViewName').textContent = cells[0].textContent.trim();
+      document.getElementById('staffViewQualification').textContent = cells[1].textContent.trim();
+      document.getElementById('staffViewMobile').textContent = cells[3].textContent.trim();
+      document.getElementById('staffViewEmail').textContent = cells[4].textContent.trim();
+      document.getElementById('staffViewSalary').textContent = cells[5].textContent.trim();
+
+      const viewImg = document.getElementById('staffViewImage');
+      if (img) {
+        viewImg.src = img.src;
+        viewImg.style.display = 'block';
+      } else {
+        viewImg.style.display = 'none';
+      }
+
+      document.getElementById('staffViewModal').classList.remove('hidden');
+    });
+  });
+
+  document.querySelectorAll('.staffEditBtn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const row = e.target.closest('tr');
+      editingStaffId = row.dataset.id;
+      const cells = row.children;
+
+      document.getElementById('staffNameInput').value = cells[0].textContent.trim();
+      document.getElementById('staffQualificationInput').value = cells[1].textContent.trim();
+      document.getElementById('staffMobileInput').value = cells[3].textContent.trim();
+      document.getElementById('staffEmailInput').value = cells[4].textContent.trim();
+      document.getElementById('staffSalaryInput').value = cells[5].textContent.trim();
+
+      document.getElementById('staffModalTitle').textContent = 'Edit Staff';
+      staffModal.classList.remove('hidden');
+    });
+  });
+
+  document.querySelectorAll('.staffDeleteBtn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const deleteForm = document.getElementById('staffDeleteForm');
+      deleteForm.action = `/delete-staff/${btn.dataset.id}/`;
+      document.getElementById('staffDeleteConfirmModal').classList.remove('hidden');
+    });
+  });
+
+  document.getElementById('staffCancelDelete').addEventListener('click', () => {
+    document.getElementById('staffDeleteConfirmModal').classList.add('hidden');
+  });
+});
+</script>
+
+{% endblock %}

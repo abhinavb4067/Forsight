@@ -1,0 +1,173 @@
+{% extends 'foresight_app/dashboard/base.html' %}
+{% block content %}
+<div class="pt-24 md:ml-64 p-4 space-y-10">
+  <!-- Enquiry Section -->
+  <section id="enquiries" class="bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold mb-2 text-center">Enquiries</h2>
+    <p class="text-sm text-gray-500 text-center mb-6">
+      Note: To reply, click the email address or phone number (if WhatsApp is available).
+    </p>
+
+    <!-- Search Form -->
+     <form method="get" class="flex flex-col md:flex-row flex-wrap gap-2 mb-4">
+      <input type="text" name="enquiry_q" placeholder="Search by first name" value="{{ query }}" class="input-field flex-1" />
+      <input type="date" id="enquiry-from" name="enquiry_from" value="{{ date_from }}" class="input-field flex-1" />
+      <input type="date" id="enquiry-to" name="enquiry_to" value="{{ date_to }}" class="input-field flex-1" />
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Search</button>
+      <a href="{% url 'export_enquiries_csv' %}?q={{ enquiry_query }}&from={{ enquiry_date_from }}&to={{ enquiry_date_to }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Export CSV</a>
+      <a href="{% url 'export_enquiries_pdf' %}?q={{ enquiry_query }}&from={{ enquiry_date_from }}&to={{ enquiry_date_to }}" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Export PDF</a>
+    </form>
+
+    <!-- Enquiry Table -->
+    <div class="overflow-x-auto bg-white shadow rounded-lg mt-6">
+      {% if enquiries %}
+      <table class="w-full text-sm text-left table-fixed">
+        <thead class="bg-gray-100 text-gray-700">
+          <tr>
+            <th class="border p-2 hidden md:table-cell w-2/12">Date</th>
+            <th class="border p-2 w-4/12">First Name</th>
+            <th class="border p-2 hidden md:table-cell w-2/12">Last Name</th>
+            <th class="border p-2 hidden md:table-cell w-3/12">Email</th>
+            <th class="border p-2 hidden md:table-cell w-3/12">Phone</th>
+            <th class="border p-2 hidden md:table-cell w-4/12">Message</th>
+            <th class="border p-2 hidden md:table-cell w-1/12">Replied</th>
+            <th class="border p-2 md:hidden w-4/12">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for enquiry in enquiries %}
+          <tr class="hover:bg-gray-50">
+            <td class="border p-2 hidden md:table-cell">{{ enquiry.submitted_at|date:"F j, Y" }}</td>
+            <td class="border p-2 truncate">{{ enquiry.first_name }}</td>
+            <td class="border p-2 hidden md:table-cell truncate">{{ enquiry.last_name }}</td>
+            <td class="border p-2 hidden md:table-cell">
+              <a href="mailto:{{ enquiry.email }}" class="text-blue-600 hover:underline">{{ enquiry.email }}</a>
+            </td>
+            <td class="border p-2 hidden md:table-cell cursor-pointer" onclick="openWhatsApp('{{ enquiry.phone }}')">
+              <span class="text-green-600 hover:underline">{{ enquiry.phone }}</span>
+            </td>
+            <td class="border p-2 hidden md:table-cell truncate">{{ enquiry.message }}</td>
+            <td class="border p-2 hidden md:table-cell">
+              <input type="checkbox" onchange="updateReplied(this, {{ enquiry.id }})" {% if enquiry.replied %}checked{% endif %}>
+            </td>
+
+            <!-- Mobile Only Actions -->
+            <td class="border p-2 md:hidden">
+              <button class="bg-indigo-500 text-white px-3 py-1 text-xs rounded"
+        onclick="openViewModal({ id: {{ enquiry.id }} })">View</button>
+
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="text-center font-semibold mt-4">No enquiries found.</p>
+      {% endif %}
+    </div>
+  </section>
+</div>
+
+<!-- Mobile View Modal -->
+<div id="viewModal" onclick="backdropClickHandler(event)" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden justify-center items-center">
+  <div class="bg-white rounded-lg p-6 w-[90%] max-w-md space-y-4 relative" onclick="event.stopPropagation()">
+    <button onclick="closeViewModal()" class="absolute top-2 right-4 text-xl font-bold text-gray-600">&times;</button>
+    <h2 class="text-xl font-semibold">Enquiry Details</h2>
+    <p><strong>Date:</strong> <span id="modalDate"></span></p>
+    <p><strong>Name:</strong> <span id="modalName"></span></p>
+    <p><strong>Email:</strong> <a href="#" id="modalEmail" class="text-blue-600 hover:underline"></a></p>
+    <p><strong>Phone:</strong> <a href="#" id="modalPhone" class="text-green-600 hover:underline"></a></p>
+    <p><strong>Message:</strong></p>
+    <p class="bg-gray-100 p-2 rounded" id="modalMessage"></p>
+    <div class="flex items-center gap-2">
+      <span><strong>Replied:</strong></span>
+      <label class="inline-flex items-center cursor-pointer">
+        <input type="checkbox" id="modalRepliedToggle" class="sr-only" onchange="updateReplied(this, 0)">
+        <div class="w-10 h-5 bg-gray-300 rounded-full shadow-inner relative">
+          <div class="dot absolute w-5 h-5 bg-white rounded-full shadow transform transition"></div>
+        </div>
+      </label>
+    </div>
+  </div>
+</div>
+
+
+<!-- Styles -->
+<style>
+  .input-field {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  #modalRepliedToggle:checked + div {
+    background-color: #22c55e;
+  }
+
+  #modalRepliedToggle:checked + div .dot {
+    transform: translateX(100%);
+  }
+
+  #modalRepliedToggle + div .dot {
+    transition: transform 0.3s ease;
+  }
+</style>
+
+<!-- Scripts -->
+<script>
+  function openWhatsApp(phoneNumber) {
+    const formattedNumber = phoneNumber.replace(/[^0-9]/g, '');
+    const message = "Hello, I'd like to get in touch!";
+    const url = `https://wa.me/${formattedNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  }
+
+  function openViewModal(enquiry) {
+  fetch(`/get-enquiry/${enquiry.id}/`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("modalDate").innerText = data.date;
+      document.getElementById("modalName").innerText = data.first_name + " " + data.last_name;
+      document.getElementById("modalEmail").innerText = data.email;
+      document.getElementById("modalEmail").href = "mailto:" + data.email;
+      document.getElementById("modalPhone").innerText = data.phone;
+      document.getElementById("modalPhone").href = `https://wa.me/${data.phone}`;
+      document.getElementById("modalMessage").innerText = data.message;
+
+      const toggle = document.getElementById("modalRepliedToggle");
+      toggle.checked = data.replied === true;
+      toggle.setAttribute("data-id", data.id);
+
+      document.getElementById("viewModal").classList.remove("hidden");
+      document.getElementById("viewModal").classList.add("flex");
+    })
+    .catch(() => alert("Failed to load enquiry."));
+}
+
+  function closeViewModal() {
+    document.getElementById("viewModal").classList.remove("flex");
+    document.getElementById("viewModal").classList.add("hidden");
+  }
+
+  function updateReplied(checkbox, id = null) {
+    const enquiryId = id || checkbox.getAttribute("data-id");
+    const replied = checkbox.checked;
+    fetch(`/update-replied/${enquiryId}/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": "{{ csrf_token }}",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ replied })
+    }).then(resp => resp.json()).then(data => {
+      if (!data.success) alert("Failed to update replied status.");
+    });
+  }
+  function backdropClickHandler(event) {
+  if (event.target.id === "viewModal") {
+    closeViewModal();
+  }
+}
+</script>
+{% endblock %}

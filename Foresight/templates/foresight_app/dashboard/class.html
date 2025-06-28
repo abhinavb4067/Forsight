@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Students</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Header -->
+  <header class="w-full bg-white shadow-md fixed top-0 left-0 z-40 flex items-center justify-center h-16 px-4 relative">
+    <a href="{% url 'teacher_dashboard' %}" class="absolute left-4 text-black font-bold text-2xl no-underline">
+      &#x2B05;
+    </a>
+    <div class="text-xl font-bold text-gray-800">Foresight</div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-24 px-4 max-w-6xl mx-auto">
+
+<h2 class="text-2xl font-semibold mb-6 text-center">{{ class_name }}</h2>
+
+    <!-- Filters -->
+   <div class="flex flex-wrap gap-4 justify-center mb-6">
+  <input type="text" id="searchBox" placeholder="Search Student..."
+         class="px-3 py-2 border border-gray-300 rounded w-[200px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+  <input type="date" id="datePicker"
+         class="px-3 py-2 border border-gray-300 rounded w-[200px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+  <select id="periodSelect"
+          class="px-3 py-2 border border-gray-300 rounded w-[200px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <option value="Period 1">Period 1</option>
+    <option value="Period 2">Period 2</option>
+    <option value="Period 3">Period 3</option>
+    <option value="Period 4">Period 4</option>
+  </select>
+</div>
+
+<!-- Table -->
+<div class="overflow-x-auto bg-white rounded shadow-md">
+  <table class="min-w-full text-sm text-center">
+    <thead class="bg-gray-200 text-gray-700">
+      <tr>
+        <th class="py-3 px-4 border">Roll No</th>
+        <th class="py-3 px-4 border">Student Name</th>
+        <th class="py-3 px-4 border">Attendance</th>
+      </tr>
+    </thead>
+    <tbody id="studentTable" class="text-gray-800">
+      {% for student in students %}
+      <tr class="border-t">
+        <td class="py-3 px-4">{{ forloop.counter }}</td>
+        <td class="py-3 px-4">
+  <span class="text-blue-600 cursor-pointer underline"
+        onclick='openModal(
+          "{{ student.photo.url }}", 
+          {
+            "full_name": "{{ student.full_name|escapejs }}",
+            "email": "{{ student.email|escapejs }}",
+            "phone": "{{ student.phone|escapejs }}",
+            "whatsapp": "{{ student.whatsapp|escapejs }}",
+            "father_name": "{{ student.father_name|escapejs }}",
+            "father_phone": "{{ student.father_phone|escapejs }}",
+            "mother_name": "{{ student.mother_name|escapejs }}",
+            "mother_phone": "{{ student.mother_phone|escapejs }}",
+            "gender": "{{ student.gender|escapejs }}",
+            "dob": "{{ student.dob|date:'Y-m-d' }}",
+            "qualification": "{{ student.qualification|escapejs }}",
+            "course": "{{ student.course|escapejs }}",
+            "address": "{{ student.address|escapejs }}",
+            "adhaar_number": "{{ student.adhaar_number|escapejs }}",
+            "college_name": "{{ student.college_name|escapejs }}",
+            "college_year": "{{ student.college_year|escapejs }}",
+            "college_score": "{{ student.college_score|escapejs }}",
+            "school_12": "{{ student.school_12|escapejs }}",
+            "year_12": "{{ student.year_12|escapejs }}",
+            "score_12": "{{ student.score_12|escapejs }}",
+            "school_10": "{{ student.school_10|escapejs }}",
+            "year_10": "{{ student.year_10|escapejs }}",
+            "score_10": "{{ student.score_10|escapejs }}",
+            "achievements": "{{ student.achievements|escapejs }}"
+          }
+        )'>
+    {{ student.full_name }}
+  </span>
+</td>
+
+        <td class="py-3 px-4 text-center">
+          <input type="checkbox" class="attendance-check w-5 h-5" data-student-id="{{ student.id }}">
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3" class="py-4 text-gray-500">No students found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Save Button -->
+<button onclick="saveAttendance()"
+        class="block mt-6 mx-auto bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded">
+  Save Attendance
+</button>
+
+<!-- Modal -->
+<div id="studentModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-6 rounded shadow-lg w-full max-w-xl text-left relative overflow-y-auto max-h-[90vh]">
+    <button onclick="closeModal()" class="absolute top-2 right-3 text-red-600 text-2xl font-bold">&times;</button>
+    <h2 class="text-xl font-semibold mb-4 text-center">Student Details</h2>
+    <div class="flex items-center justify-center mb-4">
+      <img id="studentPhoto" src="" alt="Student Photo" class="w-24 h-24 rounded-full border shadow" />
+    </div>
+    <div id="studentDetails" class="space-y-2 text-sm text-gray-700"></div>
+  </div>
+</div>
+
+
+<script>
+  function openModal(photoUrl, details) {
+    document.getElementById('studentPhoto').src = photoUrl;
+
+    const detailHtml = `
+      <p><strong>Name:</strong> ${details.full_name}</p>
+      <p><strong>Email:</strong> ${details.email || '—'}</p>
+      <p><strong>Phone:</strong> ${details.phone || '—'}</p>
+      <p><strong>WhatsApp:</strong> ${details.whatsapp || '—'}</p>
+      <p><strong>Father's Name:</strong> ${details.father_name || '—'}</p>
+      <p><strong>Father's Phone:</strong> ${details.father_phone || '—'}</p>
+      <p><strong>Mother's Name:</strong> ${details.mother_name || '—'}</p>
+      <p><strong>Mother's Phone:</strong> ${details.mother_phone || '—'}</p>
+      <p><strong>Gender:</strong> ${details.gender || '—'}</p>
+      <p><strong>DOB:</strong> ${details.dob || '—'}</p>
+      <p><strong>Qualification:</strong> ${details.qualification}</p>
+      <p><strong>Course:</strong> ${details.course}</p>
+      <p><strong>Address:</strong> ${details.address}</p>
+      <p><strong>Aadhaar:</strong> ${details.adhaar_number || '—'}</p>
+      <hr class="my-2" />
+      <p><strong>College:</strong> ${details.college_name || '—'} (${details.college_year || '-'}, ${details.college_score || '-'})</p>
+      <p><strong>12th:</strong> ${details.school_12 || '—'} (${details.year_12 || '-'}, ${details.score_12 || '-'})</p>
+      <p><strong>10th:</strong> ${details.school_10 || '—'} (${details.year_10 || '-'}, ${details.score_10 || '-'})</p>
+      <p><strong>Achievements:</strong> ${details.achievements || '—'}</p>
+    `;
+
+    document.getElementById('studentDetails').innerHTML = detailHtml;
+    document.getElementById('studentModal').classList.remove('hidden');
+  }
+
+  function closeModal() {
+    document.getElementById('studentModal').classList.add('hidden');
+  }
+
+  window.onclick = function (event) {
+    const modal = document.getElementById('studentModal');
+    if (event.target === modal) {
+      closeModal();
+    }
+  };
+
+  function saveAttendance() {
+    const selectedDate = document.getElementById('datePicker').value;
+    const selectedPeriod = document.getElementById('periodSelect').value;
+    const checkboxes = document.querySelectorAll('.attendance-check');
+
+    const attendanceData = [];
+
+    checkboxes.forEach(cb => {
+      attendanceData.push({
+        student_id: cb.dataset.studentId,
+        present: cb.checked
+      });
+    });
+
+    fetch("{% url 'save_attendance' %}", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify({
+        date: selectedDate,
+        period: selectedPeriod,
+        attendance: attendanceData
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert(`Attendance for ${selectedPeriod} on ${selectedDate} saved successfully.`);
+    })
+    .catch(error => {
+      console.error("Error saving attendance:", error);
+      alert("Failed to save attendance. Please try again.");
+    });
+  }
+
+  function fetchAttendance() {
+    const selectedDate = document.getElementById('datePicker').value;
+    const selectedPeriod = document.getElementById('periodSelect').value;
+    const checkboxes = document.querySelectorAll('.attendance-check');
+
+    const studentIds = Array.from(checkboxes).map(cb => cb.dataset.studentId);
+
+    fetch("{% url 'get_attendance' %}", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify({
+        date: selectedDate,
+        period: selectedPeriod,
+        student_ids: studentIds
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      const map = {};
+      data.data.forEach(entry => {
+        map[entry.student_id] = entry.present;
+      });
+
+      checkboxes.forEach(cb => {
+        cb.checked = map[cb.dataset.studentId] || false;
+      });
+    });
+  }
+
+  document.getElementById('searchBox').addEventListener('keyup', function () {
+    const searchValue = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#studentTable tr');
+    rows.forEach(row => {
+      const name = row.cells[1]?.innerText.toLowerCase() || '';
+      row.style.display = name.includes(searchValue) ? '' : 'none';
+    });
+  });
+
+  document.getElementById('periodSelect').addEventListener('change', fetchAttendance);
+  document.getElementById('datePicker').addEventListener('change', fetchAttendance);
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    document.getElementById('datePicker').value = `${yyyy}-${mm}-${dd}`;
+    fetchAttendance();
+  });
+</script>
+
+
+
+</body>
+</html>
