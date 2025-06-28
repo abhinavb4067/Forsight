@@ -9,12 +9,12 @@
 
     <!-- Search Form -->
  <form method="get" class="flex flex-col md:flex-row flex-wrap gap-2 mb-4" id="student-search-form">
-  <input type="text" name="student_q" placeholder="Search by name" value="{{ query }}" class="px-4 py-2 border border-[#cccccc] rounded">
+  <input  type="text" name="student_q" placeholder="Search by name" value="{{ query }}"   class="input-field w-full md:flex-1" >
   <label for="student-from" class="self-center">From Date</label>
-  <input type="date" id="student-from" name="student_from" value="{{ date_from }}" class="px-4 py-2 border border-[#cccccc] rounded">
+  <input type="date" id="student-from" name="student_from" value="{{ date_from }}"   class="input-field w-full md:flex-1" >
   <label for="student-to" class="self-center">To Date</label>
-  <input type="date" id="student-to" name="student_to" value="{{ date_to }}" class="px-4 py-2 border border-[#cccccc] rounded">
-  <button type="submit" class="bg-[#007bff] text-white px-4 py-2 rounded hover:bg-[#0056b3]">Search</button>
+  <input type="date" id="student-to" name="student_to" value="{{ date_to }}"   class="input-field w-full md:flex-1" >
+  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full sm:w-auto">Search</button>
 
   <a href="{% url 'export_csv' %}?student_q={{ query }}&student_from={{ date_from }}&student_to={{ date_to }}"
      class="px-4 py-2 border border-[#000000] rounded">
@@ -23,6 +23,14 @@
   
 </form>
 
+<style>.input-field {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;         /* Ensures full width on mobile */
+  min-width: 0;        /* Fixes flexbox shrink issues */
+}
+</style>
 
     <div class="overflow-x-auto">
       {% if students %}
