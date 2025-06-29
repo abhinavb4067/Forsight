@@ -1,0 +1,52 @@
+{% extends 'foresight_app/dashboard/base.html' %}
+{% block content %}
+<div class="pt-24 md:ml-64 p-4 space-y-10">
+  <section class="bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold mb-4 text-center">
+      Students in {{ class_name }}
+    </h2>
+
+    {% if students %}
+    <div class="flex justify-end mb-4">
+  <a href="?export=csv">
+   <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full md:w-auto">
+  ⬇ Export to CSV
+</button>
+
+  </a>
+</div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left border border-gray-300">
+        <thead class="bg-gray-100 text-gray-700">
+          <tr>
+            <th class="border px-4 py-2">Name</th>
+            <th class="border px-4 py-2">Email</th>
+            <th class="border px-4 py-2">Phone</th>
+            <!-- <th class="border px-4 py-2">Course</th> -->
+            <th class="border px-4 py-2">Registered Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr class="hover:bg-gray-50">
+            <td class="border px-4 py-2">{{ student.full_name }}</td>
+            <td class="border px-4 py-2">{{ student.email }}</td>
+            <td class="border px-4 py-2">{{ student.phone }}</td>
+            <!-- <td class="border px-4 py-2">{{ student.course }}</td> -->
+            <td class="border px-4 py-2">{{ student.created_at|date:"Y-m-d" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="text-center text-gray-500 mt-4">No students found in this class.</p>
+    {% endif %}
+
+    <div class="mt-6 text-center">
+      <a href="{% url 'class' %}" class="text-blue-600 hover:underline">← Back to Class List</a>
+    </div>
+  </section>
+</div>
+{% endblock %}

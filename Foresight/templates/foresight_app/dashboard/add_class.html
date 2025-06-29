@@ -21,9 +21,11 @@
             {% if class_list %}
             {% for class in class_list %}
             <tr class="hover:bg-gray-50">
-<td class="border px-4 py-2 whitespace-normal break-words">
-  {{ class.name }}
-</td>
+      <td class="border px-4 py-2 whitespace-normal break-words">
+        <a href="{% url 'students_in_class' class.id %}" class="text-blue-600 hover:underline">
+          {{ class.name }}
+        </a>
+      </td>
 
 
               <td class="border px-4 py-2">

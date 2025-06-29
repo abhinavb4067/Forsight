@@ -49,6 +49,12 @@ class StudentRegistration(models.Model):
     
     created_at = models.DateTimeField(default=timezone.now)
 
+class AdmittedStudent(models.Model):
+    student = models.ForeignKey(StudentRegistration, on_delete=models.CASCADE)
+    admitted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.student.full_name
 
 
     def __str__(self):

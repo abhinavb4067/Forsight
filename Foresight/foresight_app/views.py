@@ -788,10 +788,16 @@ from django.contrib import messages
 from django.utils.dateparse import parse_date
 from .models import StudentRegistration, Class, Batch
 from collections import defaultdict
+from django.utils.dateparse import parse_date
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .models import StudentRegistration, Class, Batch, AdmittedStudent
+from django.contrib.auth.decorators import login_required
 
 @login_required_admin
 def assign_students_toclass(request):
-    students = StudentRegistration.objects.all()
+    # Only admitted students
+    students = StudentRegistration.objects.filter(admittedstudent__admitted=True)
     classes = Class.objects.all()
 
     course_filter = request.GET.get('course')
@@ -808,10 +814,10 @@ def assign_students_toclass(request):
     if to_date:
         students = students.filter(created_at__date__lte=parse_date(to_date))
 
-    # ✅ Get all current batch assignments (all students, all batches)
+    # All current assignments
     assignments = Batch.objects.all()
 
-    # ✅ Handle POST: assigning students to class
+    # Assign students to classes based on checkbox selection
     if request.method == 'POST' and selected_batch:
         count = 0
         for student in students:
@@ -819,7 +825,7 @@ def assign_students_toclass(request):
             for class_index, cls in enumerate(classes):
                 checkbox_name = f'class{class_index}_{student.id}'
                 if checkbox_name in request.POST:
-                    Batch.objects.filter(student=student).delete()  # Clear all previous assignments
+                    Batch.objects.filter(student=student).delete()  # Clear previous
                     Batch.objects.create(batch=selected_batch, class_name=cls, student=student)
                     count += 1
                     assigned = True
@@ -842,8 +848,6 @@ def assign_students_toclass(request):
         'to_date': to_date,
         'selected_batch': selected_batch,
     })
-
-
 
 
 
@@ -937,6 +941,77 @@ def view_class(request):
 
     classs=Class.objects.all()
     return render(request, 'foresight_app/dashboard/add_class.html', {'class_list':classs})
+from django.shortcuts import render, get_object_or_404
+from .models import Class, Batch
+
+import csv
+from django.http import HttpResponse
+from django.utils.encoding import smart_str
+
+import csv
+from django.http import HttpResponse
+from django.utils.encoding import smart_str
+from django.shortcuts import render, get_object_or_404
+from .models import Class, Batch
+from django.contrib.auth.decorators import login_required
+
+@login_required_admin
+def students_in_class(request, class_id):
+    selected_class = get_object_or_404(Class, id=class_id)
+    batch_entries = Batch.objects.filter(class_name=selected_class).select_related('student')
+    students = [batch.student for batch in batch_entries]
+
+    if request.GET.get('export') == 'csv':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename=students_in_{selected_class.name}.csv'
+
+        writer = csv.writer(response)
+
+        # ✅ CSV Header (must match fields below)
+        writer.writerow([
+            'Full Name', 'Email', 'Phone', 'Course', 'WhatsApp',
+            'Father Name', 'Father Phone', 'Mother Name', 'Mother Phone',
+            'Gender', 'Date of Birth', 'Qualification', 'Address',
+            'College Name', 'College Year', 'College Score',
+            'School (12th)', 'Score (12th)', 'School (10th)',
+            'Year (10th)', 'Score (10th)', 'Registered Date'
+        ])
+
+        # ✅ CSV Rows
+        for student in students:
+            writer.writerow([
+                smart_str(student.full_name),
+                smart_str(student.email),
+                smart_str(student.phone),
+                smart_str(student.course),
+                smart_str(student.whatsapp),
+                smart_str(student.father_name),
+                smart_str(student.father_phone),
+                smart_str(student.mother_name),
+                smart_str(student.mother_phone),
+                smart_str(student.gender),
+                smart_str(student.dob),
+                smart_str(student.qualification),
+                smart_str(student.address),
+                smart_str(student.college_name),
+                smart_str(student.college_year),
+                smart_str(student.college_score),
+                smart_str(student.school_12),
+                smart_str(student.score_12),
+                smart_str(student.school_10),
+                smart_str(student.year_10),
+                smart_str(student.score_10),
+                student.created_at.strftime('%Y-%m-%d') if student.created_at else ''
+            ])
+
+        return response
+
+    return render(request, 'foresight_app/dashboard/students_in_class.html', {
+        'students': students,
+        'class_name': selected_class.name
+    })
+
+
 @login_required_admin
 def add_class(request):
     if request.method == 'POST':
@@ -1239,6 +1314,53 @@ def view_class_attendance(request, class_id):
         "to_date": to_date,
     })
 
+from django.shortcuts import render, redirect
+from .models import AdmittedStudent, StudentRegistration
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+
+@login_required_admin
+def manage_admissions(request):
+    # Handle filter inputs
+    course = request.GET.get('course')
+    from_date = request.GET.get('from_date')
+    to_date = request.GET.get('to_date')
+
+    # Base queryset
+    students = StudentRegistration.objects.all()
+
+    # Apply filters if provided
+    if course:
+        students = students.filter(course=course)
+
+    if from_date:
+        students = students.filter(created_at__date__gte=from_date)
+
+    if to_date:
+        students = students.filter(created_at__date__lte=to_date)
+
+    # POST: Save admitted status
+    if request.method == "POST":
+        admitted_ids = request.POST.getlist('admitted_ids')
+        AdmittedStudent.objects.all().update(admitted=False)
+
+        for student_id in admitted_ids:
+            student_obj, created = AdmittedStudent.objects.get_or_create(student_id=student_id)
+            student_obj.admitted = True
+            student_obj.save()
+
+        return redirect('manage_admissions')
+
+    admitted_students = AdmittedStudent.objects.filter(admitted=True).values_list('student_id', flat=True)
+
+    return render(request, 'foresight_app/dashboard/manage_admissions.html', {
+        'students': students,
+        'admitted_ids': admitted_students,
+        'selected_course': course,
+        'from_date': from_date,
+        'to_date': to_date,
+        'courses': StudentRegistration.objects.values_list('course', flat=True).distinct()
+    })
 
 ################################### teacher dashboard section ###################################
 from django.db.models import Q

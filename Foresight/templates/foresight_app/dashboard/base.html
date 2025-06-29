@@ -21,11 +21,14 @@
   <nav class="space-y-4 mt-10 md:mt-0">
     <a href="{% url 'enquiries' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Enquiries</a>
     <a href="{% url 'all_students' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Online Registration</a>
+    <a href="{% url 'manage_admissions' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Admitted Students</a>
     <a href="{% url 'all_classes' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Attendance</a>
-    <a href="{% url 'set_student_passwords' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Set Student Passwords</a>
-    <a href="{% url 'posts' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Posts</a>
+        <a href="{% url 'posts' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Posts</a>
     <a href="{% url 'class' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">class</a>
     <a href="{% url 'assign_students_toclass' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Students to class</a>
+
+    <a href="{% url 'set_student_passwords' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Students Login Management</a>
+
     <a href="{% url 'staff_management' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Staff</a>
     <a href="{% url 'privacy' %}" class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Privacy Policy</a>
     <a href="{% url 'log_out' %}" class="block">
