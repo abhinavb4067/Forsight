@@ -19,9 +19,9 @@
     <button id="closeSidebar" class="text-3xl text-gray-600 hover:text-gray-900">&times;</button>
   </div>
   <nav class="space-y-4 mt-10 md:mt-0">
-    <a href="enquiries.html"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Class</a>
+    <a href="{% url 'teacher_dashboard' %}"  class="block px-3 py-2 rounded text-gray-700 font-medium hover:bg-blue-100 hover:text-blue-600 transition-all">Class</a>
     
-    <a href="#" class="block">
+    <a href="{% url 'logout_staff' %}" class="block">
       <button class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-semibold transition-all shadow">
         Logout
       </button>
