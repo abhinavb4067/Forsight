@@ -67,16 +67,41 @@ def resources(request):
 
     })
 
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+import re
 
 def contact(request):
     if request.method == 'POST':
-        first_name = request.POST.get('first_name', '')
-        last_name = request.POST.get('last_name', '')
-        email = request.POST.get('email', '')
-        phone = request.POST.get('phone', '')
-        message = request.POST.get('message', '')
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '').strip()
+        email = request.POST.get('email', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        message = request.POST.get('message', '').strip()
 
-        if first_name and last_name and email:
+        errors = []
+
+        # Validate first & last name (letters and spaces only)
+        if not re.match(r'^[A-Za-z\s]+$', first_name):
+            errors.append("First name should contain only letters and spaces.")
+        if not re.match(r'^[A-Za-z\s]+$', last_name):
+            errors.append("Last name should contain only letters and spaces.")
+
+        # Validate email format
+        try:
+            validate_email(email)
+        except ValidationError:
+            errors.append("Invalid email address.")
+
+        # Validate phone (optional but must be digits if provided)
+        if phone and not re.match(r'^\+?[0-9]{7,15}$', phone):
+            errors.append("Phone number must be 7–15 digits (with optional +).")
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+        else:
+            # Safe ORM (prevents SQL injection automatically)
             Contact.objects.create(
                 first_name=first_name,
                 last_name=last_name,
@@ -85,11 +110,10 @@ def contact(request):
                 message=message
             )
             messages.success(request, 'Thank you! Your message has been sent successfully.')
-            return redirect('contact')  # Ensure 'contact' URL is correctly named
+            return redirect('contact')  # Ensure 'contact' URL name is set correctly
+
     privacy_policy = PrivacyPolicy.objects.first()
-
-    return render(request, 'foresight_app/contact.html',{'privacy_policy': privacy_policy})
-
+    return render(request, 'foresight_app/contact.html', {'privacy_policy': privacy_policy})
 
 
 

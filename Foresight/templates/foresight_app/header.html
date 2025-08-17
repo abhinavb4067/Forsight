@@ -1,24 +1,276 @@
 {% load static %}
 
-<header>
-  <div class="logo-img-absolute">
-    <img src="{% static 'images/logo_home.png' %}" alt="Logo">
+<!-- Top Promo Bar -->
+<div class="promo-bar">
+  <div class="promo-content">
+   • Hotel and Hospitality Management • Diploma in Food Production & Culinary Arts • Diploma in Housekeeping Operations • Diploma in Food and Beverage Service • Diploma in Kitchen Supervisor • Diploma in Front Office Services • Diploma in Kitchen & Area Sanitizing • Diploma in USPH & HACCP Compliance
   </div>
+</div>
+
+<header class="main-header">
   <nav class="navbar">
+    <!-- Logo + Text -->
     <div class="logo-text-container">
       <div class="logo">
-        <h1 style="font-size: 20px; margin-top: 4px;">Foresight</h1>
+        <div class="logo-img-absolute">
+          <img src="{% static 'images/favicon.png' %}" alt="Logo">
+        </div>
+        <h1>Foresight</h1>
       </div>
     </div>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+
+    <!-- Menu toggle (mobile/tablet) -->
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation links -->
     <ul class="nav-links" id="nav-links">
-      <div style="color: black;" class="close-icon" id="menu-close">&times;</div>
-      <a href="{% url 'home' %}" style="margin-top: 2%;">Home</a>
-      <a href="{% url 'admission' %}" style="margin-top: 2%;">Admission</a>
-      <a href="{% url 'learning_modules' %}" style="margin-top: 2%;">Programs offered</a>
-      <a href="{% url 'resources' %}" style="margin-top: 2%;">Resources</a>
-      <a href="{% url 'contact' %}" style="margin-top: 2%;">Contact</a>
-      <a href="#" onclick="openForm()" class="enroll">Enroll Now</a>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'admission' %}">Admission</a></li>
+      <li><a href="{% url 'learning_modules' %}">Programs offered</a></li>
+      <li><a href="{% url 'resources' %}">Resources</a></li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+      <li><a href="#" onclick="openForm()" class="enroll">Enroll Now</a></li>
     </ul>
   </nav>
 </header>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+<style>
+/* ---------------- Logo ---------------- */
+.logo-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.logo-img-absolute img {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.logo h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 600;
+  color: white;
+  font-family: "Playfair Display", "Poppins", sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ---------------- Promo Bar ---------------- */
+.promo-bar {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+
+.promo-content {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scrollText 40s linear infinite;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+@keyframes scrollText {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-100%); }
+}
+
+/* ---------------- Header & Navbar ---------------- */
+.main-header {
+  position: fixed;
+  top: 34px; /* adjust with promo bar height */
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.3rem 0.8rem;
+  margin: 0;
+  background: #2f2f2f;
+  color: white;
+  box-sizing: border-box;
+}
+
+.navbar > .logo-text-container {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  display: inline-block;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #a855f7;
+}
+
+.nav-links .enroll {
+  background: #a855f7;
+  padding: 6px 14px;
+  border-radius: 6px;
+  color: white;
+  margin-left: 15px;
+  font-size: 14px;
+  display: inline-block;
+  transition: background 0.3s ease;
+}
+.nav-links .enroll:hover {
+  background: #9333ea;
+}
+
+/* ---------------- Mobile & Tablet Menu ---------------- */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 10001;
+}
+.menu-toggle span {
+  width: 24px;
+  height: 3px;
+  background: white;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Animate hamburger -> X */
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 1024px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    background: white;
+    padding: 1rem;
+    flex-direction: column;
+    width: 85%;
+    max-width: 260px;
+    border-radius: 12px;
+    color: black;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-15px);
+    transition: all 0.35s ease;
+  }
+
+  .nav-links.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-links li {
+    display: block;
+    margin: 8px 0;
+  }
+
+  .nav-links a {
+    color: black;
+    font-size: 15px;
+  }
+
+  .navbar {
+    padding: 0.4rem 0.7rem;
+  }
+
+  .logo-img-absolute img {
+    height: 34px;
+    width: 34px;
+  }
+
+  .logo h1 {
+    font-size: 16px;
+  }
+}
+</style>
+
+<script>
+// Menu toggle functionality
+const menuToggle = document.getElementById('menu-toggle');
+const navLinks = document.getElementById('nav-links');
+
+// Toggle open/close
+menuToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  menuToggle.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+    navLinks.classList.remove('active');
+    menuToggle.classList.remove('active');
+  }
+});
+
+// Prevent clicks inside menu from closing it
+navLinks.addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+</script>

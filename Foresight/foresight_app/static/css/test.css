@@ -18,51 +18,6 @@
     }
   }
   
-  /* Navbar */
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    background: rgb(253, 249, 249);
-    color: rgb(0, 0, 0);
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .nav-links a {
-    color: #010101;
-    text-decoration: none;
-  }
-  
-  .nav-links .enroll {
-    background: #a855f7;
-    padding: 8px 16px;
-    border-radius: 5px;
-    color: white;
-    margin-left: 20px;
-  }
-  .nav-links a:hover {
-    color: #a2d2ff;
-  }
-  
-  .logo-img-absolute {
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    z-index: 1001;
-    pointer-events: none;
-  }
-  
   @media (max-width: 600px) {
     .logo-img-absolute {
       top: 0.7rem;
@@ -109,30 +64,7 @@
       color: white;
     }
   
-    .navbar {
-      flex-direction: row;
-    }
-  
-    .nav-links {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 1rem;
-      display: none;
-      flex-direction: column;
-      width: max-content;
-      border-radius: 0 0 10px 10px;
-      color: rgb(3, 3, 3)
-    }
-  
-    .nav-links.active {
-      display: flex;
-    }
-  
-    .nav-links li {
-      padding: 0.5rem 1rem;
-    }
+    
   }
   
   /* Learning Section */

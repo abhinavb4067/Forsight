@@ -204,19 +204,23 @@
           {% endfor %}
         {% endif %}
         
-          <form class="contact-form" method="POST" action="">
-            {% csrf_token %}
-            <div class="row">
-              <input type="text" name="first_name" placeholder="First Name *" required />
-              <input type="text" name="last_name" placeholder="Last Name *" required />
-            </div>
-            <div class="row">
-              <input type="email" name="email" placeholder="Email *" required />
-              <input type="tel" name="phone" placeholder="Phone" />
-            </div>
-            <textarea name="message" placeholder="Leave us a message..."></textarea>
-            <button class="submit-button" type="submit">Submit</button>
-          </form>
+        <form class="contact-form" method="POST" action="">
+  {% csrf_token %}
+  <div class="row">
+    <input type="text" name="first_name" placeholder="First Name *" 
+           pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required />
+    <input type="text" name="last_name" placeholder="Last Name *" 
+           pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required />
+  </div>
+  <div class="row">
+    <input type="email" name="email" placeholder="Email *" required />
+    <input type="tel" name="phone" placeholder="Phone"
+           pattern="[0-9]{10}" title="Enter exactly 10 digits" maxlength="10" required />
+  </div>
+  <textarea name="message" placeholder="Leave us a message..." required></textarea>
+  <button class="submit-button" type="submit">Submit</button>
+</form>
+
           
         </div>
       </div>
