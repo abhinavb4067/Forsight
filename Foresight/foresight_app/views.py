@@ -131,55 +131,102 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from .models import StudentRegistration
 
+import re
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.utils.dateparse import parse_date
+
 def student_registration_view(request):
     if request.method == 'POST':
         try:
-            full_name = request.POST.get('name')
-            phone = request.POST.get('phone')
-            whatsapp = request.POST.get('whatsapp')
-            father_name = request.POST.get('father_name')
-            father_phone = request.POST.get('father_phone')
-            mother_name = request.POST.get('mother_name')
-            mother_phone = request.POST.get('mother_phone')
+            # Get inputs safely
+            full_name = request.POST.get('name', '').strip()
+            phone = request.POST.get('phone', '').strip()
+            whatsapp = request.POST.get('whatsapp', '').strip()
+            father_name = request.POST.get('father_name', '').strip()
+            father_phone = request.POST.get('father_phone', '').strip()
+            mother_name = request.POST.get('mother_name', '').strip()
+            mother_phone = request.POST.get('mother_phone', '').strip()
             gender = request.POST.get('gender')
             dob = request.POST.get('dob')
             qualification = request.POST.get('qualification')
             course = request.POST.get('course')
-            address = request.POST.get('address')
-            adhaar_number = request.POST.get('adhaar')
+            address = request.POST.get('address', '').strip()
+            adhaar_number = request.POST.get('adhaar', '').strip()
             photo = request.FILES.get('photo')
-            email = request.POST.get('email')
+            email = request.POST.get('email', '').strip()
 
-            # Check for duplicates
+            # ---------- VALIDATION ----------
+            errors = []
+
+            # Name validation (letters + spaces only)
+            name_pattern = r'^[A-Za-z\s]+$'
+            if not re.match(name_pattern, full_name):
+                errors.append("Name must contain only letters and spaces.")
+            if father_name and not re.match(name_pattern, father_name):
+                errors.append("Father's name must contain only letters and spaces.")
+            if mother_name and not re.match(name_pattern, mother_name):
+                errors.append("Mother's name must contain only letters and spaces.")
+
+            # Phone validation (10-digit Indian numbers, starting 6-9)
+            phone_pattern = r'^[6-9]\d{9}$'
+            for field, value in [("Phone", phone), ("WhatsApp", whatsapp), ("Father phone", father_phone), ("Mother phone", mother_phone)]:
+                if value and not re.match(phone_pattern, value):
+                    errors.append(f"{field} must be a valid 10-digit Indian mobile number.")
+
+            # Email validation
+            try:
+                validate_email(email)
+            except ValidationError:
+                errors.append("Invalid email address.")
+
+            # DOB validation
+            if dob:
+                parsed_dob = parse_date(dob)
+                if not parsed_dob:
+                    errors.append("Invalid Date of Birth.")
+            
+            # File validation (image < 3 MB)
+            if photo:
+                if photo.size > 3 * 1024 * 1024:
+                    errors.append("Photo must be less than 3 MB.")
+                if not photo.content_type.startswith('image/'):
+                    errors.append("Invalid file type. Only images allowed.")
+
+            # Duplicate checks
             if StudentRegistration.objects.filter(email=email).exists():
-                messages.error(request, "Email already exists.")
-                return redirect('home')
+                errors.append("Email already exists.")
             if StudentRegistration.objects.filter(phone=phone).exists():
-                messages.error(request, "Phone number already exists.")
-                return redirect('home')
+                errors.append("Phone number already exists.")
             if StudentRegistration.objects.filter(whatsapp=whatsapp).exists():
-                messages.error(request, "WhatsApp number already exists.")
+                errors.append("WhatsApp number already exists.")
+
+            # If validation fails
+            if errors:
+                for error in errors:
+                    messages.error(request, error)
                 return redirect('home')
 
             # Academic Info
-            college_name = request.POST.get('college_name')
-            college_year = request.POST.get('college_year')
-            college_score = request.POST.get('college_score')
+            college_name = request.POST.get('college_name', '').strip()
+            college_year = request.POST.get('college_year', '').strip()
+            college_score = request.POST.get('college_score', '').strip()
 
-            school_12 = request.POST.get('school_12')
-            year_12 = request.POST.get('year_12')
-            score_12 = request.POST.get('score_12')
-            school_10 = request.POST.get('school_10')
-            year_10 = request.POST.get('year_10')
-            score_10 = request.POST.get('score_10')
-            achievements = request.POST.get('achievements')
+            school_12 = request.POST.get('school_12', '').strip()
+            year_12 = request.POST.get('year_12', '').strip()
+            score_12 = request.POST.get('score_12', '').strip()
+            school_10 = request.POST.get('school_10', '').strip()
+            year_10 = request.POST.get('year_10', '').strip()
+            score_10 = request.POST.get('score_10', '').strip()
+            achievements = request.POST.get('achievements', '').strip()
 
             # Work Experience
-            company_name = request.POST.get('company_name')
-            position = request.POST.get('position')
+            company_name = request.POST.get('company_name', '').strip()
+            position = request.POST.get('position', '').strip()
             work_from = request.POST.get('work_from')
             work_to = request.POST.get('work_to')
 
+            # ---------- SAVE ----------
             StudentRegistration.objects.create(
                 full_name=full_name,
                 phone=phone,
@@ -220,6 +267,7 @@ def student_registration_view(request):
             return redirect('home')
 
     return redirect('home')
+
 
 
 

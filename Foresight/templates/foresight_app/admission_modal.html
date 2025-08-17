@@ -2,245 +2,197 @@
     <div class="admission-modal-content">
       <span class="admission-close" onclick="closeForm()">&times;</span>
       <h2>Application Form.</h2>
-      <form id="admission-form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-  
-        <div class="admission-form-group">
-          <div class="admission-field">
-            <label>Name <span class="admission-required">*</span></label>
-            <input type="text" name="name" placeholder="Your Name" required>
-          </div>
-          <div class="admission-field">
-            <label>Mobile <span class="admission-required">*</span></label>
-            <input type="tel" name="phone" placeholder="Your Mobile Number" required pattern="[6-9]\d{9}" minlength="10" maxlength="10" title="Enter a valid 10-digit Indian mobile number">
-          </div>
-        </div>
-  
-        <div class="admission-form-group">
-          <div class="admission-field">
-            <label>Father's Name <span class="admission-required">*</span></label>
-            <input type="text" name="father_name" placeholder="Father's Name" required>
-          </div>
-          <div class="admission-field">
-            <label>Father's Number <span class="admission-required">*</span></label>
-            <input type="tel" name="father_phone" placeholder="Father's Mobile Number" required>
-          </div>
-        </div>
-  
-        <div class="admission-form-group">
-          <div class="admission-field">
-            <label>Mother's Name</label>
-            <input type="text" name="mother_name" placeholder="Mother's Name">
-          </div>
-          <div class="admission-field">
-            <label>Mother's Number</label>
-            <input type="tel" name="mother_phone" placeholder="Mother's Mobile Number">
-          </div>
-        </div>
-  
-        <div class="admission-form-group">
-          <div class="admission-field">
-            <label>Gender <span class="admission-required">*</span></label>
-            <div class="admission-radio-group">
-              <label><input type="radio" name="gender" value="Male" required> Male</label>
-              <label><input type="radio" name="gender" value="Female"> Female</label>
-            </div>
-          </div>
-          <div class="admission-field">
-            <label>Date of Birth <span class="admission-required">*</span></label>
-            <input type="date" name="dob" required>
-          </div>
-        </div>
-  
-        <div class="admission-form-group">
-          <div class="admission-field">
-            <label>Educational Qualification <span class="admission-required">*</span></label>
-            <div class="admission-radio-group">
-              <label><input type="radio" name="qualification" value="SSLC" required> SSLC</label>
-              <label><input type="radio" name="qualification" value="Plus Two"> Plus Two</label>
-              <label><input type="radio" name="qualification" value="Graduation or above"> Graduation or above</label>
-            </div>
-          
-          </div>
-            <div class="admission-field registration-form">
-              <label style="margin-bottom: -2%;" for="course">Course Offered <span class="admission-required">*</span></label>
-              <select id="course" name="course" required>
-                <option value="" disabled selected>Select a course</option>
-                <option value="Hotel and Hospitality Management">Hotel and Hospitality Management</option>
-                <option value="Diploma in Food Production & Culinary Arts">Diploma in Food Production & Culinary Arts</option>
-                <option value="Diploma in Housekeeping Operations">Diploma in Housekeeping Operations</option>
-                <option value="Diploma in Food and Beverage Service">Diploma in Food and Beverage Service</option>
-                <option value="Diploma in Kitchen Supervisor">Diploma in Kitchen Supervisor</option>
-                <option value="Diploma in Front Office Services">Diploma in Front Office Services</option>
-                <option value="Diploma in Kitchen & Area Sanitizing">Diploma in Kitchen & Area Sanitizing</option>
-                <option value="Diploma in USPH & HACCP Compliance">Diploma in USPH & HACCP Compliance</option>
-              </select>
-            </div>
-   
-          
-          
-        </div>
-        <label>Your Email <span class="admission-required">*</span></label>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <div class="admission-form-group full">
-            <h3>2. Academic Information</h3>
-          </div>
-          <div class="admission-form-group">
-            <div class="admission-field">
-              <label>College Name</label>
-              <input type="text" name="college_name" placeholder="College Name">
-            </div>
-            <div class="admission-field">
-              <label>Year</label>
-              <input type="text" name="college_year" placeholder="Year">
-            </div>
-            <div class="admission-field">
-              <label>Grade/Score</label>
-              <input type="text" name="college_score" placeholder="Grade/Score">
-            </div>
-          </div>
-          
-          
-          <div class="admission-form-group">
-            <div class="admission-field">
-              <label>12th Grade School Name <span class="admission-required">*</span></label>
-              <input type="text" name="school_12" placeholder="12th Grade School Name" required>
-            </div>
-            <div class="admission-field">
-              <label>Year<span class="admission-required">*</span></label>
-              <input type="text" name="year_12" placeholder="Year" required>
-            </div>
-            <div class="admission-field">
-              <label>Grade/Score</label>
-              <input type="text" name="score_12" placeholder="Grade/Score" >
-            </div>
-          </div>
-          
-          <div class="admission-form-group">
-            <div class="admission-field">
-              <label>10th Grade School Name<span class="admission-required">*</span></label>
-              <input type="text" name="school_10" placeholder="10th Grade School Name" required>
-            </div>
-            <div class="admission-field">
-              <label>Year<span class="admission-required">*</span></label>
-              <input type="text" name="year_10" placeholder="Year" required>
-            </div>
-            <div class="admission-field">
-              <label>Grade/Score<span class="admission-required">*</span></label>
-              <input type="text" name="score_10" placeholder="Grade/Score" required>
-            </div>
-          </div>
-          
-          <div class="admission-form-group full">
-            <label>Achievements (if any)</label>
-            <textarea name="achievements" placeholder="Mention any achievements or awards"></textarea>
-          </div>
-          
-          <!-- <div class="admission-form-group full">
-            <h3>3. Work Experience (if any)</h3>
-          </div>
-          
-          <div class="admission-form-group">
-            <div class="admission-field">
-              <label>Company Name</label>
-              <input type="text" name="company_name" placeholder="Company Name">
-            </div>
-            <div class="admission-field">
-              <label>Position</label>
-              <input type="text" name="position" placeholder="Job Position">
-            </div>
-          </div>
-          
-          <div class="admission-form-group">
-            <div class="admission-field">
-              <label>From</label>
-              <input type="date" id="work_from" name="work_from" placeholder="Start Date (e.g., Jan 2022)">
-            </div>
-            <div class="admission-field">
-              <label>To</label>
-              <input type="date" id="work_to" name="work_to" placeholder="End Date (e.g., Dec 2023 or Present)">
-            </div>
-          </div>
-          <p id="date-error" style="color: red; display: none;">"From" date cannot be later than "To" date.</p>
-           -->
-          <!-- <script>
-            const fromInput = document.getElementById('work_from');
-            const toInput = document.getElementById('work_to');
-            const errorMsg = document.getElementById('date-error');
-          
-            function validateDates() {
-              const fromDate = new Date(fromInput.value);
-              const toDate = new Date(toInput.value);
-          
-              if (fromInput.value && toInput.value && fromDate > toDate) {
-                errorMsg.style.display = 'block';
-                toInput.setCustomValidity('To date must be after or equal to From date.');
-              } else {
-                errorMsg.style.display = 'none';
-                toInput.setCustomValidity('');
-              }
-            }
-          
-            fromInput.addEventListener('change', validateDates);
-            toInput.addEventListener('change', validateDates);
-          </script> -->
-          
-          
-        <div class="admission-form-group">
-          <div class="admission-field">
-            <label>Whatsapp Number <span class="admission-required">*</span></label>
-            <input type="tel" name="whatsapp" placeholder="Your Whatsapp Number" required>
-          </div>
-          <!-- <div class="admission-field">
-            <label>Aadhaar Number <span class="admission-required">*</span></label>
-            <input type="text" name="adhaar" placeholder="Your Aadhaar Number" required pattern="^[2-9]{1}[0-9]{11}$" minlength="12" maxlength="12" title="Enter a valid 12-digit Aadhaar number">
-          </div> -->
-        </div>
-  
-        <div class="admission-form-group full">
-          <label>Address for Communication <span class="admission-required">*</span></label>
-          <textarea name="address" placeholder="Your Address" required></textarea>
-        </div>
-  
-        <div class="admission-form-group full">
-          <label>Passport Size Photo <span class="admission-required">*</span></label>
-          <input type="file" name="photo" accept="image/*" required>
-        </div>
-  
-        <div class="admission-disclaimer">
-          I hereby declare that the information provided above is correct to the best of my knowledge.
-          I consent to the collection and use of my data as per the <a href="#" onclick="openPrivacyPolicyModal(event)">Privacy Policy</a>
-          
-          I agree to abide by the rules and regulations of the Foresight Institute of Hotel Management during my course.
-          A non refundable registration fee of rupees 5000 is required to complete admission
+   <form id="admission-form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+  {% csrf_token %}
 
-          <span class="admission-required">*</span>
-        </div>
-   
-            <!-- Privacy Policy Modal -->
-<div id="privacy-policy-modal" class="privacy-policy-modal" style="display:none;" onclick="outsideClick(event)">
-    <div class="privacy-modal-content" onclick="event.stopPropagation();">
-      <span class="privacy-close" onclick="closePrivacyPolicyModal()">&times;</span>
-      <h2>Privacy Policy</h2>
-      <div id="policy-content">
-        {{ privacy_policy.policy|linebreaks }}
-      </div>
+  <div class="admission-form-group">
+    <div class="admission-field">
+      <label>Name <span class="admission-required">*</span></label>
+      <input type="text" name="name" placeholder="Your Name" required
+             pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+    </div>
+    <div class="admission-field">
+      <label>Mobile <span class="admission-required">*</span></label>
+      <input type="tel" name="phone" placeholder="Your Mobile Number" required
+             pattern="[6-9]\d{9}" minlength="10" maxlength="10"
+             title="Enter a valid 10-digit Indian mobile number">
     </div>
   </div>
-        <div class="admission-checkbox">
-          <label><input type="checkbox" required> Terms and Conditions agreed</label>
-        </div>
-  
-        <div class="admission-success-message" id="admission-success-message" style="display: none;">
-          <p>Thank you.<br>
-            You have successfully submitted your admission enquiry<br>
-            • Our team will respond to you within 24 - 48 hours.</p>
-        </div>
-  
-        <div class="admission-submit-btn">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+
+  <div class="admission-form-group">
+    <div class="admission-field">
+      <label>Father's Name <span class="admission-required">*</span></label>
+      <input type="text" name="father_name" placeholder="Father's Name" required
+             pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+    </div>
+    <div class="admission-field">
+      <label>Father's Number <span class="admission-required">*</span></label>
+      <input type="tel" name="father_phone" placeholder="Father's Mobile Number" required
+             pattern="[6-9]\d{9}" minlength="10" maxlength="10"
+             title="Enter a valid 10-digit Indian mobile number">
+    </div>
+  </div>
+
+  <div class="admission-form-group">
+    <div class="admission-field">
+      <label>Mother's Name</label>
+      <input type="text" name="mother_name" placeholder="Mother's Name"
+             pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+    </div>
+    <div class="admission-field">
+      <label>Mother's Number</label>
+      <input type="tel" name="mother_phone" placeholder="Mother's Mobile Number"
+             pattern="[6-9]\d{9}" minlength="10" maxlength="10"
+             title="Enter a valid 10-digit Indian mobile number">
+    </div>
+  </div>
+
+  <div class="admission-form-group">
+    <div class="admission-field">
+      <label>Gender <span class="admission-required">*</span></label>
+      <div class="admission-radio-group">
+        <label><input type="radio" name="gender" value="Male" required> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+      </div>
+    </div>
+    <div class="admission-field">
+      <label>Date of Birth <span class="admission-required">*</span></label>
+      <input type="date" name="dob" required>
+    </div>
+  </div>
+
+  <div class="admission-form-group">
+    <div class="admission-field">
+      <label>Educational Qualification <span class="admission-required">*</span></label>
+      <div class="admission-radio-group">
+        <label><input type="radio" name="qualification" value="SSLC" required> SSLC</label>
+        <label><input type="radio" name="qualification" value="Plus Two"> Plus Two</label>
+        <label><input type="radio" name="qualification" value="Graduation or above"> Graduation or above</label>
+      </div>
+    </div>
+
+    <div class="admission-field registration-form">
+      <label style="margin-bottom: -2%;" for="course">Course Offered <span class="admission-required">*</span></label>
+      <select id="course" name="course" required>
+        <option value="" disabled selected>Select a course</option>
+        <option value="Hotel and Hospitality Management">Hotel and Hospitality Management</option>
+        <option value="Diploma in Food Production & Culinary Arts">Diploma in Food Production & Culinary Arts</option>
+        <option value="Diploma in Housekeeping Operations">Diploma in Housekeeping Operations</option>
+        <option value="Diploma in Food and Beverage Service">Diploma in Food and Beverage Service</option>
+        <option value="Diploma in Kitchen Supervisor">Diploma in Kitchen Supervisor</option>
+        <option value="Diploma in Front Office Services">Diploma in Front Office Services</option>
+        <option value="Diploma in Kitchen & Area Sanitizing">Diploma in Kitchen & Area Sanitizing</option>
+        <option value="Diploma in USPH & HACCP Compliance">Diploma in USPH & HACCP Compliance</option>
+      </select>
+    </div>
+  </div>
+
+  <label>Your Email <span class="admission-required">*</span></label>
+  <input type="email" name="email" placeholder="Your Email" required>
+
+  <div class="admission-form-group full">
+    <h3>2. Academic Information</h3>
+  </div>
+
+  <div class="admission-form-group">
+    <div class="admission-field">
+      <label>College Name</label>
+      <input type="text" name="college_name" placeholder="College Name"
+             pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+    </div>
+    <div class="admission-field">
+      <label>Year</label>
+      <input type="text" name="college_year" placeholder="Year" pattern="\d{4}" title="Enter a valid year (e.g., 2023)">
+    </div>
+    <div class="admission-field">
+      <label>Grade/Score</label>
+      <input type="text" name="college_score" placeholder="Grade/Score">
+    </div>
+  </div>
+
+  <div class="admission-form-group">
+    <div class="admission-field">
+      <label>12th Grade School Name <span class="admission-required">*</span></label>
+      <input type="text" name="school_12" placeholder="12th Grade School Name" required>
+    </div>
+    <div class="admission-field">
+      <label>Year <span class="admission-required">*</span></label>
+      <input type="text" name="year_12" placeholder="Year" required pattern="\d{4}" title="Enter a valid year (e.g., 2021)">
+    </div>
+    <div class="admission-field">
+      <label>Grade/Score</label>
+      <input type="text" name="score_12" placeholder="Grade/Score">
+    </div>
+  </div>
+
+  <div class="admission-form-group">
+    <div class="admission-field">
+      <label>10th Grade School Name <span class="admission-required">*</span></label>
+      <input type="text" name="school_10" placeholder="10th Grade School Name" required>
+    </div>
+    <div class="admission-field">
+      <label>Year <span class="admission-required">*</span></label>
+      <input type="text" name="year_10" placeholder="Year" required pattern="\d{4}" title="Enter a valid year (e.g., 2019)">
+    </div>
+    <div class="admission-field">
+      <label>Grade/Score <span class="admission-required">*</span></label>
+      <input type="text" name="score_10" placeholder="Grade/Score" required>
+    </div>
+  </div>
+
+  <div class="admission-form-group full">
+    <label>Achievements (if any)</label>
+    <textarea name="achievements" placeholder="Mention any achievements or awards"></textarea>
+  </div>
+
+  <div class="admission-form-group">
+    <div class="admission-field">
+      <label>Whatsapp Number <span class="admission-required">*</span></label>
+      <input type="tel" name="whatsapp" placeholder="Your Whatsapp Number" required
+             pattern="[6-9]\d{9}" minlength="10" maxlength="10"
+             title="Enter a valid 10-digit Indian mobile number">
+    </div>
+
+    <!-- Aadhaar validation included but commented -->
+    <!--
+    <div class="admission-field">
+      <label>Aadhaar Number <span class="admission-required">*</span></label>
+      <input type="text" name="adhaar" placeholder="Your Aadhaar Number"
+             required pattern="^[2-9]{1}[0-9]{11}$" minlength="12" maxlength="12"
+             title="Enter a valid 12-digit Aadhaar number">
+    </div>
+    -->
+  </div>
+
+  <div class="admission-form-group full">
+    <label>Address for Communication <span class="admission-required">*</span></label>
+    <textarea name="address" placeholder="Your Address" required></textarea>
+  </div>
+
+  <div class="admission-form-group full">
+    <label>Passport Size Photo <span class="admission-required">*</span></label>
+    <input type="file" name="photo" accept="image/*" required>
+    <small>Max size: 3 MB. Only image files allowed.</small>
+  </div>
+
+  <div class="admission-disclaimer">
+    I hereby declare that the information provided above is correct to the best of my knowledge.
+    I consent to the collection and use of my data as per the 
+    <a href="#" onclick="openPrivacyPolicyModal(event)">Privacy Policy</a>.
+    I agree to abide by the rules and regulations of the Foresight Institute of Hotel Management during my course.
+    A non refundable registration fee of rupees 5000 is required to complete admission
+    <span class="admission-required">*</span>
+  </div>
+
+  <div class="admission-checkbox">
+    <label><input type="checkbox" required> Terms and Conditions agreed</label>
+  </div>
+
+  <div class="admission-submit-btn">
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
     </div>
   </div>
 
