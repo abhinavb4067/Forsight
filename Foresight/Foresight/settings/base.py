@@ -86,19 +86,19 @@ USE_TZ = True
 
 # settings.py
 
+# settings/base.py
+
 STATIC_URL = '/static/'
 
-# This puts static files in the same folder as your manage.py
-STATIC_ROOT = os.path.join(BASE_DIR, 'Foresight', 'static') 
+# Remove 'Foresight' if BASE_DIR already points to /root/Forsight/Foresight/
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'Foresight', 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# This tells Django where to find your source static files (CSS/Images)
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'Foresight', 'foresight_app', 'static'),
+    os.path.join(BASE_DIR, 'foresight_app', 'static'),
 ]
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
