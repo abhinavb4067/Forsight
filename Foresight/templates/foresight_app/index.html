@@ -182,26 +182,32 @@
       </div>
     </div>
     <div class="w-full lg:w-1/2 bg-white shadow-2xl p-6 md:p-10 rounded-lg lg:-mt-10 border border-gray-100">
-      <h3 class="text-xl md:text-2xl font-bold mb-8 text-navy">Quick Enrollment</h3>
-      <form class="space-y-4">
+    <h3 class="text-xl md:text-2xl font-bold mb-8 text-navy">Quick Enrollment</h3>
+    <form class="space-y-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input type="text" placeholder="First Name"
-            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm">
-          <input type="text" placeholder="Last Name"
-            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm">
+            <input type="text" placeholder="First Name"
+                class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
+            <input type="text" placeholder="Last Name"
+                class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
         </div>
         <input type="email" placeholder="Email Address"
-          class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm">
-        <select class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-gray-400 text-sm">
-          <option>Select Preferred Course</option>
+            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
+        
+        <select class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
+            <option class="text-gray-400">Select Preferred Course</option>
+            <option value="hospitality">Hospitality Courses</option>
+            <option value="bakery">Bakery Courses</option>
         </select>
+
         <textarea placeholder="Message (Optional)" rows="4"
-          class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm"></textarea>
+            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black"></textarea>
+        
         <button
-          class="w-full bg-gold text-white font-bold py-4 rounded uppercase tracking-widest text-xs md:text-sm hover:brightness-110">Submit
-          Application</button>
-      </form>
-    </div>
+            class="w-full bg-gold text-white font-bold py-4 rounded uppercase tracking-widest text-xs md:text-sm hover:brightness-110">
+            Submit Application
+        </button>
+    </form>
+</div>
   </div>
 </section>
 
