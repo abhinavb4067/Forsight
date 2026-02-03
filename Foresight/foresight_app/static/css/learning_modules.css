@@ -7,7 +7,7 @@
 body, html {
   font-family: 'Segoe UI', sans-serif;
   scroll-behavior: smooth;
-  background-color: #000;
+  background-color: #fff;
   color: white;
 }
 
@@ -91,13 +91,6 @@ body, html {
 }
 
   
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 30px;
-    background: #111;
-    font-size: 14px;
-  }
   .learning-section {
     background-color: #111;
     padding: 50px 20px;

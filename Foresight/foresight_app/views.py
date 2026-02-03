@@ -121,10 +121,19 @@ def our_team(request):
     privacy_policy = PrivacyPolicy.objects.first()
 
     return render(request, 'foresight_app/our_team.html',{'privacy_policy': privacy_policy})
+
+
+
+
 def learning_modules(request):
     privacy_policy = PrivacyPolicy.objects.first()
 
     return render(request, 'foresight_app/learning_modules.html',{'privacy_policy': privacy_policy})
+
+
+def bakery(request):
+
+    return render(request, 'foresight_app/bakery.html')
 
 
 from django.contrib import messages
@@ -795,7 +804,7 @@ def login_required_admin(view_func):
 
 
 # enquiries section
-@login_required_admin
+@login_required_admin   
 def view_enquiries(request):
     # Get enquiry and student search parameters separately
     enquiry_query = request.GET.get('enquiry_q', '')

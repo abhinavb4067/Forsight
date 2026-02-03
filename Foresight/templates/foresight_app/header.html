@@ -1,279 +1,120 @@
 {% load static %}
 
-<!-- Top Promo Bar -->
-<div class="promo-bar">
-  <div class="promo-content">
-   • Hotel and Hospitality Management • Diploma in Food Production & Culinary Arts • Diploma in Housekeeping Operations • Diploma in Food and Beverage Service • Diploma in Kitchen Supervisor • Diploma in Front Office Services • Diploma in Kitchen & Area Sanitizing • Diploma in USPH & HACCP Compliance
-  </div>
-</div>
-
-<header class="main-header">
-  <nav class="navbar">
-    <!-- Logo + Text -->
-    <div class="logo-text-container">
-      <div class="logo">
-        <div class="logo-img-absolute">
-          <img src="{% static 'images/favicon.png' %}" alt="Logo">
-        </div>
-        <h1>Foresight</h1>
-      </div>
-    </div>
-
-    <!-- Menu toggle (mobile/tablet) -->
-    <div class="menu-toggle" id="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <!-- Navigation links -->
-    <ul class="nav-links" id="nav-links">
-      <li><a href="{% url 'home' %}">Home</a></li>
-      <li><a href="{% url 'admission' %}">Admission</a></li>
-      <li><a href="{% url 'learning_modules' %}">Programs offered</a></li>
-      <li><a href="{% url 'resources' %}">Resources</a></li>
-      <li><a href="{% url 'contact' %}">Contact</a></li>
-      <li><a href="#" onclick="openForm()" class="enroll">Enroll Now</a></li>
-    </ul>
-  </nav>
-</header>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@600&display=swap" rel="stylesheet">
-
-<style>
-/* ---------------- Logo ---------------- */
-.logo-text-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-}
-
-.logo-img-absolute img {
-  height: 42px;
-  width: 42px;
-  border-radius: 50%;
-  border: 2px solid white;
-  object-fit: cover;
-}
-
-.logo h1 {
-  font-size: 22px;
-  margin: 0;
-  font-weight: 600;
-  color: white;
-  font-family: "Playfair Display", "Poppins", sans-serif;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* ---------------- Promo Bar ---------------- */
-.promo-bar {
-  width: 100%;
-  background-color: #000;
-  color: #fff;
-  overflow: hidden;
-  white-space: nowrap;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10000; /* lower than navbar */
-}
-
-.promo-content {
-  display: inline-block;
-  padding-left: 100%;
-  animation: scrollText 40s linear infinite;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-@keyframes scrollText {
-  from { transform: translateX(0%); }
-  to { transform: translateX(-100%); }
-}
-
-/* ---------------- Header & Navbar ---------------- */
-/* ---------------- Header & Navbar ---------------- */
-.main-header {
-  position: fixed;
-  top: 34px; /* adjust with promo bar height */
-  left: 0;
-  width: 100%;
-  z-index: 10001; /* was 9999 */
-}
-
-
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.3rem 0.8rem;
-  margin: 0;
-  background: #2f2f2f;
-  color: white;
-  box-sizing: border-box;
-}
-
-.navbar > .logo-text-container {
-  margin-left: 0;
-  padding-left: 0;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin: 0;
-  padding: 0;
-
-}
-
-.nav-links li {
-  display: inline-block;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 15px;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: #a855f7;
-}
-
-.nav-links .enroll {
-  background: #a855f7;
-  padding: 6px 14px;
-  border-radius: 6px;
-  color: white;
-  margin-left: 15px;
-  font-size: 14px;
-  display: inline-block;
-  transition: background 0.3s ease;
-}
-.nav-links .enroll:hover {
-  background: #9333ea;
-}
-
-/* ---------------- Mobile & Tablet Menu ---------------- */
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  z-index: 10001;
-}
-.menu-toggle span {
-  width: 24px;
-  height: 3px;
-  background: white;
-  border-radius: 3px;
-  transition: all 0.3s ease;
-}
-
-/* Animate hamburger -> X */
-.menu-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.menu-toggle.active span:nth-child(2) {
-  opacity: 0;
-}
-.menu-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-@media (max-width: 1024px) {
-  .menu-toggle {
-    display: flex;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    right: 10px;
-    background: white;
-    padding: 1rem;
-    flex-direction: column;
-    width: 85%;
-    max-width: 260px;
-    border-radius: 12px;
-    color: black;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-15px);
-    transition: all 0.35s ease;
-  }
-
-  .nav-links.active {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
-
-  .nav-links li {
-    display: block;
-    margin: 8px 0;
-  }
-
-  .nav-links a {
-    color: black;
-    font-size: 15px;
-  }
-
-  .navbar {
-    padding: 0.4rem 0.7rem;
-  }
-
-  .logo-img-absolute img {
-    height: 34px;
-    width: 34px;
-  }
-
-  .logo h1 {
-    font-size: 16px;
-  }
-}
+<style> 
+   body { font-family: 'Montserrat', sans-serif; background-color: var(--deep-navy); }
 </style>
 
+<nav class="main-nav-container bg-white shadow-md border-b border-gray-100 sticky z-[100]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <div class="bg-[#05162E] p-2 text-white font-bold text-xl leading-none rounded-sm">F</div>
+                <span class="font-bold tracking-tighter text-[#05162E] text-xl leading-tight font-serif">
+                    FORESIGHT <span class="text-[#C5A059]">IHM</span>
+                </span>
+            </div>
+
+            <div
+                class="hidden md:flex items-center gap-8 font-semibold text-xs lg:text-sm tracking-widest text-[#05162E]">
+                <a href="{% url 'home' %}" class="hover:text-[#C5A059] transition-colors">HOME</a>
+                 <div class="relative inline-block group">
+            <button
+                class="flex items-center space-x-1 text-sm font-bold text-[#05162E] hover:text-[#C5A059] focus:outline-none">
+                <span>PROGRAMS</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+
+            <div class="absolute left-0 hidden w-48 pt-2 group-hover:block">
+                <div class="bg-white border border-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                    <a href="{% url 'learning_modules' %}"
+                        class="block px-4 py-2 text-sm text-[#05162E] hover:bg-[#C5A059] hover:text-white">Hospitality
+                        Courses</a>
+                    <a href="{% url 'bakery_courses' %}"
+                        class="block px-4 py-2 text-sm text-[#05162E] hover:bg-[#C5A059] hover:text-white">Bakery
+                        Courses</a>
+                    <hr class="border-gray-100">
+                    <a href="{% static 'forms/FIHM_Application_Form.pdf' %}" class="block px-4 py-2 text-sm font-semibold text-[#C5A059] hover:bg-gray-50">Download
+                        Prospectus</a>
+                </div>
+            </div>
+        </div>
+                <a href="{% url 'admission' %}" class="hover:text-[#C5A059] transition-colors">ADMISSION</a>
+                <a href="{% url 'resources' %}" class="hover:text-[#C5A059] transition-colors">RESOURCES</a>
+                <a href="{% url 'contact' %}" class="hover:text-[#C5A059] transition-colors">CONTACT</a>
+                <a href="#" onclick="openForm()"
+                    class="bg-[#05162E] text-white px-6 py-3 rounded hover:bg-opacity-90 transition shadow-sm uppercase">Enroll
+                    Now</a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="menu-btn" class="text-[#05162E] focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-menu-dropdown"
+        class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-6 space-y-4 shadow-inner">
+        <a href="{% url 'home' %}" class="block text-sm font-bold text-[#05162E] hover:text-[#C5A059]">HOME</a>
+        <div class="relative inline-block group">
+            <button
+                class="flex items-center space-x-1 text-sm font-bold text-[#05162E] hover:text-[#C5A059] focus:outline-none">
+                <span>PROGRAMS</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+
+            <div class="absolute left-0 hidden w-48 pt-2 group-hover:block">
+                <div class="bg-white border border-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                    <a href="{% url 'learning_modules' %}"
+                        class="block px-4 py-2 text-sm text-[#05162E] hover:bg-[#C5A059] hover:text-white">Hospitality
+                        Courses</a>
+                    <a href="{% url 'bakery_courses' %}"
+                        class="block px-4 py-2 text-sm text-[#05162E] hover:bg-[#C5A059] hover:text-white">Bakery
+                        Courses</a>
+                    <hr class="border-gray-100">
+                    <a href="" class="block px-4 py-2 text-sm font-semibold text-[#C5A059] hover:bg-gray-50">Download
+                        Prospectus</a>
+                </div>
+            </div>
+        </div>
+         <a href="{% url 'admission' %}"
+            class="block text-sm font-bold text-[#05162E] hover:text-[#C5A059]">ADMISSION</a>
+        <a href="{% url 'resources' %}"
+            class="block text-sm font-bold text-[#05162E] hover:text-[#C5A059]">RESOURCES</a>
+        <a href="{% url 'contact' %}" class="block text-sm font-bold text-[#05162E] hover:text-[#C5A059]">CONTACT</a>
+        <a href="#" onclick="openForm()"
+            class="block bg-[#05162E] text-white text-center px-6 py-3 rounded font-bold uppercase">Enroll Now</a>
+    </div>
+</nav>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@500;600;700&display=swap"
+    rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+
 <script>
-// Menu toggle functionality
-const menuToggle = document.getElementById('menu-toggle');
-const navLinks = document.getElementById('nav-links');
+    const btn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu-dropdown');
 
-// Toggle open/close
-menuToggle.addEventListener('click', (e) => {
-  e.stopPropagation();
-  menuToggle.classList.toggle('active');
-  navLinks.classList.toggle('active');
-});
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('hidden');
+    });
 
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-  if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-    navLinks.classList.remove('active');
-    menuToggle.classList.remove('active');
-  }
-});
-
-// Prevent clicks inside menu from closing it
-navLinks.addEventListener('click', (e) => {
-  e.stopPropagation();
-});
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+            menu.classList.add('hidden');
+        }
+    });
 </script>

@@ -1,79 +1,41 @@
-{% load static %}
-
-<section class="cta-section cta-animate">
-  <div class="cta-left">
-    <div class="logo">
-      <h1 class="animate-left">Foresight</h1>
-      <p class="animate-left">Institute of Hotel Management</p>
-    </div>
-    <div class="cta-text">
-      <h2 class="animate-left">Join The<br>Success!</h2>
-      <button onclick="openForm()" class="animate-left btn fade-in-up delay-2">Enroll Now</button>
-    </div>
-  </div>
-
-  <div class="cta-right">
-    <div class="info-block animate-left">
-      <h3>Info</h3>
-      <p>+91 90489 66056</p>
-      <p>+91 90489 66026</p>
-      <p>+91 90489 66023</p>
-      <p>info@foresightihm.com</p>
-    </div>
-    <div class="info-block animate-left">
-      <h3>Address</h3>
-      <p>Foresight Institutions 2nd floor</p>
-      <p>Devagiri Building</p>
-      <p>Near Kozhikode Medical College</p>
-      <p>Pin: 673008</p>
-      <p>Ummalathoor, Kozhikode</p>
-    </div>
-    <div class="info-block animate-left">
-      <h3>Follow</h3>
-      <a href="https://www.linkedin.com/company/fihm-kozhikode">LinkedIn</a>
-      <a href="#">Facebook</a>  
-      <a href="https://www.instagram.com/foresight_ihm">Instagram</a>
-    </div>
-  </div>
-
-  <div class="scroll-top animate-up">
-    <span>&uarr;</span>
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 Foresight. All rights reserved. | <a href="{% url 'credit' %}">Credits</a></p>
-</footer>
-
-<script src="{% static 'js/script.js' %}"></script>
-
-<script>
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate');
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-
-  const ctaSection = document.querySelector('.cta-animate');
-  observer.observe(ctaSection);
-
-  const animatedItems = document.querySelectorAll('.animate-left, .animate-up');
-
-  const animationObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        animationObserver.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.3
-  });
-
-  animatedItems.forEach(item => animationObserver.observe(item));
-</script>
+<footer class="bg-navy text-white pt-16 md:pt-20 pb-10 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
+            <div class="text-center sm:text-left">
+                <div class="flex items-center justify-center sm:justify-start gap-2 mb-6">
+                    <div class="bg-gold p-1 text-white font-bold">F</div>
+                    <span class="font-bold text-lg uppercase tracking-tighter">FORESIGHT <span
+                            class="text-gold">IHM</span></span>
+                </div>
+                <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-6">Dedicated to grooming the next
+                    generation of global hospitality leaders through excellence in training and placements.</p>
+                <div class="flex justify-center sm:justify-start gap-4">
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:bg-gold transition text-xs">f</a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:bg-gold transition text-xs">in</a>
+                    <a href="#"
+                        class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:bg-gold transition text-xs">ig</a>
+                </div>
+            </div>
+            <div class="text-center sm:text-left">
+                <h4 class="font-bold mb-6 text-sm md:text-base">Quick Links</h4>
+                <ul class="space-y-3 text-gray-400 text-xs md:text-sm">
+                    <li><a href="#" class="hover:text-gold transition">Bakery Course</a></li>
+                    <li><a href="#" class="hover:text-gold transition">Cruise Placements</a></li>
+                    <li><a href="#" class="hover:text-gold transition">Admission Form</a></li>
+                    <li><a href="#" class="hover:text-gold transition">Student Gallery</a></li>
+                </ul>
+            </div>
+            <div class="text-center sm:text-left sm:col-span-2 lg:col-span-1">
+                <h4 class="font-bold mb-6 text-sm md:text-base">Contact Us</h4>
+                <div class="space-y-3 text-gray-400 text-xs md:text-sm">
+                    <p>Plot No. 12, Foresight Lane,<br>Hospitality Hub, India</p>
+                    <p class="text-gold font-bold text-sm md:text-base">+91 98765 43210</p>
+                    <p>info@foresightihm.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 pt-10 text-center text-gray-500 text-[10px] md:text-xs">
+            © 2026 Foresight Institute of Hotel Management. All Rights Reserved.
+        </div>
+    </footer>

@@ -2,600 +2,223 @@
 {% load static %}
 
 {% block content %}
-<style>
-
-html, body {
-  overflow-x: hidden;
-}
-
-body {
-  background: #2f2f2f;
-  font-family: 'Poppins', sans-serif;
-  touch-action: pan-y;
-}
-
-/* Slider */
-.slider {
-  position: relative;
-  width: 100%;
-  max-width: 1420px;
-  height: 500px;
-  overflow: hidden; /* Prevent image overflow */
-  border-radius: 20px; /* Rounded corners apply to all inside */
-  background-color: #2f2f2f;
-  margin: calc(55px + 1%) auto 4%;
-}
-
-/* Slides */
-.slides {
-  position: relative;
-  height: 100%;
-}
-
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  overflow: hidden; /* Extra protection */
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Fit inside container */
-  display: block;
-}
-
-.slide.active {
-  opacity: 1;
-  z-index: 1;
-}
-
-/* Overlay */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 90%;
-  max-width: 700px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
-  padding: 0 5%;
-  color: white;
-  background: transparent;
-  transform: translateY(50px);
-  opacity: 0;
-  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-  z-index: 3;
-}
-
-.slide.active .overlay {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* Overlay text animations */
-.overlay .sub-heading,
-.overlay h1,
-.overlay p,
-.overlay .btn {
-  transform: translateY(20px);
-  opacity: 0;
-  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-}
-
-.slide.active .overlay .sub-heading {
-  transform: translateY(0);
-  opacity: 1;
-  transition-delay: 0.2s;
-  font-size: 1.5rem;
-}
-
-.slide.active .overlay h1 {
-  transform: translateY(0);
-  opacity: 1;
-  transition-delay: 0.4s;
-  font-size: 3.5rem;
-}
-
-.slide.active .overlay p {
-  transform: translateY(0);
-  opacity: 1;
-  transition-delay: 0.6s;
-  font-size: 1.5rem;
-}
-
-.slide.active .overlay .btn {
-  transform: translateY(0);
-  opacity: 1;
-  transition-delay: 0.8s;
-  font-size: 1.2rem;
-  padding: 12px 25px;
-}
-
-/* Number Pagination */
-.numbers {
-  position: absolute;
-  bottom: 15px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  z-index: 3;
-}
-
-.number {
-  position: relative;
-  width: 35px;
-  height: 35px;
-  font-weight: bold;
-  color: white;
-  border: 2px solid white; /* default white border */
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  overflow: hidden;
-  transition: border 0.3s ease;
-}
-
-.number span {
-  position: absolute;
-  color: white;
-  font-size: 14px;
-  z-index: 2;
-}
-
-/* Progress ring */
-.progress-ring {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-
-.progress-ring__circle {
-  stroke: #f0b323;
-  stroke-width: 3;
-  fill: none;
-  stroke-dasharray: 126;
-  stroke-dashoffset: 126;
-  transition: stroke-dashoffset 5s linear;
-}
-
-/* Active number: remove white border */
-.number.active {
-  border: none;
-}
-
-/* Next number: highlight with progress ring and border */
-.number.next {
-  border: 2px solid white;
-}
-
-/* RESPONSIVE */
-@media (max-width: 992px) {
-  .slider {
-    height: 450px;
-    margin-top: 70px;
-  }
-  .overlay {
-    max-width: 90%;
-  }
-  .slide.active .overlay .sub-heading { font-size: 1.3rem; }
-  .slide.active .overlay h1 { font-size: 3rem; }
-  .slide.active .overlay p { font-size: 1.3rem; }
-  .slide.active .overlay .btn { font-size: 1.1rem; padding: 10px 20px; }
-}
-
-@media (max-width: 768px) {
-  .slider {
-    height: 400px;
-    margin: 20px auto;
-    max-width: calc(100vw - 40px);
-  }
-  .overlay { max-width: 95%; width: 95%; }
-  .slide.active .overlay .sub-heading { font-size: 1.2rem; }
-  .slide.active .overlay h1 { font-size: 2.5rem; }
-  .slide.active .overlay p { font-size: 1.2rem; }
-  .slide.active .overlay .btn { font-size: 1rem; padding: 8px 18px; }
-}
-
-@media (max-width: 576px) {
-  .slider {
-    height: 350px;
-    margin: 20px auto;
-    max-width: calc(100vw - 40px);
-  }
-  .overlay { max-width: 95%; width: 95%; }
-  .slide.active .overlay {
-    justify-content: center;
-    text-align: center;
-    padding: 0 3%;
-  }
-  .slide.active .overlay .sub-heading { font-size: 1rem; }
-  .slide.active .overlay h1 { font-size: 1.8rem; }
-  .slide.active .overlay p { font-size: 0.9rem; }
-  .slide.active .overlay .btn { font-size: 0.9rem; padding: 6px 15px; }
-}
-
-
-</style>
-
-<section class="slider">
-  <div class="slides">
-    <div class="slide active">
-      <img src="{% static 'images/2nd_image_home.jpg' %}" alt="Building">
-      <div class="overlay">
-        <p class="sub-heading">Shaping Your Future</p>
-        <h1>Foresight Institute of Hotel Management</h1>
-        <p>Careers in Hotel Management & Cruise Ship Industry</p>
-        <a href="#enroll" onclick="openForm()" class="btn">🚢 Enroll Now</a>
-      </div>
-    </div>
-  
-    <div class="slide">
-      <img src="{% static 'images/3rd_image_home.jpg' %}" alt="Hands-on Experience">
-      <div class="overlay">
-        <p class="sub-heading">Hands-on Experience</p>
-        <h1>Learn from the Best</h1>
-        <p>Practical workshops and real-world exposure.</p>
-        <a href="#enroll" onclick="openForm()" class="btn">🚢 Enroll Now</a>
-      </div>
-    </div>
-
-    <div class="slide">
-      <img src="{% static 'images/1st_image_home.jpg' %}" alt="Global Opportunities">
-      <div class="overlay">
-        <p class="sub-heading">Global Opportunities</p>
-        <h1>Work Anywhere</h1>
-        <p>Open doors to career opportunities worldwide.</p>
-        <a href="#enroll" onclick="openForm()" class="btn">🚢 Enroll Now</a>
-      </div>
-    </div>
+<section class="relative min-h-[90vh] flex items-center justify-center text-center text-white pt-20 px-4">
+  <div class="absolute inset-0 z-0">
+    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80"
+      class="w-full h-full object-cover brightness-[0.35]" alt="Resort Pool">
   </div>
-  <div class="numbers"></div>
-</section>
-
-<script>
-let slides = document.querySelectorAll(".slide");
-let numbersContainer = document.querySelector(".numbers");
-let currentIndex = 0;
-let slideTimer;
-
-slides.forEach((_, i) => {
-  let num = document.createElement("div");
-  num.classList.add("number");
-  num.innerHTML = `
-    <svg class="progress-ring" viewBox="0 0 40 40">
-      <circle class="progress-ring__circle" r="20" cx="20" cy="20"></circle>
-    </svg>
-    <span>${i+1}</span>
-  `;
-  num.addEventListener("click", () => {
-    showSlide(i);
-    resetTimer();
-  });
-  numbersContainer.appendChild(num);
-});
-
-let numbers = document.querySelectorAll(".number");
-
-function showSlide(index) {
-  slides[currentIndex].classList.remove("active");
-  numbers[currentIndex].classList.remove("active");
-  numbers[currentIndex].classList.remove("next");
-
-  currentIndex = index;
-
-  slides[currentIndex].classList.add("active");
-  numbers[currentIndex].classList.add("active");
-
-  // set the next number
-  let nextIndex = (currentIndex + 1) % slides.length;
-  numbers.forEach(num => num.classList.remove("next"));
-  numbers[nextIndex].classList.add("next");
-}
-
-function resetTimer() {
-  clearInterval(slideTimer);
-  numbers.forEach(num => {
-    let circle = num.querySelector(".progress-ring__circle");
-    circle.style.transition = "none";
-    circle.style.strokeDashoffset = 126;
-    void circle.offsetWidth;
-    circle.style.transition = "stroke-dashoffset 5s linear";
-  });
-  numbers[currentIndex].querySelector(".progress-ring__circle").style.strokeDashoffset = 0;
-  slideTimer = setInterval(() => {
-    showSlide((currentIndex + 1) % slides.length);
-    resetTimer();
-  }, 5000);
-}
-
-showSlide(0);
-resetTimer();
-</script>
-
-
-
-  <style>
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-  
-    .slide-in-left {
-      opacity: 0;
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-      transform: translateX(-50px);
-    }
-  
-    .slide-in-left.visible {
-      opacity: 1;
-      transform: translateX(0);
-      animation: slideInLeft 1s ease-out forwards;
-    }
-  </style>
-  <style>
-  .rci-offer-section {
-    background: #fdf5ed;
-    padding: 60px 20px;
-    text-align: center;
-  }
-
-  .rci-offer-title {
-    font-size: 2em;
-    color: #4b2e2e;
-    margin-bottom: 30px;
-  }
-
-  .rci-offer-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  @media (min-width: 576px) {
-    .rci-offer-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 992px) {
-    .rci-offer-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .rci-offer-item {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-  }
-
-  .rci-offer-item span {
-    font-size: 2em;
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  .rci-offer-item p {
-    font-weight: 500;
-    color: #444;
-  }
-
-  .rci-offer-item.highlight {
-    border: 2px solid #4b2e2e;
-    background-color: #fff8f2;
-    font-weight: bold;
-  }
-
-  .rci-offer-item:hover {
-    transform: scale(1.05);
-  }
-</style>
-
-<section class="rci-offer-section">
-  <h2 class="rci-offer-title">What We Offer</h2>
-  <div class="rci-offer-grid">
-    <div class="rci-offer-item ">
-      <span>🛳️</span>
-      <p><strong>100% Job placement assistance in cruise ships</strong></p>
+  <div class="relative z-10 max-w-4xl">
+    <h1 class="text-4xl sm:text-5xl md:text-7xl mb-6 leading-[1.1] md:leading-tight px-2">
+      Your Gateway to the <br class="hidden sm:block">
+      <span class="italic text-gold">Global Hospitality</span> Stage
+    </h1>
+    <p class="text-base md:text-lg mb-10 text-gray-200 max-w-2xl mx-auto px-4 leading-relaxed">
+      Providing world-class hotel management training and guaranteed placement assistance in luxury hotels and
+      international cruise lines.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <button
+        class="w-full sm:w-auto bg-gold text-white px-10 py-4 font-bold rounded hover:scale-105 transition-transform">Explore
+        Courses</button>
+      <button
+        class="w-full sm:w-auto border-2 border-white px-10 py-4 font-bold rounded hover:bg-white hover:text-navy transition">Cruise
+        Placements</button>
     </div>
-    <div class="rci-offer-item"><span>💼</span><p>Paid internship and Job placement assistance</p></div>
-    <div class="rci-offer-item"><span>🏦</span><p>Education bank loan available</p></div>
-    <div class="rci-offer-item"><span>🏠</span><p>Hostel for Boys and Girls</p></div>
-    <div class="rci-offer-item"><span>⏱️</span><p>Part time Job while studying</p></div>
-    <div class="rci-offer-item"><span>👨‍🏫</span><p>Learn from experienced faculty and cruise ship professionals</p></div>
   </div>
 </section>
 
-  
-  <section class="enroll-section">
-    <h1 style="color: #333; text-align: center; margin-bottom: 20px; font-size: 36px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;" class="">Why enroll in our programs? 🤔</h1>
-
-    <div class="container">
-
-      <div class="enroll-grid">
-        <div class="enroll-item" style="border-right: solid 1px black; border-bottom: solid 1px black;">
-              <img src="{% static 'images/tic_icon.jpg' %}" alt="Quality Icon" style="width: 50px; height: 50px;">
-          <h3 style="color: black;" class="slide-in-left">BSS APPROVED and curriculum based on American Culinary Federation standard</h3>
-          <p class="slide-in-left">
-              FIHM’s Diploma in Hotel Management is approved by Bharat Sevak Samaj (BSS), a national development agency promoted by the Government of India. 
-              Our curriculum is thoughtfully designed in alignment with standards set by the American Culinary Federation (ACF), ensuring students receive a 
-              globally relevant education, blending national certification with world-class culinary and hospitality training to equip them for a successful career.
-          </p>
+<section class="bg-navy py-12 md:py-16 px-4 relative z-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
+      <div class="flex flex-col items-center justify-center">
+        <span class="text-3xl md:text-5xl font-bold text-gold mb-2 serif">11+</span>
+        <span class="text-[10px] md:text-xs tracking-[0.2em] text-gray-400 uppercase font-semibold">Years
+          Experience</span>
       </div>
-      
-        <div class="enroll-item" style="border-bottom: solid 1px black;">
-                <img src="{% static 'images/field2.jpg' %}" alt="Cooking Icon" style="width: 50px; height: 50px;">
-            
-            <h3 class="slide-in-left" style="margin-left: 8%;">Hands-on training and internships with remuneration</h3>
-            <p class="slide-in-left" style="margin-left: 8%;">Our students benefit from real-world internship opportunities at leading hotels, resorts, and restaurants, gaining crucial practical experience in hospitality. These internships are designed to ensure students build skills through hands-on training, while also receiving remuneration to support their learning journey. This program bridges classroom education with real industry practice.</p>
-        </div>
-        <div class="enroll-item" style="border-right: solid 1px black;">
-          <img src="{% static 'images/field3.jpg' %}" alt="Practical Lab Icon" style="width: 50px; height: 50px;">
-          <h3 class="slide-in-left">State-of-the-Art Practical Lab for On-Campus Training</h3>
-          <p class="slide-in-left">Our on-campus training lab provides a comprehensive platform for students to practice food production, service techniques, and housekeeping. With state-of-the-art facilities and real-life training scenarios, our students develop essential skills to excel in the hospitality industry, ensuring they are fully prepared for the dynamic challenges of their future careers.</p>
+      <div class="flex flex-col items-center justify-center">
+        <span class="text-3xl md:text-5xl font-bold text-gold mb-2 serif">500+</span>
+        <span class="text-[10px] md:text-xs tracking-[0.2em] text-gray-400 uppercase font-semibold">Cruise
+          Placements</span>
       </div>
-      
-        <div class="enroll-item">
-                <img src="{% static 'images/field4.jpg' %}" alt="Job Icon" style="width: 50px; height: 50px;">
-          
-            <h3 class="slide-in-left" style="margin-left: 8%;">Placement support in India, abroad, and on cruise ships</h3>
-            <p class="slide-in-left" style="margin-left: 8%;">At FIHM, we are committed to providing our students with exceptional placement opportunities both within India and internationally. Our Placement Cell collaborates with top hotels, resorts, and restaurants, and we are proudly partnered with Royal Cruise Careers, a leader in cruise ship recruitment, to offer specialized placement support for cruise ship careers. With a strong global network, we ensure that each student is prepared and positioned for success in the hospitality industry.</p>
+      <div class="flex flex-col items-center justify-center">
+        <span class="text-3xl md:text-5xl font-bold text-gold mb-2 serif">100%</span>
+        <span class="text-[10px] md:text-xs tracking-[0.2em] text-gray-400 uppercase font-semibold">Job
+          Assistance</span>
+      </div>
+      <div class="flex flex-col items-center justify-center">
+        <span class="text-3xl md:text-5xl font-bold text-gold mb-2 serif uppercase">BSS</span>
+        <span class="text-[10px] md:text-xs tracking-[0.2em] text-gray-400 uppercase font-semibold">Approved
+          Center</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 md:py-24 bg-[#F9F7F2] px-4">
+  <div class="max-w-7xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl text-navy mb-2">World-Class Specializations</h2>
+    <div class="w-16 md:w-20 h-1 bg-gold mx-auto mb-12 md:mb-16"></div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+      <div
+        class="bg-white p-8 md:p-10 text-left border-t-4 border-gold shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl">
+        <span class="text-4xl mb-6 block">🥐</span>
+        <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Professional Bakery & Patisserie</h3>
+        <p class="text-gray-600 text-sm md:text-base leading-relaxed">Master the delicate science of baking. From
+          artisan sourdough to intricate French pastries.</p>
+      </div>
+
+      <div
+        class="bg-white p-8 md:p-10 text-left border-t-4 border-gold shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl">
+        <span class="text-4xl mb-6 block">👨‍🍳</span>
+        <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Advanced Culinary Arts</h3>
+        <p class="text-gray-600 text-sm md:text-base mb-6">Comprehensive training in global cuisines, kitchen
+          management, and food safety standards (HACCP).</p>
+        <ul class="text-xs md:text-sm text-gray-500 space-y-2 italic">
+          <li>• Continental & Oriental Cuisine</li>
+          <li>• Food Production Management</li>
+        </ul>
+      </div>
+
+      <div
+        class="bg-white p-8 md:p-10 text-left border-t-4 border-gold shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl">
+        <span class="text-4xl mb-6 block">🍷</span>
+        <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Hotel & Resort Management</h3>
+        <p class="text-gray-600 text-sm md:text-base leading-relaxed">Luxury service protocols, front office operations,
+          and housekeeping management.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="bg-navy py-16 md:py-24 px-4 text-white overflow-hidden">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10 md:gap-16">
+    <div class="w-full lg:w-1/2 relative">
+      <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&q=80"
+        class="rounded shadow-2xl w-full h-[300px] md:h-[450px] object-cover" alt="Cruise Ships">
+      <div class="absolute -bottom-6 -right-4 md:-bottom-10 md:-right-10 bg-gold p-6 md:p-8 text-center">
+        <p class="text-3xl md:text-4xl font-bold">500+</p>
+        <p class="text-[10px] md:text-xs tracking-widest uppercase">Placed on Cruise Liners</p>
+      </div>
+    </div>
+    <div class="w-full lg:w-1/2 mt-8 lg:mt-0 text-center lg:text-left">
+      <p class="text-gold tracking-widest font-bold mb-4 text-xs md:text-sm uppercase">A Global Passport</p>
+      <h2 class="text-3xl md:text-5xl mb-6 leading-tight">Elite Cruise Ship Careers</h2>
+      <p class="text-gray-300 mb-8 text-base md:text-lg leading-relaxed">Under the visionary leadership of our
+        MD, Anil Kumar, we bridge the gap between India and the world's most luxurious cruise lines.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 mb-10 text-left">
+        <div class="border-l-2 border-gold pl-4 md:pl-6">
+          <h4 class="font-bold mb-2">USPH Training</h4>
+          <p class="text-xs md:text-sm text-gray-400 leading-relaxed">Mandatory health & safety training
+            for luxury liners.</p>
         </div>
+        <div class="border-l-2 border-gold pl-4 md:pl-6">
+          <h4 class="font-bold mb-2 text-sm md:text-base">Guaranteed Interviews</h4>
+          <p class="text-xs md:text-sm text-gray-400 leading-relaxed">Direct recruitment drives with Royal
+            Caribbean.</p>
+        </div>
+      </div>
+      <button
+        class="w-full sm:w-auto bg-gold text-white px-8 py-4 font-bold rounded uppercase tracking-wider text-sm transition hover:brightness-110">Get
+        Placement Details</button>
     </div>
-        
-        
+  </div>
+</section>
+
+<section class="py-16 md:py-24 px-4 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 md:mb-12 text-center md:text-left">
+      <div class="mb-4 md:mb-0">
+        <h2 class="text-3xl md:text-4xl text-navy mb-2">Institute Life</h2>
+        <p class="text-gray-500 text-sm md:text-base">Glimpses of our labs, practical training, and success stories.</p>
+      </div>
+      <a href="#" class="text-gold font-bold border-b-2 border-gold pb-1 uppercase text-xs md:text-sm hover:text-navy hover:border-navy transition">
+        View Full Gallery
+      </a>
     </div>
-  </section>
-  <style>@media (max-width: 768px) {
-    .enroll-item {
-      border: none !important;
-      border-bottom: 1px solid black !important;
-    }
-  
-    /* Optional: Remove the last item's border-bottom */
-    .enroll-item:last-child {
-      border-bottom: none !important;
-    }
-    .enroll-item * {
-    margin-left: 0 !important;
-  }
-  }
-  
-  </style>
-  <script>
-    // Renamed variables to avoid conflicts
-    const animatedElements = document.querySelectorAll('.slide-in-left');
-  
-    const scrollObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          // Optionally unobserve if you only want animation once
-          scrollObserver.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.2
-    });
-  
-    animatedElements.forEach(el => scrollObserver.observe(el));
-  </script>
-  
     
-  <section class="about-fixed-section" style="background-image: url({% static "images/building.jpg"%});">
-    <div class="overlay1">
-      <div class="content-wrapper">
-        <div class="left">
-          <h1>About Foresight</h1>
-          <!-- <p class="subtitle">Specialized in Cruise Career Training and Placement</p> -->
-        </div>
-        <div class="right">
-        <p></p>
-          <p>At Foresight , we are backed by the expertise of a management team with over 11 years of experience in hospitality training and international placements. Our team also leads the Royal Institute of Cruise Ship Career Program and Pre-Recruitment Training Center, through which we have successfully guided over 500 candidates into prestigious cruise lines across the globe. Foresight builds on this strong foundation to offer quality education and real career pathways in hotel management.</p>
-          <a href="{% url 'resources' %}" class="read-more-btn">Read More</a>
-        </div>
-        
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+      <div class="col-span-1">
+        <img src="{% static 'images/Advanced_Culinary_Training.jpg' %}" class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Advanced Culinary Training">
+      </div>
+      <div class="col-span-1">
+        <img src="{% static 'images/Restaurant_Service_Training.jpg' %}" class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Restaurant Service Training">
+      </div>
+      <div class="col-span-1">
+        <img src="{% static 'images/Hotel_Management.jpg' %}" class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Hotel Management">
+      </div>
+      <div class="col-span-1">
+        <img src="{% static 'images/Front_Office_Operations.jpg' %}" class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Front Office Operations">
       </div>
     </div>
-  </section>
-  <a href="https://wa.me/919048966056" class="chat-float" target="_blank" title="Chat with us on WhatsApp">
-    💬 Chat with us
-  </a>
+  </div>
+</section>
 
-  <section class="academics-section" style="background: url({% static "images/building3.jpg" %}) center center / cover no-repeat; padding: 80px 20px;">
-    <div class="container">
-      <div class="academics-header hero-content">
-        <h2>Our Academics</h2>
-        <p style="color:white;">At Foresight Institute of Hotel Management, we provide a dynamic curriculum that blends practical skills and theoretical knowledge, preparing students to excel in the global hospitality industry.</p>
-         <div class="academics-grid" style="display: flex; justify-content: center;">
-        <div class="academics-card">
-          <h3> Hotel and Hospitality Management</h3>
-          <a href="{% url 'learning_modules' %}" class="view-btn">View Details</a>
+<section class="py-16 md:py-24 bg-white px-4">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 md:gap-16">
+    <div class="w-full lg:w-1/2">
+      <h2 class="text-3xl md:text-4xl text-navy mb-6">Connect With Us</h2>
+      <p class="text-gray-500 mb-10 leading-relaxed text-sm md:text-base">Ready to take the first step towards
+        a global hospitality career? Visit our campus or reach out to our admissions team.</p>
+      <div class="space-y-6 md:space-y-8">
+        <div class="flex gap-4 md:gap-6">
+          <div class="min-w-[48px] h-12 border border-gold rounded flex items-center justify-center text-gold">
+            📍</div>
+          <div>
+            <h4 class="font-bold text-navy text-sm md:text-base">Campus Location</h4>
+            <p class="text-xs md:text-sm text-gray-500">Devagiri, Ummalathoor, Kozhikode, Kerala 673008
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-4 md:gap-6">
+          <div class="min-w-[48px] h-12 border border-gold rounded flex items-center justify-center text-gold">
+            📞</div>
+          <div>
+            <h4 class="font-bold text-navy text-sm md:text-base">Admissions</h4>
+            <p class="text-xs md:text-sm text-gray-500">+91 800-621-3362</p>
+          </div>
         </div>
       </div>
-      </div>
-  
-     
     </div>
-  </section>
-  
-  
-  <section class="quote-section"  >
-    <div class="quote-overlay">
-      <div class="quote-content">
-        <p class="quote-text fade-in-up">“Success is not final, failure is not fatal: it is the courage to continue that counts.”</p>
-        <p class="quote-author fade-in-up delay-1">Winston Churchill</p>
-        <div class="quote-dot fade-in-up delay-2"></div>
-      </div>
+    <div class="w-full lg:w-1/2 bg-white shadow-2xl p-6 md:p-10 rounded-lg lg:-mt-10 border border-gray-100">
+      <h3 class="text-xl md:text-2xl font-bold mb-8 text-navy">Quick Enrollment</h3>
+      <form class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input type="text" placeholder="First Name"
+            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm">
+          <input type="text" placeholder="Last Name"
+            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm">
+        </div>
+        <input type="email" placeholder="Email Address"
+          class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm">
+        <select class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-gray-400 text-sm">
+          <option>Select Preferred Course</option>
+        </select>
+        <textarea placeholder="Message (Optional)" rows="4"
+          class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm"></textarea>
+        <button
+          class="w-full bg-gold text-white font-bold py-4 rounded uppercase tracking-widest text-xs md:text-sm hover:brightness-110">Submit
+          Application</button>
+      </form>
     </div>
-  
-   
-      
-  </section>
- 
-  <style>
-
-
-    .chat-float {
-  position: fixed;
-  bottom: 100px; /* ⬆️ Increased from 20px */
-  right: 20px;
-  background-color: #25D366;
-  color: white;
-  font-weight: bold;
-  padding: 12px 18px;
-  border-radius: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 999;
-  text-decoration: none;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transition: all 0.3s ease;
-}
-
-.chat-float:hover {
-  background-color: #1ebf5c;
-  transform: scale(1.05);
-}
-
-  </style>
+  </div>
+</section>
 
 {% if messages %}
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     {% for message in messages %}
-      Swal.fire({
-        icon: "{{ message.tags|default:'info' }}",
-        title: "{{ message|escapejs }}",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "OK"
-      });
+    Swal.fire({
+      icon: "{{ message.tags|default:'info' }}",
+      title: "{{ message|escapejs }}",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "OK"
+    });
     {% endfor %}
   });
 </script>
 {% endif %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    {% endblock %}
+{% endblock %}

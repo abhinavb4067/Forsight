@@ -1,0 +1,155 @@
+{% extends 'foresight_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    :root {
+        --deep-navy: #02060D;
+        --gold: #C59D5F;
+        --accent-orange: #D97706;
+    }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    .text-gold { color: var(--gold); }
+    .bg-gold { background-color: var(--gold); }
+    .bg-accent { background-color: var(--accent-orange); }
+
+    /* Custom scroll-reveal styles */
+    .reveal-img {
+        filter: grayscale(100%);
+        transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    /* This class will be added by JS when the image is scrolled into view */
+    .reveal-img.is-visible {
+        filter: grayscale(0%);
+    }
+
+    /* Keep hover effect for desktop users */
+    @media (min-width: 1024px) {
+        .reveal-img:hover {
+            filter: grayscale(0%);
+        }
+    }
+</style>
+
+<section class="py-20 px-4 text-white text-center">
+    <div class="max-w-7xl mx-auto">
+        <p class="text-gold tracking-[0.3em] uppercase text-xs font-bold mb-4">The Atelier</p>
+        <h1 class="text-4xl md:text-6xl mb-6">Bakery & Patisserie Arts</h1>
+        <div class="w-24 h-1 bg-accent mx-auto mb-20"></div>
+
+        <div class="flex flex-col lg:flex-row items-center gap-12 mb-32 text-left group">
+            <div class="lg:w-1/2 relative transition-all duration-500 hover:-translate-y-2">
+                <img src="{% static 'images/Advanced_Culinary_Training.jpg' %}" 
+                     class="reveal-img w-full h-[400px] object-cover rounded-sm" alt="Patisserie">
+                <div class="absolute -bottom-6 -left-6 bg-accent px-8 py-4 shadow-xl">
+                    <p class="text-[10px] uppercase tracking-widest font-bold text-black opacity-80">Executive Certificate</p>
+                    <p class="text-2xl serif text-black italic font-bold">4-6 Weeks</p>
+                </div>
+            </div>
+            <div class="lg:w-1/2 lg:pl-10">
+                <p class="text-gold tracking-[0.2em] uppercase text-[10px] font-bold mb-4">The Essential Start</p>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-1 h-10 bg-accent"></div>
+                    <h2 class="text-3xl md:text-5xl">Fast-Track Patisserie</h2>
+                </div>
+                <p class="text-gray-400 leading-relaxed mb-8 text-sm md:text-base">
+                    An intensive, high-speed immersion into the world of professional patisserie. This program is engineered for those who seek to master the essential science of baking in a condensed timeframe.
+                </p>
+                <a href="#" class="inline-flex items-center gap-4 text-gold font-bold tracking-widest text-xs group">
+                    VIEW COURSE SYLLABUS 
+                    <div class="w-12 h-[1px] bg-gold transition-all group-hover:w-20"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-32 text-left">
+    <div class="lg:w-1/2 relative transition-all duration-500 hover:-translate-y-2">
+        <img src="{% static 'images/Cake_Making_Art.jpg' %}" 
+             class="reveal-img w-full h-[400px] object-cover rounded-sm" 
+             alt="Cake Making Arts">
+        
+         <div class="absolute -bottom-6 -left-6 bg-accent px-8 py-4 shadow-xl">
+                    <p class="text-[10px] uppercase tracking-widest font-bold text-black opacity-80">Skill Diploma</p>
+                </div>
+    </div>
+
+    <div class="lg:w-1/2 lg:pr-10">
+        <p class="text-gold tracking-[0.2em] uppercase text-[10px] font-bold mb-4">Signature Creations</p>
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-1 h-10 bg-accent"></div>
+            <h2 class="text-3xl md:text-5xl text-white">Certificate in Cake Making</h2>
+        </div>
+        <p class="text-gray-400 leading-relaxed mb-8 text-sm md:text-base">
+            This specialized program is a deep dive into the architecture and aesthetics of modern confectionery. From mastering the perfect crumb to the precision of sharp-edge ganache finishes, students learn the secrets of trending cake designs.
+        </p>
+        <a href="#" class="inline-flex items-center gap-4 text-gold font-bold tracking-widest text-xs group">
+            VIEW COURSE SYLLABUS 
+            <div class="w-12 h-[1px] bg-gold transition-all group-hover:w-20"></div>
+        </a>
+    </div>
+</div>
+
+        <div class="flex flex-col lg:flex-row items-center gap-12 text-left">
+            <div class="lg:w-1/2 relative transition-all duration-500 hover:-translate-y-2">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80" 
+                     class="reveal-img w-full h-[400px] object-cover rounded-sm" alt="Baking">
+                <div class="absolute -bottom-6 -left-6 bg-accent px-8 py-4 shadow-xl">
+                    <p class="text-[10px] uppercase tracking-widest font-bold text-black">Intermediate Diploma</p>
+                </div>
+            </div>
+            <div class="lg:w-1/2 lg:pl-10">
+                <p class="text-gold tracking-[0.2em] uppercase text-[10px] font-bold mb-4">Advanced Craftsmanship</p>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-1 h-10 bg-accent"></div>
+                    <h2 class="text-3xl md:text-5xl">Certificate in Baking and Pastry</h2>
+                </div>
+                <p class="text-gray-400 leading-relaxed mb-8 text-sm md:text-base">
+                    A comprehensive intermediate diploma that bridges the gap between foundational skills and sophisticated craftsmanship.
+                </p>
+                <a href="#" class="inline-flex items-center gap-4 text-gold font-bold tracking-widest text-xs group">
+                    VIEW COURSE SYLLABUS 
+                    <div class="w-12 h-[1px] bg-gold transition-all group-hover:w-20"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const revealOptions = {
+            threshold: 0.3 // Image triggers color when 30% of it is visible
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                } else {
+                    // Optional: remove this if you want the image to stay colored after passing it
+                    entry.target.classList.remove('is-visible');
+                }
+            });
+        }, revealOptions);
+
+        const images = document.querySelectorAll('.reveal-img');
+        images.forEach(img => revealObserver.observe(img));
+    });
+</script>
+
+{% if messages %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        {% for message in messages %}
+            Swal.fire({
+                icon: "{{ message.tags|default:'info' }}",
+                title: "{{ message|escapejs }}",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK"
+            });
+        {% endfor %}
+    });
+</script>
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}

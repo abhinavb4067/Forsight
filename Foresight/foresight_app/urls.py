@@ -8,6 +8,7 @@ urlpatterns = [
     path('toggle-replied/', views.toggle_replied, name='toggle_replied'),  # ✅
     path('our_team/', views.our_team, name='our_team'),
     path('learning_modules/', views.learning_modules, name='learning_modules'),
+    path('bakery_courses/', views.bakery, name='bakery_courses'),
     path('register/', views.student_registration_view, name='register'),
     # path('dashboard/', views.dashboard, name='dashboard'),
     path('log_out/', views.logout_user, name='log_out'),
