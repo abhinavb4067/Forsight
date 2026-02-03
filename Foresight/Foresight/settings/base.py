@@ -84,14 +84,20 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'foresight_app', 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# settings.py
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'foresight_app/static/media')
+STATIC_URL = '/static/'
+
+# This puts static files in the same folder as your manage.py
+STATIC_ROOT = os.path.join(BASE_DIR, 'Foresight', 'static') 
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'Foresight', 'media')
+
+# This tells Django where to find your source static files (CSS/Images)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'Foresight', 'foresight_app', 'static'),
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

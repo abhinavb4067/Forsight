@@ -4,7 +4,7 @@
 {% block content %}
 <section class="relative min-h-[90vh] flex items-center justify-center text-center text-white pt-20 px-4">
   <div class="absolute inset-0 z-0">
-    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80"
+    <img src="{% static 'images/home.jpg' %}"
       class="w-full h-full object-cover brightness-[0.35]" alt="Resort Pool">
   </div>
   <div class="relative z-10 max-w-4xl">
@@ -95,7 +95,7 @@
 <section class="bg-navy py-16 md:py-24 px-4 text-white overflow-hidden">
   <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10 md:gap-16">
     <div class="w-full lg:w-1/2 relative">
-      <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&q=80"
+      <img src="{% static 'images/cruise_ships.jpg' %}"
         class="rounded shadow-2xl w-full h-[300px] md:h-[450px] object-cover" alt="Cruise Ships">
       <div class="absolute -bottom-6 -right-4 md:-bottom-10 md:-right-10 bg-gold p-6 md:p-8 text-center">
         <p class="text-3xl md:text-4xl font-bold">500+</p>
