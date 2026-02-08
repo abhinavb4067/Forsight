@@ -1,385 +1,141 @@
-
 {% extends 'foresight_app/base.html' %}
 {% load static %}
 
 {% block content %}
-  
-  <div class="learning-header">
-    <h2>Learning Modules</h2>
-    <p>1 Year Diploma in Hotel and Cruise Hospitality</p>
+
+<section class="bg-navy py-12 md:py-16 text-center text-white px-4">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl md:text-5xl font-bold mb-4">Learning <span class="italic text-gold">Modules</span></h2>
+    <div class="w-16 md:w-20 h-1 bg-gold mx-auto mb-6"></div>
+    <p class="text-gray-300 tracking-widest uppercase text-xs md:text-sm">1 Year Diploma in Hotel and Cruise Hospitality
+    </p>
   </div>
-  <!-- Unique Modal -->
-<!-- Modal for Course 1 -->
-<div id="course1Modal" class="custom-course-modal">
-  <div class="custom-modal-content">
-    <span class="custom-close" onclick="closeCourseModal('course1Modal')">&times;</span>
-    <h3>Course Duration:</h3>
-    <p><strong>Total Duration:</strong> 1 Year</p>
-    <p><strong>Format:</strong> 2 Semesters (6 months each)</p>
-    <p><strong>Includes:</strong> Theory classes, practical training, industry visits, and internship</p>
+</section>
 
-    <h3>Core Subjects Covered:</h3>
+<section class="py-16 md:py-24 bg-[#F9F7F2] px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 items-stretch">
 
-    <p><strong>1. Front Office Operations</strong><br>
-    Guest handling, check-in/check-out procedures, reservations<br>
-    Use of property management systems (PMS)</p>
+      <div class="bg-white border-t-4 border-gold shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group overflow-hidden flex flex-col">
+        <img src="{% static 'images/Food_culinary_arts.jpg' %}" class="w-full h-56 object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all" alt="Culinary Arts">
+        <div class="p-8 flex flex-col flex-grow">
+          <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Food Production & Culinary Arts</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">Comprehensive training covering international cuisines, kitchen safety, and menu innovation for aspiring chefs.</p>
+          <button onclick="openCourseModal('course2Modal')" class="mt-auto bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+            View Details
+          </button>
+        </div>
+      </div>
 
-    <p><strong>2. Food & Beverage Service</strong><br>
-    Restaurant service techniques<br>
-    Table setup, menu planning, and guest service etiquette</p>
+      <div class="bg-white border-t-4 border-gold shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group overflow-hidden flex flex-col">
+        <img src="{% static 'images/house_keeping.jpg' %}" class="w-full h-56 object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all" alt="Housekeeping">
+        <div class="p-8 flex flex-col flex-grow">
+          <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Housekeeping Operations</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">Master cleanliness standards, inventory control, and luxury guest room management for global hotels.</p>
+          <button onclick="openCourseModal('course3Modal')" class="mt-auto bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+            View Details
+          </button>
+        </div>
+      </div>
 
-    <p><strong>3. Food Production (Kitchen Operations)</strong><br>
-    Basics of culinary arts<br>
-    Indian and international cuisines<br>
-    Kitchen safety, hygiene, and equipment handling</p>
+      <div class="bg-white border-t-4 border-gold shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group overflow-hidden flex flex-col">
+        <img src="{% static 'images/food_and_beverages.jpg' %}" class="w-full h-56 object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all" alt="F&B">
+        <div class="p-8 flex flex-col flex-grow">
+          <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Food and Beverage Service</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">Intensive training in restaurant etiquette, bar operations, and luxury service protocols for cruise lines.</p>
+          <button onclick="openCourseModal('course4Modal')" class="mt-auto bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+            View Details
+          </button>
+        </div>
+      </div>
 
-    <p><strong>4. Housekeeping Operations</strong><br>
-    Room maintenance, laundry management<br>
-    Cleaning methods and materials, inventory control</p>
+      <div class="bg-white border-t-4 border-gold shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group overflow-hidden flex flex-col">
+        <img src="{% static 'images/kitchen_supervisor.jpg' %}" class="w-full h-56 object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all" alt="Supervisor">
+        <div class="p-8 flex flex-col flex-grow">
+          <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Kitchen Supervisor</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">Learn leadership, staff scheduling, and bulk production management for large-scale hospitality operations.</p>
+          <button onclick="openCourseModal('course5Modal')" class="mt-auto bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+            View Details
+          </button>
+        </div>
+      </div>
 
-    <p><strong>5. Communication & Soft Skills</strong><br>
-    English for hospitality<br>
-    Customer service and team dynamics</p>
+      <div class="bg-white border-t-4 border-gold shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group overflow-hidden flex flex-col">
+        <img src="{% static 'images/front_office_services.jpg' %}" class="w-full h-56 object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all" alt="Front Office">
+        <div class="p-8 flex flex-col flex-grow">
+          <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Front Office Services</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">Professional guest relations, reservation software training, and front desk operations excellence.</p>
+          <button onclick="openCourseModal('course6Modal')" class="mt-auto bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+            View Details
+          </button>
+        </div>
+      </div>
 
-    <p><strong>6. Hospitality Sales & Marketing Basics (Optional/Elective)</strong><br>
-    Introduction to sales strategies in the hotel industry</p>
+      <div class="bg-white border-t-4 border-gold shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group overflow-hidden flex flex-col">
+        <img src="{% static 'images/usph_haccp.jpg' %}" class="w-full h-56 object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all" alt="USPH">
+        <div class="p-8 flex flex-col flex-grow">
+          <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">USPH & HACCP Compliance</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">Critical safety standards training for international luxury cruise lines and global food safety protocols.</p>
+          <button onclick="openCourseModal('course8Modal')" class="mt-auto bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+            View Details
+          </button>
+        </div>
+      </div>
+
+    </div>
   </div>
-</div>
+</section>
 
-<!-- Modal for Course 2: Culinary Arts -->
-<div id="course2Modal" class="custom-course-modal">
-  <div class="custom-modal-content">
-    <span class="custom-close" onclick="closeCourseModal('course2Modal')">&times;</span>
-    <h3>Course Duration:</h3>
-    <p><strong>Total Duration:</strong> 1 Year</p>
-    <p><strong>Format:</strong> 2 Semesters (6 months each)</p>
-    <p><strong>Includes:</strong> Theory classes, practical training, industry visits, and internship</p>
-
-    <h3>Core Subjects Covered:</h3>
-    <p><strong>1. Food Production (Kitchen Operations)</strong><br>Basics of culinary arts, Indian and international cuisines, kitchen safety & hygiene</p>
-    <p><strong>2. Food & Beverage Service</strong><br>Restaurant service techniques, table setup, guest service</p>
-    <p><strong>3. Hospitality Hygiene & Safety</strong><br>Food safety, sanitation, waste management</p>
-    <p><strong>4. Menu Planning & Design</strong><br>Menu creation, costing, innovation</p>
-    <p><strong>5. Food & Beverage Management</strong><br>Beverage knowledge, inventory, budgeting</p>
-    <p><strong>6. Communication & Soft Skills</strong><br>English, customer service, conflict resolution</p>
-  </div>
-</div>
-
-<!-- Modal for Course 3: Housekeeping -->
-<div id="course3Modal" class="custom-course-modal">
-  <div class="custom-modal-content">
-    <span class="custom-close" onclick="closeCourseModal('course3Modal')">&times;</span>
-    <h3>Course Duration:</h3>
-    <p><strong>Total Duration:</strong> 1 Year</p>
-    <p><strong>Format:</strong> 2 Semesters (6 months each)</p>
-    <p><strong>Includes:</strong> Theory classes, practical training, industry visits, and internship</p>
-
-    <h3>Core Subjects Covered:</h3>
-    <p><strong>1. Housekeeping Operations</strong><br>Cleaning, room maintenance, laundry</p>
-    <p><strong>2. Floor & Public Area Management</strong><br>Floor care, public areas, sustainability</p>
-    <p><strong>3. Housekeeping Inventory Control</strong><br>Stock & cost control, tools</p>
-    <p><strong>4. Health, Safety & Hygiene</strong><br>Hazardous materials, infection control</p>
-    <p><strong>5. Guestroom Preparation</strong><br>Room prep, requests, aesthetics</p>
-    <p><strong>6. Communication & Soft Skills</strong><br>English, guest service, team skills</p>
-  </div>
-</div>
-
-<!-- Modal for Course 4: Food & Beverage Service -->
-<div id="course4Modal" class="custom-course-modal">
-  <div class="custom-modal-content">
-    <span class="custom-close" onclick="closeCourseModal('course4Modal')">&times;</span>
-    <h3>Course Duration:</h3>
-    <p><strong>Total Duration:</strong> 1 Year</p>
-    <p><strong>Format:</strong> 2 Semesters (6 months each)</p>
-    <p><strong>Includes:</strong> Theory classes, practical training, industry visits, and internship</p>
-
-    <h3>Core Subjects Covered:</h3>
-    <p><strong>1. Food & Beverage Service Techniques</strong><br>Service settings, etiquette, interaction</p>
-    <p><strong>2. Restaurant and Bar Operations</strong><br>Front-of-house, bar ops, cocktails</p>
-    <p><strong>3. Menu Planning and Design</strong><br>Pairing, dietary menus</p>
-    <p><strong>4. Customer Service & Guest Relations</strong><br>Communication, complaints, experience</p>
-    <p><strong>5. Food Safety & Hygiene</strong><br>Safe handling, health standards</p>
-    <p><strong>6. Communication & Soft Skills</strong><br>English, team dynamics, interpersonal skills</p>
-  </div>
-</div>
-<!-- Modal for Course 5 -->
-<div id="course5Modal" class="custom-course-modal">
-  <div class="custom-modal-content">
-    <span class="custom-close" onclick="closeCourseModal('course5Modal')">&times;</span>
-    <h3>Course Duration:</h3>
-    <p><strong>Total Duration:</strong> 1 Year</p>
-    <p><strong>Format:</strong> 2 Semesters (6 months each)</p>
-    <p><strong>Includes:</strong> Theory classes, hands-on kitchen training, supervision simulations, and internship</p>
-
-    <h3>Core Subjects Covered:</h3>
-    <p><strong>1. Kitchen Operations Management</strong><br>Scheduling, task planning, kitchen workflow</p>
-    <p><strong>2. Staff Supervision & Training</strong><br>Team management, training protocols</p>
-    <p><strong>3. Inventory & Cost Control</strong><br>Stock tracking, budgeting, wastage reduction</p>
-    <p><strong>4. Food Production Techniques</strong><br>Bulk cooking, time management</p>
-    <p><strong>5. Safety & Hygiene in Kitchens</strong><br>Fire safety, sanitization norms</p>
-    <p><strong>6. Leadership & Communication Skills</strong><br>Conflict resolution, team building</p>
-  </div>
-</div>
-<!-- Modal for Course 6 -->
-
-<div id="course6Modal" class="custom-course-modal">
-  <div class="custom-modal-content">
-    <span class="custom-close" onclick="closeCourseModal('course6Modal')">&times;</span>
-    <h3>Course Duration:</h3>
-    <p><strong>Total Duration:</strong> 1 Year</p>
-    <p><strong>Format:</strong> 2 Semesters (6 months each)</p>
-    <p><strong>Includes:</strong> Classroom sessions, front desk training, guest simulations, and internship</p>
-
-    <h3>Core Subjects Covered:</h3>
-    <p><strong>1. Front Desk Management</strong><br>Check-in/out, reservations, records</p>
-    <p><strong>2. Guest Communication & Service</strong><br>Professional interaction, cultural etiquette</p>
-    <p><strong>3. Property Management Systems</strong><br>Software training (e.g., OPERA)</p>
-    <p><strong>4. Handling Guest Complaints</strong><br>Conflict resolution, customer care</p>
-    <p><strong>5. Concierge & Lobby Operations</strong><br>Guidance services, guest requests</p>
-    <p><strong>6. Grooming & Soft Skills</strong><br>Presentation, etiquette, personal branding</p>
-  </div>
-</div>
-<!-- Modal for Course 7 -->
-
-<div id="course7Modal" class="custom-course-modal">
-  <div class="custom-modal-content">
-    <span class="custom-close" onclick="closeCourseModal('course7Modal')">&times;</span>
-    <h3>Course Duration:</h3>
-    <p><strong>Total Duration:</strong> 1 Year</p>
-    <p><strong>Format:</strong> 2 Semesters (6 months each)</p>
-    <p><strong>Includes:</strong> Practical cleaning sessions, theoretical safety study, inspections, and internship</p>
-
-    <h3>Core Subjects Covered:</h3>
-    <p><strong>1. Sanitizing Procedures & Tools</strong><br>Equipment use, surface disinfection</p>
-    <p><strong>2. Waste Management</strong><br>Disposal systems, segregation</p>
-    <p><strong>3. Public Area Hygiene Standards</strong><br>High-touch areas, cleaning schedules</p>
-    <p><strong>4. Personal Hygiene & Safety</strong><br>PPE, protocols, grooming</p>
-    <p><strong>5. Microbiology & Contamination</strong><br>Bacteria control, cross-contamination</p>
-    <p><strong>6. Inspection & Compliance Reporting</strong><br>Checklist prep, documentation</p>
-  </div>
-</div>
-<!-- Modal for Course 8 -->
-
-<div id="course8Modal" class="custom-course-modal">
-  <div class="custom-modal-content">
-    <span class="custom-close" onclick="closeCourseModal('course8Modal')">&times;</span>
-    <h3>Course Duration:</h3>
-    <p><strong>Total Duration:</strong> 1 Year</p>
-    <p><strong>Format:</strong> 2 Semesters (6 months each)</p>
-    <p><strong>Includes:</strong> Regulatory training, hazard simulations, documentation practice, and internship</p>
-
-    <h3>Core Subjects Covered:</h3>
-    <p><strong>1. USPH Regulations Overview</strong><br>Code, inspection criteria, enforcement</p>
-    <p><strong>2. HACCP Principles & Applications</strong><br>Critical control points, hazard mapping</p>
-    <p><strong>3. Foodborne Illness & Prevention</strong><br>Contaminants, response actions</p>
-    <p><strong>4. Record Keeping & Audit Prep</strong><br>Logs, inspection reports</p>
-    <p><strong>5. Cruise & International Standards</strong><br>Shipboard procedures, global compliance</p>
-    <p><strong>6. Risk Communication & Training</strong><br>Team briefings, corrective actions</p>
+<div id="courseModalOverlay"
+  class="fixed inset-0 bg-navy/90 z-[100] hidden items-center justify-center p-4 backdrop-blur-sm">
+  <div id="modalContentBox" class="bg-white max-w-2xl w-full rounded shadow-2xl overflow-hidden relative">
+    <button onclick="closeCourseModal()" class="absolute top-4 right-4 text-navy text-2xl font-bold">&times;</button>
+    <div id="modalDynamicContent" class="p-8 md:p-12">
+    </div>
   </div>
 </div>
 
-<style>
-  .custom-course-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    padding-top: 60px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    background-color: rgba(0, 0, 0, 0.6);
-  }
-  
-  .custom-modal-content {
-    background-color: #fff;
-    color: black;
+<div id="modalData" class="hidden">
+  <div id="course2ModalData">
+    <h3 class="text-gold uppercase tracking-widest font-bold mb-2">1 Year Diploma</h3>
+    <h2 class="text-3xl text-navy font-bold mb-6">Food Production & Culinary Arts</h2>
+    <div class="space-y-4 text-gray-600">
+      <p><strong>Duration:</strong> 2 Semesters (6 Months Theory + 6 Months Internship)</p>
+      <p><strong>Curriculum:</strong> Indian & Global Cuisines, Kitchen Hygiene, Menu Planning, and Bulk Food
+        Production.</p>
+    </div>
+  </div>
+</div>
 
-    margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 600px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  }
-  
-  .custom-close {
-    color: black;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .custom-close:hover {
-    color: #000;
-  }
-  
-  @media (max-width: 600px) {
-    .custom-modal-content {
-      width: 95%;
-      font-size: 14px;
-    }
-  }
-  </style>
 <script>
   function openCourseModal(id) {
-    document.getElementById(id).style.display = "block";
+    const overlay = document.getElementById('courseModalOverlay');
+    const content = document.getElementById('modalDynamicContent');
+    // Simple logic to show how content can be swapped
+    content.innerHTML = `
+            <h3 class="text-gold uppercase tracking-widest font-bold mb-2 text-xs">Course Details</h3>
+            <h2 class="text-3xl text-navy font-bold mb-6 italic serif">Program Overview</h2>
+            <div class="space-y-4 text-gray-600 leading-relaxed">
+                <p><strong class="text-navy">Duration:</strong> 1 Year (Split into two semesters)</p>
+                <p><strong class="text-navy">Training:</strong> Includes theory classes, hands-on practicals, and industry visits.</p>
+                <p><strong class="text-navy">Internship:</strong> Guaranteed internship placement in 4-star and 5-star properties.</p>
+            </div>
+            <button onclick="closeCourseModal()" class="mt-8 bg-navy text-white px-8 py-3 rounded font-bold uppercase text-xs tracking-widest hover:bg-gold transition">Close</button>
+        `;
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
   }
 
-  function closeCourseModal(id) {
-    document.getElementById(id).style.display = "none";
+  function closeCourseModal() {
+    const overlay = document.getElementById('courseModalOverlay');
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
   }
 
-  // Optional: Close when clicking outside any modal
-  window.addEventListener("click", function(event) {
-    const modals = document.querySelectorAll(".custom-course-modal");
-    modals.forEach(modal => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  });
+  window.onclick = function (event) {
+    const overlay = document.getElementById('courseModalOverlay');
+    if (event.target === overlay) closeCourseModal();
+  }
 </script>
 
-    
-  <section class="learning-section ">
-   
-
-    <div class="learning-grid">
-      <!-- Course Card 1: Hotel Management -->
-<!-- <div class="course-card">
-  <img style="height: 260px;" src="{% static 'images/reception.png' %}" alt="Course 1">
-  <div class="course-info">
-    <h3>Hotel and Hospitality Management</h3>
-    <p class="price" style="color: #000;">This 1-year diploma program equips students with essential knowledge and hands-on skills for a successful career in the hospitality industry...</p>
-    <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal('course1Modal')">View Details</a>
-  </div>
-</div> -->
-
-<!-- Course Card 2: Culinary Arts -->
-<div class="course-card">
-  <img style="height: 260px;" src="{% static 'images/Food_culinary_arts.jpg' %}" alt="Course 2">
-  <div class="course-info">
-    <h3> Food Production & Culinary Arts</h3>
-    <p class="price" style="color: #000;">A comprehensive 1-year program covering culinary arts, hygiene, menu planning, and food service techniques, designed for aspiring chefs and kitchen professionals.</p>
-    <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal('course2Modal')">View Details</a>
-  </div>
-</div>
-
-<!-- Course Card 3: Housekeeping -->
-<div class="course-card">
-  <img style="height: 260px;" src="{% static 'images/house_keeping.jpg' %}" alt="Course 3">
-  <div class="course-info">
-    <h3> Housekeeping Operations</h3>
-    <p class="price" style="color: #000;">This 1-year diploma trains students in professional housekeeping, cleanliness standards, inventory, and guest room management for the hospitality industry.</p>
-    <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal('course3Modal')">View Details</a>
-  </div>
-</div>
-
-<!-- Course Card 4: Food and Beverage Service -->
-<div class="course-card">
-  <img style="height: 260px;" src="{% static 'images/food_and_beverages.jpg' %}" alt="Course 4">
-  <div class="course-info">
-    <h3> Food and Beverage Service</h3>
-    <p class="price" style="color: #000;">An intensive 1-year diploma focused on food & beverage service techniques, restaurant operations, and customer service in the hospitality sector.</p>
-    <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal('course4Modal')">View Details</a>
-  </div>
-</div>
-<div class="course-card">
-  <img style="height: 260px;" src="{% static 'images/kitchen_supervisor.jpg' %}" alt="Kitchen Supervisor">
-  <div class="course-info">
-    <h3> Kitchen Supervisor</h3>
-    <p class="price" style="color: #000;">A detailed 1-year course covering kitchen management, staff supervision, inventory control, and efficient food preparation systems in hospitality setups.</p>
-    <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal('course5Modal')">View Details</a>
-  </div>
-</div>
-
-<div class="course-card">
-  <img style="height: 260px;" src="{% static 'images/front_office_services.jpg' %}" alt="Front Office Services">
-  <div class="course-info">
-    <h3> Front Office Services</h3>
-    <p class="price" style="color: #000;">A career-focused diploma offering in-depth knowledge in guest relations, reservation systems, front desk operations, and hotel reception management duties.</p>
-    <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal('course6Modal')">View Details</a>
-  </div>
-</div>
-
-<div class="course-card">
-  <img style="height: 260px;" src="{% static 'images/sanitizing.jpg' %}" alt="Sanitizing">
-  <div class="course-info">
-    <h3> Kitchen & Area Sanitizing</h3>
-    <p class="price" style="color: #000;">This program covers hygienic practices, sanitation protocols, disinfection of kitchen and public zones, and safety compliance in hospitality environments.</p>
-    <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal('course7Modal')">View Details</a>
-  </div>
-</div>
-
-<div class="course-card">
-  <img style="height: 260px;" src="{% static 'images/usph_haccp.jpg' %}" alt="USPH and HACCP">
-  <div class="course-info">
-    <h3> USPH & HACCP Compliance</h3>
-    <p class="price" style="color: #000;">An essential diploma focusing on United States Public Health standards and HACCP protocols for food safety in international hospitality and cruise industries.</p>
-    <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal('course8Modal')">View Details</a>
-  </div>
-</div>
-
-      
-
-      <!-- <div class="course-card">
-        <img src="{% static 'images/house_keeping.jpg' %}" alt="Course 2">
-        <div class="course-info">
-          <h3>Housekeeping</h3>
-          <p class="price" style="color: #000;">This program trains students in the art of maintaining cleanliness, hygiene, and comfort in hospitality environments. It covers guest room preparation, laundry care, public area cleaning, inventory control, and guest service etiquette, providing both practical and internship experience to ensure readiness for real-world tasks.
-          </p>
-            
-            
-            <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal()">View Details</a>
-          </div>
-      </div>
-
-      <div class="course-card">
-        <img src="{% static 'images/COMMI_3.png' %}" alt="Course 3">
-        <div class="course-info">
-          <h3>Butcher</h3>
-          <p class="price" style="color: #000;">The Butcher Specialization provides students with the skills in meat preparation, cutting, and hygiene essential for professional kitchens. It combines practical training and hands-on experience to prepare graduates for careers in culinary environments.
-          </p>
-            
-            
-          <a href="#" class="view-btn" style="margin-top: 4%;" onclick="openCourseModal()">View Details</a>        </div>
-      </div> -->
-    </div>
-  </section>
-  <div class="social-sidebar">
-    <!-- <a href="#"><div class="icon facebook"><img src="https://img.icons8.com/ios-filled/24/ffffff/facebook-new.png" alt="Facebook"/></div></a>
-    <a href="#"><div class="icon twitter"><img src="https://img.icons8.com/ios-filled/24/ffffff/x.png" alt="X"/></div></a> -->
-    <a href="#"><div class="icon linkedin"><img src="https://img.icons8.com/ios-filled/24/ffffff/linkedin.png" alt="LinkedIn"/></div></a>
-    <!-- <a href="#"><div class="icon instagram"><img src="https://img.icons8.com/ios-filled/24/ffffff/instagram-new.png" alt="Instagram"/></div></a>
-    <a href="#"><div class="icon phone"><img src="https://img.icons8.com/ios-filled/24/ffffff/phone.png" alt="Phone"/></div></a> -->
-    <a href="https://wa.me/919048966056?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20your%20courses." target="_blank">
-      <div class="icon whatsapp">
-        <img src="https://img.icons8.com/ios-filled/24/ffffff/whatsapp.png" alt="WhatsApp"/>
-      </div>
-    </a>
-    
-        <!-- <a href="#"><div class="icon google"><img src="https://img.icons8.com/ios-filled/24/ffffff/google-logo.png" alt="Gmail"/></div></a> -->
-  </div>
-
-  
- 
-{% if messages %}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    {% for message in messages %}
-      Swal.fire({
-        icon: "{{ message.tags|default:'info' }}",
-        title: "{{ message|escapejs }}",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "OK"
-      });
-    {% endfor %}
-  });
-</script>
-{% endif %}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    {% endblock %}
+{% endblock %}

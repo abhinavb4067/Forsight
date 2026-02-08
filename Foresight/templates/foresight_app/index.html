@@ -4,8 +4,7 @@
 {% block content %}
 <section class="relative min-h-[90vh] flex items-center justify-center text-center text-white pt-20 px-4">
   <div class="absolute inset-0 z-0">
-    <img src="{% static 'images/home.jpg' %}"
-      class="w-full h-full object-cover brightness-[0.35]" alt="Resort Pool">
+    <img src="{% static 'images/home.jpg' %}" class="w-full h-full object-cover brightness-[0.35]" alt="Resort Pool">
   </div>
   <div class="relative z-10 max-w-4xl">
     <h1 class="text-4xl sm:text-5xl md:text-7xl mb-6 leading-[1.1] md:leading-tight px-2">
@@ -17,12 +16,13 @@
       international cruise lines.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-      <button
-        class="w-full sm:w-auto bg-gold text-white px-10 py-4 font-bold rounded hover:scale-105 transition-transform">Explore
-        Courses</button>
-      <button
+      <a href="#courses-section"
+        class="w-full sm:w-auto bg-gold text-white px-10 py-4 font-bold rounded hover:scale-105 transition-transform text-center">
+        Explore Courses
+      </a>
+      <a href="#cruise_placements"
         class="w-full sm:w-auto border-2 border-white px-10 py-4 font-bold rounded hover:bg-white hover:text-navy transition">Cruise
-        Placements</button>
+        Placements</a>
     </div>
   </div>
 </section>
@@ -31,12 +31,12 @@
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
       <div class="flex flex-col items-center justify-center">
-        <span class="text-3xl md:text-5xl font-bold text-gold mb-2 serif">11+</span>
+        <span class="text-3xl md:text-5xl font-bold text-gold mb-2 serif">12+</span>
         <span class="text-[10px] md:text-xs tracking-[0.2em] text-gray-400 uppercase font-semibold">Years
           Experience</span>
       </div>
       <div class="flex flex-col items-center justify-center">
-        <span class="text-3xl md:text-5xl font-bold text-gold mb-2 serif">500+</span>
+        <span class="text-3xl md:text-5xl font-bold text-gold mb-2 serif">550+</span>
         <span class="text-[10px] md:text-xs tracking-[0.2em] text-gray-400 uppercase font-semibold">Cruise
           Placements</span>
       </div>
@@ -54,51 +54,95 @@
   </div>
 </section>
 
-<section class="py-16 md:py-24 bg-[#F9F7F2] px-4">
+<section id="courses-section" class="py-16 md:py-24 bg-[#F9F7F2] px-4">
   <div class="max-w-7xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl text-navy mb-2">World-Class Specializations</h2>
     <div class="w-16 md:w-20 h-1 bg-gold mx-auto mb-12 md:mb-16"></div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch">
 
       <div
-        class="bg-white p-8 md:p-10 text-left border-t-4 border-gold shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl">
+        class="bg-white p-8 md:p-10 text-left border-t-4 border-gold shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl flex flex-col h-full">
         <span class="text-4xl mb-6 block">🥐</span>
         <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Professional Bakery & Patisserie</h3>
-        <p class="text-gray-600 text-sm md:text-base leading-relaxed">Master the delicate science of baking. From
-          artisan sourdough to intricate French pastries.</p>
-      </div>
 
-      <div
-        class="bg-white p-8 md:p-10 text-left border-t-4 border-gold shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl">
-        <span class="text-4xl mb-6 block">👨‍🍳</span>
-        <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Advanced Culinary Arts</h3>
-        <p class="text-gray-600 text-sm md:text-base mb-6">Comprehensive training in global cuisines, kitchen
-          management, and food safety standards (HACCP).</p>
-        <ul class="text-xs md:text-sm text-gray-500 space-y-2 italic">
-          <li>• Continental & Oriental Cuisine</li>
-          <li>• Food Production Management</li>
+        <p class="text-gray-600 text-sm md:text-base mb-6">
+          Master the delicate science of baking through professional training in
+          artisan sourdough, intricate French pastries, and confectionery arts.
+        </p>
+
+        <ul class="text-xs md:text-sm text-gray-500 space-y-2 italic mb-6 flex-grow">
+          <li>• Classical French Pastry Techniques</li>
+          <li>• Artisan Bread & Yeasted Doughs</li>
         </ul>
+
+        <div class="mt-auto">
+          <a href="{% url 'bakery_courses' %}"> <button
+              class="bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+              View Details
+            </button></a>
+
+        </div>
       </div>
 
       <div
-        class="bg-white p-8 md:p-10 text-left border-t-4 border-gold shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl">
-        <span class="text-4xl mb-6 block">🍷</span>
-        <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Hotel & Resort Management</h3>
-        <p class="text-gray-600 text-sm md:text-base leading-relaxed">Luxury service protocols, front office operations,
-          and housekeeping management.</p>
+        class="bg-white p-8 md:p-10 text-left border-t-4 border-gold shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl flex flex-col h-full">
+        <span class="text-4xl mb-6 block">🚢</span>
+        <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Cruise Ship Placement</h3>
+
+        <p class="text-gray-600 text-sm md:text-base mb-6">
+          Specialized preparation for luxury liners including USPH standards,
+          maritime safety, and high-volume international hospitality service.
+        </p>
+
+        <ul class="text-xs md:text-sm text-gray-500 space-y-2 italic mb-6 flex-grow">
+          <li>• STCW & USPH Compliance Training</li>
+          <li>• Direct Global Recruitment Support</li>
+        </ul>
+
+        <div class="mt-auto">
+          <a href="https://royalcruisecareer.com/"> <button
+              class="bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+              View Details
+            </button></a>
+
+        </div>
+      </div>
+
+      <div
+        class="bg-white p-8 md:p-10 text-left border-t-4 border-gold shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl flex flex-col h-full">
+        <span class="text-4xl mb-6 block">🏨</span>
+        <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Hotel & Hospitality Management</h3>
+
+        <p class="text-gray-600 text-sm md:text-base mb-6">
+          A comprehensive diploma program covering front office operations,
+          luxury guest relations, and administrative hotel management.
+        </p>
+
+        <ul class="text-xs md:text-sm text-gray-500 space-y-2 italic mb-6 flex-grow">
+          <li>• Global Hospitality Standards</li>
+          <li>• Property Management Systems</li>
+        </ul>
+
+        <div class="mt-auto">
+          <a href="{% url 'learning_modules' %}"> <button onclick="openCourseModal('course1Modal')"
+              class="bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+              View Details
+            </button></a>
+
+        </div>
       </div>
 
     </div>
   </div>
 </section>
-<section class="bg-navy py-16 md:py-24 px-4 text-white overflow-hidden">
+<section id="cruise_placements" class="bg-navy py-16 md:py-24 px-4 text-white overflow-hidden">
   <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10 md:gap-16">
     <div class="w-full lg:w-1/2 relative">
       <img src="{% static 'images/cruise_ships.jpg' %}"
         class="rounded shadow-2xl w-full h-[300px] md:h-[450px] object-cover" alt="Cruise Ships">
       <div class="absolute -bottom-6 -right-4 md:-bottom-10 md:-right-10 bg-gold p-6 md:p-8 text-center">
-        <p class="text-3xl md:text-4xl font-bold">500+</p>
+        <p class="text-3xl md:text-4xl font-bold">550+</p>
         <p class="text-[10px] md:text-xs tracking-widest uppercase">Placed on Cruise Liners</p>
       </div>
     </div>
@@ -119,37 +163,43 @@
             Caribbean.</p>
         </div>
       </div>
-      <button
+      <!-- <button
         class="w-full sm:w-auto bg-gold text-white px-8 py-4 font-bold rounded uppercase tracking-wider text-sm transition hover:brightness-110">Get
-        Placement Details</button>
+        Placement Details</button> -->
     </div>
   </div>
 </section>
 
 <section class="py-16 md:py-24 px-4 bg-white">
   <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 md:mb-12 text-center md:text-left">
+    <div
+      class="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 md:mb-12 text-center md:text-left">
       <div class="mb-4 md:mb-0">
         <h2 class="text-3xl md:text-4xl text-navy mb-2">Institute Life</h2>
         <p class="text-gray-500 text-sm md:text-base">Glimpses of our labs, practical training, and success stories.</p>
       </div>
-      <a href="#" class="text-gold font-bold border-b-2 border-gold pb-1 uppercase text-xs md:text-sm hover:text-navy hover:border-navy transition">
+      <!-- <a href="#"
+        class="text-gold font-bold border-b-2 border-gold pb-1 uppercase text-xs md:text-sm hover:text-navy hover:border-navy transition">
         View Full Gallery
-      </a>
+      </a> -->
     </div>
-    
+
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
       <div class="col-span-1">
-        <img src="{% static 'images/Advanced_Culinary_Training.jpg' %}" class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Advanced Culinary Training">
+        <img src="{% static 'images/Advanced_Culinary_Training.jpg' %}"
+          class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Advanced Culinary Training">
       </div>
       <div class="col-span-1">
-        <img src="{% static 'images/Restaurant_Service_Training.jpg' %}" class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Restaurant Service Training">
+        <img src="{% static 'images/Restaurant_Service_Training.jpg' %}"
+          class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Restaurant Service Training">
       </div>
       <div class="col-span-1">
-        <img src="{% static 'images/Hotel_Management.jpg' %}" class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Hotel Management">
+        <img src="{% static 'images/Hotel_Management.jpg' %}" class="h-40 md:h-64 w-full object-cover rounded shadow-sm"
+          alt="Hotel Management">
       </div>
       <div class="col-span-1">
-        <img src="{% static 'images/Front_Office_Operations.jpg' %}" class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Front Office Operations">
+        <img src="{% static 'images/Front_Office_Operations.jpg' %}"
+          class="h-40 md:h-64 w-full object-cover rounded shadow-sm" alt="Front Office Operations">
       </div>
     </div>
   </div>
@@ -182,32 +232,31 @@
       </div>
     </div>
     <div class="w-full lg:w-1/2 bg-white shadow-2xl p-6 md:p-10 rounded-lg lg:-mt-10 border border-gray-100">
-    <h3 class="text-xl md:text-2xl font-bold mb-8 text-navy">Quick Enrollment</h3>
-    <form class="space-y-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="text" placeholder="First Name"
-                class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
-            <input type="text" placeholder="Last Name"
-                class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
-        </div>
-        <input type="email" placeholder="Email Address"
-            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
-        
-        <select class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
-            <option class="text-gray-400">Select Preferred Course</option>
-            <option value="hospitality">Hospitality Courses</option>
-            <option value="bakery">Bakery Courses</option>
-        </select>
+      <h3 class="text-xl md:text-2xl font-bold mb-8 text-navy">Quick Enrollment</h3>
 
-        <textarea placeholder="Message (Optional)" rows="4"
-            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black"></textarea>
-        
-        <button
-            class="w-full bg-gold text-white font-bold py-4 rounded uppercase tracking-widest text-xs md:text-sm hover:brightness-110">
-            Submit Application
+  <form class="space-y-4" method="POST" action="{% url 'contact_from_home' %}">
+        {% csrf_token %}
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input type="text" name="first_name" placeholder="First Name" required
+            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
+
+          <input type="text" name="last_name" placeholder="Last Name" required
+            class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
+        </div>
+
+        <input type="email" name="email" placeholder="Email Address" required
+          class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black">
+
+        <textarea name="message" placeholder="Message (Optional)" rows="4"
+          class="bg-gray-50 border p-3 md:p-4 w-full rounded focus:outline-gold text-sm text-black"></textarea>
+
+        <button type="submit"
+          class="w-full bg-gold text-white font-bold py-4 rounded uppercase tracking-widest text-xs md:text-sm hover:brightness-110 transition-all">
+          Submit Application
         </button>
-    </form>
-</div>
+      </form>
+    </div>
   </div>
 </section>
 

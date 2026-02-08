@@ -3,182 +3,181 @@
 
 {% block content %}
 
-  <style>
+<style>
+  .container {
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+  }
 
+  .left-section {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-top {
+    flex: 1;
+    background-color: #1c1a1a;
+    color: white;
+    padding: 60px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .form-content {
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .form-content h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+  }
+
+  .form-content hr {
+    width: 80px;
+    border: 0.5px solid #555;
+    margin-bottom: 20px;
+  }
+
+  .form-content p.subtitle {
+    font-size: 16px;
+    color: #ccc;
+    margin-bottom: 30px;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .contact-form .row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    flex: 1;
+    padding: 12px;
+    background-color: transparent;
+    border: 1px solid #999;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .contact-form textarea {
+    resize: none;
+    min-height: 100px;
+  }
+
+  .submit-button {
+    width: 120px;
+    padding: 12px;
+    background-color: #9b5cff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .bottom-support {
+    background-color: #0f0f0f;
+    color: white;
+    padding: 40px 30px;
+  }
+
+  .bottom-support h3 {
+    margin-bottom: 10px;
+  }
+
+  .bottom-support p {
+    color: #aaa;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .message-button {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .right-section {
+    width: 50%;
+    /* background: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1350&q=80') no-repeat center center; */
+    background-size: cover;
+  }
+
+
+  .responsive-paragraph {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: #fefefe;
+    font-size: 13px;
+  }
+
+  @media (min-width: 768px) {
+    .responsive-paragraph {
+      font-size: 19px;
+    }
+  }
+
+  @media (max-width: 768px) {
+
+    html,
+    body {
+      overflow: auto;
+    }
 
     .container {
-      display: flex;
-      height: 100vh;
-      flex-direction: row;
-    }
-
-    .left-section {
-      width: 50%;
-      display: flex;
       flex-direction: column;
+      height: auto;
     }
 
-    .form-top {
-      flex: 1;
-      background-color: #1c1a1a;
-      color: white;
-      padding: 60px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .form-content {
-      max-width: 600px;
+    .left-section,
+    .right-section {
       width: 100%;
-    }
-
-    .form-content h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    .form-content hr {
-      width: 80px;
-      border: 0.5px solid #555;
-      margin-bottom: 20px;
-    }
-
-    .form-content p.subtitle {
-      font-size: 16px;
-      color: #ccc;
-      margin-bottom: 30px;
-    }
-
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .contact-form .row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      flex: 1;
-      padding: 12px;
-      background-color: transparent;
-      border: 1px solid #999;
-      color: #fff;
-      font-size: 14px;
-      outline: none;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .contact-form textarea {
-      resize: none;
-      min-height: 100px;
-    }
-
-    .submit-button {
-      width: 120px;
-      padding: 12px;
-      background-color: #9b5cff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    .bottom-support {
-      background-color: #0f0f0f;
-      color: white;
-      padding: 40px 30px;
-    }
-
-    .bottom-support h3 {
-      margin-bottom: 10px;
-    }
-
-    .bottom-support p {
-      color: #aaa;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-
-    .message-button {
-      background-color: white;
-      color: black;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
     }
 
     .right-section {
-      width: 50%;
-      /* background: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1350&q=80') no-repeat center center; */
-      background-size: cover;
+      height: 300px;
     }
 
-  
-    .responsive-paragraph {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 400;
-      color: #fefefe;
-      font-size: 13px;
+    .contact-form .row {
+      flex-direction: column;
+      gap: 10px;
     }
 
-    @media (min-width: 768px) {
-      .responsive-paragraph {
-        font-size: 19px;
-      }
+    .submit-button {
+      width: 100%;
     }
-
-    @media (max-width: 768px) {
-      html, body {
-        overflow: auto;
-      }
-
-      .container {
-        flex-direction: column;
-        height: auto;
-      }
-
-      .left-section, .right-section {
-        width: 100%;
-      }
-
-      .right-section {
-        height: 300px;
-      }
-
-      .contact-form .row {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .submit-button {
-        width: 100%;
-      }
-    }
-
-
-    .form-content h1.contact-heading {
-  margin-top: 5%;
-  font-size: 42px;
-}
-
-@media (max-width: 768px) {
-  .form-content h1.contact-heading {
-    font-size: 26px;
-    margin-top: 15%;
   }
-}
-
-  </style>
 
 
-  <style>
- 
+  .form-content h1.contact-heading {
+    margin-top: 5%;
+    font-size: 42px;
+  }
+
+  @media (max-width: 768px) {
+    .form-content h1.contact-heading {
+      font-size: 26px;
+      margin-top: 15%;
+    }
+  }
+</style>
+
+
+<style>
   .success-message {
     background-color: #d4edda;
     color: #155724;
@@ -188,108 +187,103 @@
     border-radius: 4px;
     font-size: 1rem;
   }
-  </style>
-  <div class="container">
-    <div class="left-section">
-      <div class="form-top">
-        <div class="form-content">
-            <h1 class="contact-heading">Contact Us</h1>
-            <hr />
-          <p class="subtitle">We are here for questions or consulting</p>
-          {% if messages %}
-          {% for message in messages %}
-            <div class="success-message" id="success-message">
-              {{ message }}
-            </div>
-          {% endfor %}
-        {% endif %}
-        
-        <form class="contact-form" method="POST" action="">
-  {% csrf_token %}
-  <div class="row">
-    <input type="text" name="first_name" placeholder="First Name *" 
-           pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required />
-    <input type="text" name="last_name" placeholder="Last Name *" 
-           pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required />
-  </div>
-  <div class="row">
-    <input type="email" name="email" placeholder="Email *" required />
-    <input type="tel" name="phone" placeholder="Phone"
-           pattern="[0-9]{10}" title="Enter exactly 10 digits" maxlength="10" required />
-  </div>
-  <textarea name="message" placeholder="Leave us a message..." required></textarea>
-  <button class="submit-button" type="submit">Submit</button>
-</form>
-
-          
+</style>
+<div class="container">
+  <div class="left-section">
+    <div class="form-top">
+      <div class="form-content">
+        <h1 class="contact-heading">Contact Us</h1>
+        <hr />
+        <p class="subtitle">We are here for questions or consulting</p>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="success-message" id="success-message">
+          {{ message }}
         </div>
+        {% endfor %}
+        {% endif %}
+
+        <form class="contact-form" method="POST" action="">
+          {% csrf_token %}
+          <div class="row">
+            <input type="text" name="first_name" placeholder="First Name *" pattern="[A-Za-z\s]+"
+              title="Only letters and spaces allowed" required />
+            <input type="text" name="last_name" placeholder="Last Name *" pattern="[A-Za-z\s]+"
+              title="Only letters and spaces allowed" required />
+          </div>
+          <div class="row">
+            <input type="email" name="email" placeholder="Email *" required />
+            <input type="tel" name="phone" placeholder="Phone" pattern="[0-9]{10}" title="Enter exactly 10 digits"
+              maxlength="10" required />
+          </div>
+          <textarea name="message" placeholder="Leave us a message..." required></textarea>
+          <button class="submit-button" type="submit">Submit</button>
+        </form>
+
+
       </div>
+    </div>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const msg = document.getElementById('success-message');
+        if (msg) {
+          setTimeout(() => {
+            msg.style.transition = "opacity 0.5s ease";
+            msg.style.opacity = 0;
+            setTimeout(() => msg.remove(), 500); // Remove from DOM after fade
+          }, 5000);
+        }
+      });
+    </script>
+
+    <div class="bottom-support">
+      <h3>Chat with our support team</h3>
+      <p>Our team is here to assist you with any questions or concerns—reach out to us anytime.</p>
+      <button class="message-button" onclick="openWhatsApp()">Message us</button>
+
       <script>
-        window.addEventListener('DOMContentLoaded', () => {
-          const msg = document.getElementById('success-message');
-          if (msg) {
-            setTimeout(() => {
-              msg.style.transition = "opacity 0.5s ease";
-              msg.style.opacity = 0;
-              setTimeout(() => msg.remove(), 500); // Remove from DOM after fade
-            }, 5000);
-          }
-        });
+        function openWhatsApp() {
+          const phoneNumber = "919048966056";
+          const message = "Hello, I'd like to get in touch!";
+
+          const appURL = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+          const webURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+          // Try to open app
+          window.location.href = appURL;
+
+          // If app doesn't open in ~2 seconds, open web as fallback
+          setTimeout(() => {
+            window.open(webURL, '_blank');
+          }, 2000);
+        }
       </script>
-      
-      <div class="bottom-support">
-        <h3>Chat with our support team</h3>
-        <p>Our team is here to assist you with any questions or concerns—reach out to us anytime.</p>
-        <button class="message-button" onclick="openWhatsApp()">Message us</button>
 
-        <script>
-          function openWhatsApp() {
-            const phoneNumber = "919048966056";
-            const message = "Hello, I'd like to get in touch!";
-            
-            const appURL = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-            const webURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-        
-            // Try to open app
-            window.location.href = appURL;
-        
-            // If app doesn't open in ~2 seconds, open web as fallback
-            setTimeout(() => {
-              window.open(webURL, '_blank');
-            }, 2000);
-          }
-        </script>
-        
-      </div>
     </div>
+  </div>
 
-    <div class="right-section">
-      <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.775112026238!2d75.83951177510046!3d11.289746688942245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65ef104364273%3A0xb42eb24f6bcdb4f4!2sDevagiri%20Building%2C%20Opp.%20Medical%20College%2C%20Ummalathoor%2C%20Kozhikode%2C%20Kerala%20673008!5e0!3m2!1sen!2sin!4v1688201234567!5m2!1sen!2sin" 
-        width="100%" 
-        height="100%" 
-        style="border:0;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
-      </div>
-  
+  <div class="right-section">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.775112026238!2d75.83951177510046!3d11.289746688942245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65ef104364273%3A0xb42eb24f6bcdb4f4!2sDevagiri%20Building%2C%20Opp.%20Medical%20College%2C%20Ummalathoor%2C%20Kozhikode%2C%20Kerala%20673008!5e0!3m2!1sen!2sin!4v1688201234567!5m2!1sen!2sin"
+      width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</div>
+
 {% if messages %}
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     {% for message in messages %}
-      Swal.fire({
-        icon: "{{ message.tags|default:'info' }}",
-        title: "{{ message|escapejs }}",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "OK"
-      });
+    Swal.fire({
+      icon: "{{ message.tags|default:'info' }}",
+      title: "{{ message|escapejs }}",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "OK"
+    });
     {% endfor %}
   });
 </script>
 {% endif %}
 
-   {% endblock %}
-
+{% endblock %}

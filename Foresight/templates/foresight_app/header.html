@@ -1,46 +1,61 @@
 {% load static %}
 
-<style> 
-   body { font-family: 'Montserrat', sans-serif; background-color: var(--deep-navy); }
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: var(--deep-navy);
+    }
 </style>
 
 <nav class="main-nav-container bg-white shadow-md border-b border-gray-100 sticky z-[100]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
 
-            <div class="flex items-center gap-2 flex-shrink-0">
-                <div class="bg-[#05162E] p-2 text-white font-bold text-xl leading-none rounded-sm">F</div>
-                <span class="font-bold tracking-tighter text-[#05162E] text-xl leading-tight font-serif">
-                    FORESIGHT <span class="text-[#C5A059]">IHM</span>
-                </span>
-            </div>
+          <div class="flex items-center gap-3 flex-shrink-0">
+    <img src="{% static 'images/logo_home2.png' %}" alt="Foresight Logo"
+        class="h-10 md:h-12 w-auto object-contain rounded-sm">
+
+    <div class="flex flex-col justify-center">
+        <span class="font-bold tracking-tighter text-[#05162E] text-xl md:text-2xl leading-none font-serif">
+            FORESIGHT <span class="text-[#C5A059]">IHM</span>
+        </span>
+        
+      <span class="text-[#05162E] text-[7px] sm:text-[9px] md:text-[10px] uppercase tracking-wide font-bold leading-none mt-0.5 block whitespace-nowrap">
+    Institute of Hotel and Hospitality Management
+</span>
+    </div>
+</div>
 
             <div
                 class="hidden md:flex items-center gap-8 font-semibold text-xs lg:text-sm tracking-widest text-[#05162E]">
                 <a href="{% url 'home' %}" class="hover:text-[#C5A059] transition-colors">HOME</a>
-                 <div class="relative inline-block group">
-            <button
-                class="flex items-center space-x-1 text-sm font-bold text-[#05162E] hover:text-[#C5A059] focus:outline-none">
-                <span>PROGRAMS</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-            </button>
+                <a href="{% url 'about' %}" class="hover:text-[#C5A059] transition-colors">ABOUT</a>
+                <div class="relative inline-block group">
+                    <button
+                        class="flex items-center space-x-1 text-sm font-bold text-[#05162E] hover:text-[#C5A059] focus:outline-none">
+                        <span>PROGRAMS</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
 
-            <div class="absolute left-0 hidden w-48 pt-2 group-hover:block">
-                <div class="bg-white border border-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
-                    <a href="{% url 'learning_modules' %}"
-                        class="block px-4 py-2 text-sm text-[#05162E] hover:bg-[#C5A059] hover:text-white">Hospitality
-                        Courses</a>
-                    <a href="{% url 'bakery_courses' %}"
-                        class="block px-4 py-2 text-sm text-[#05162E] hover:bg-[#C5A059] hover:text-white">Bakery
-                        Courses</a>
-                    <hr class="border-gray-100">
-                    <a href="{% static 'forms/FIHM_Application_Form.pdf' %}" class="block px-4 py-2 text-sm font-semibold text-[#C5A059] hover:bg-gray-50">Download
-                        Prospectus</a>
+                    <div class="absolute left-0 hidden w-48 pt-2 group-hover:block">
+                        <div
+                            class="bg-white border border-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                            <a href="{% url 'learning_modules' %}"
+                                class="block px-4 py-2 text-sm text-[#05162E] hover:bg-[#C5A059] hover:text-white">Hospitality
+                                Courses</a>
+                            <a href="{% url 'bakery_courses' %}"
+                                class="block px-4 py-2 text-sm text-[#05162E] hover:bg-[#C5A059] hover:text-white">Bakery
+                                Courses</a>
+                            <hr class="border-gray-100">
+                            <a href="{% static 'forms/FIHM_Application_Form.pdf' %}"
+                                class="block px-4 py-2 text-sm font-semibold text-[#C5A059] hover:bg-gray-50">Download
+                                Prospectus</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
                 <a href="{% url 'admission' %}" class="hover:text-[#C5A059] transition-colors">ADMISSION</a>
                 <a href="{% url 'resources' %}" class="hover:text-[#C5A059] transition-colors">RESOURCES</a>
                 <a href="{% url 'contact' %}" class="hover:text-[#C5A059] transition-colors">CONTACT</a>
@@ -63,6 +78,7 @@
     <div id="mobile-menu-dropdown"
         class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-6 space-y-4 shadow-inner">
         <a href="{% url 'home' %}" class="block text-sm font-bold text-[#05162E] hover:text-[#C5A059]">HOME</a>
+        <a href="{% url 'about' %}" class="block text-sm font-bold text-[#05162E] hover:text-[#C5A059]">ABOUT</a>
         <div class="relative inline-block group">
             <button
                 class="flex items-center space-x-1 text-sm font-bold text-[#05162E] hover:text-[#C5A059] focus:outline-none">
@@ -86,7 +102,7 @@
                 </div>
             </div>
         </div>
-         <a href="{% url 'admission' %}"
+        <a href="{% url 'admission' %}"
             class="block text-sm font-bold text-[#05162E] hover:text-[#C5A059]">ADMISSION</a>
         <a href="{% url 'resources' %}"
             class="block text-sm font-bold text-[#05162E] hover:text-[#C5A059]">RESOURCES</a>

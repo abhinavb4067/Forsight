@@ -1,0 +1,104 @@
+{% extends 'foresight_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="relative h-[60vh] flex items-center justify-center text-center text-white pt-20 px-4">
+  <div class="absolute inset-0 z-0">
+    <img src="{% static 'images/home.jpg' %}" class="w-full h-full object-cover brightness-[0.3]" alt="Hospitality Background">
+  </div>
+  <div class="relative z-10 max-w-4xl">
+    <h1 class="text-4xl md:text-6xl mb-4 leading-tight font-serif">
+      Excellence in <span class="italic text-gold">Hospitality</span> Training
+    </h1>
+    <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+    <p class="text-lg text-gray-200 max-w-2xl mx-auto uppercase tracking-[0.2em] text-sm">
+      Shaping the next generation of global professionals
+    </p>
+  </div>
+</section>
+
+<section class="py-16 md:py-24 bg-white px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <div class="w-full lg:w-1/2">
+        <p class="text-gold font-bold tracking-widest uppercase text-sm mb-4">Our Mission</p>
+        <h2 class="text-3xl md:text-4xl text-navy mb-8 font-serif leading-tight">
+          A Career-Focused Institute for a <br class="hidden md:block"> Global Industry
+        </h2>
+        <div class="space-y-6 text-gray-600 leading-relaxed text-base md:text-lg">
+          <p>
+            Foresight Institute of Hotel and Hospitality Management is dedicated to shaping skilled professionals for the global hospitality industry. We offer industry-oriented programs in <span class="text-navy font-semibold">Hotel & Hospitality Management</span>, <span class="text-navy font-semibold">Bakery and Pastry Arts</span>, and specialized <span class="text-navy font-semibold">Cruise Ship Career Training</span>.
+          </p>
+          <p>
+            Our courses are designed with a strong practical approach, combining classroom learning, hands-on training, and real-world exposure to meet international industry standards.
+          </p>
+        </div>
+      </div>
+      <div class="w-full lg:w-1/2 relative">
+        <div class="border-2 border-gold p-4 rounded-lg transform translate-x-4 translate-y-4">
+            <img src="{% static 'images/Hotel_Management.jpg' %}" class="rounded-lg shadow-2xl w-full h-[400px] object-cover -translate-x-6 -translate-y-6" alt="Classroom Training">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-navy py-20 px-4 text-white">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+    <div class="w-full md:w-1/3 text-center md:text-left">
+        <h3 class="text-gold text-2xl font-bold mb-2">Backed by Royal</h3>
+        <p class="text-gray-400 tracking-widest uppercase text-xs">Industry Expertise</p>
+    </div>
+    <div class="w-full md:w-2/3 border-l-0 md:border-l border-gray-700 md:pl-12">
+        <p class="text-lg md:text-xl text-gray-300 leading-relaxed italic">
+            "Foresight is backed by Royal, a trusted name with real industry experience in hospitality and cruise ship operations. With Royal’s expertise, we provide students with clear guidance and strong placement pathways worldwide."
+        </p>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 md:py-24 bg-[#F9F7F2] px-4">
+  <div class="max-w-7xl mx-auto text-center mb-16">
+    <h2 class="text-3xl md:text-4xl text-navy mb-4 font-serif">The Foresight Edge</h2>
+    <div class="w-16 h-1 bg-gold mx-auto"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="bg-white p-10 rounded shadow-sm border-b-4 border-gold group hover:shadow-xl transition-all">
+        <div class="text-navy text-4xl mb-6 transition-transform group-hover:scale-110">🌍</div>
+        <h4 class="text-xl font-bold mb-4 text-navy">Global Standards</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">
+            Hands-on training designed to meet international expectations in hotels, resorts, and cruise ships worldwide.
+        </p>
+    </div>
+
+    <div class="bg-white p-10 rounded shadow-sm border-b-4 border-gold group hover:shadow-xl transition-all">
+        <div class="text-navy text-4xl mb-6 transition-transform group-hover:scale-110">🎓</div>
+        <h4 class="text-xl font-bold mb-4 text-navy">Career Preparation</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">
+            We prepare students not just to earn a diploma, but to build a long-term, sustainable professional career.
+        </p>
+    </div>
+
+    <div class="bg-white p-10 rounded shadow-sm border-b-4 border-gold group hover:shadow-xl transition-all">
+        <div class="text-navy text-4xl mb-6 transition-transform group-hover:scale-110">💼</div>
+        <h4 class="text-xl font-bold mb-4 text-navy">Placement Support</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">
+            Direct placement pathways powered by a professional network and deep industry experience.
+        </p>
+    </div>
+  </div>
+</section>
+
+<section class="py-20 px-4 text-center bg-white">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-5xl text-navy mb-8 font-serif leading-tight">
+            Ready to train for the <span class="text-gold italic">Real Industry?</span>
+        </h2>
+        <a onclick="openForm()" class="inline-block bg-navy text-white px-12 py-5 font-bold rounded hover:bg-gold hover:scale-105 transition-all uppercase tracking-widest text-sm">
+            Enroll with us today
+        </a>
+    </div>
+</section>
+
+{% endblock %}

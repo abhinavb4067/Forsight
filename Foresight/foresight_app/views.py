@@ -117,6 +117,54 @@ def contact(request):
 
 
 
+
+
+def contact_from_home(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '').strip()
+        email = request.POST.get('email', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        message = request.POST.get('message', '').strip()
+
+        errors = []
+
+        # Validate first & last name (letters and spaces only)
+        if not re.match(r'^[A-Za-z\s]+$', first_name):
+            errors.append("First name should contain only letters and spaces.")
+        if not re.match(r'^[A-Za-z\s]+$', last_name):
+            errors.append("Last name should contain only letters and spaces.")
+
+        # Validate email format
+        try:
+            validate_email(email)
+        except ValidationError:
+            errors.append("Invalid email address.")
+
+        # Validate phone (optional but must be digits if provided)
+        if phone and not re.match(r'^\+?[0-9]{7,15}$', phone):
+            errors.append("Phone number must be 7–15 digits (with optional +).")
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+        else:
+            # Safe ORM (prevents SQL injection automatically)
+            Contact.objects.create(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                phone=phone,
+                message=message
+            )
+            messages.success(request, 'Thank you! Your message has been sent successfully.')
+            return redirect('contact_from_home')  # Ensure 'contact' URL name is set correctly
+
+    privacy_policy = PrivacyPolicy.objects.first()
+    return render(request, 'foresight_app/index.html', {'privacy_policy': privacy_policy})
+
+
+
 def our_team(request):
     privacy_policy = PrivacyPolicy.objects.first()
 
@@ -134,6 +182,12 @@ def learning_modules(request):
 def bakery(request):
 
     return render(request, 'foresight_app/bakery.html')
+
+
+
+def about(request):
+
+    return render(request, 'foresight_app/about.html')
 
 
 from django.contrib import messages
