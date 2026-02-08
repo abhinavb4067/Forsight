@@ -158,7 +158,7 @@ def contact_from_home(request):
                 message=message
             )
             messages.success(request, 'Thank you! Your message has been sent successfully.')
-            return redirect('contact_from_home')  # Ensure 'contact' URL name is set correctly
+            return redirect('home')  # Ensure 'contact' URL name is set correctly
 
     privacy_policy = PrivacyPolicy.objects.first()
     return render(request, 'foresight_app/index.html', {'privacy_policy': privacy_policy})
