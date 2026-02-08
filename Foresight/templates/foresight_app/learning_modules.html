@@ -7,14 +7,24 @@
   <div class="max-w-4xl mx-auto">
     <h2 class="text-3xl md:text-5xl font-bold mb-4">Learning <span class="italic text-gold">Modules</span></h2>
     <div class="w-16 md:w-20 h-1 bg-gold mx-auto mb-6"></div>
-    <p class="text-gray-300 tracking-widest uppercase text-xs md:text-sm">1 Year Diploma in Hotel and Cruise Hospitality
-    </p>
+    <p class="text-gray-300 tracking-widest uppercase text-xs md:text-sm">1 Year Diploma Programs in Global Hospitality</p>
   </div>
 </section>
 
 <section class="py-16 md:py-24 bg-[#F9F7F2] px-4">
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 items-stretch">
+
+      <div class="bg-white border-t-4 border-gold shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group overflow-hidden flex flex-col">
+        <img src="{% static 'images/Hotel_Management.jpg' %}" class="w-full h-56 object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all" alt="Hotel Management">
+        <div class="p-8 flex flex-col flex-grow">
+          <h3 class="text-xl md:text-2xl font-bold mb-4 text-navy">Diploma in Hotel Management</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">A flagship program covering all core pillars of the hotel industry, from guest relations to executive administration.</p>
+          <button onclick="openCourseModal('course1Modal')" class="mt-auto bg-gold text-white px-6 py-3 font-bold text-xs uppercase tracking-widest rounded hover:brightness-110 transition w-full">
+            View Details
+          </button>
+        </div>
+      </div>
 
       <div class="bg-white border-t-4 border-gold shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group overflow-hidden flex flex-col">
         <img src="{% static 'images/Food_culinary_arts.jpg' %}" class="w-full h-56 object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all" alt="Culinary Arts">
@@ -86,50 +96,70 @@
   </div>
 </section>
 
-<div id="courseModalOverlay"
-  class="fixed inset-0 bg-navy/90 z-[100] hidden items-center justify-center p-4 backdrop-blur-sm">
+<div id="courseModalOverlay" class="fixed inset-0 bg-navy/90 z-[100] hidden items-center justify-center p-4 backdrop-blur-sm">
   <div id="modalContentBox" class="bg-white max-w-2xl w-full rounded shadow-2xl overflow-hidden relative">
-    <button onclick="closeCourseModal()" class="absolute top-4 right-4 text-navy text-2xl font-bold">&times;</button>
+    <button onclick="closeCourseModal()" class="absolute top-4 right-4 text-navy text-2xl font-bold hover:text-gold transition">&times;</button>
     <div id="modalDynamicContent" class="p-8 md:p-12">
-    </div>
+      </div>
   </div>
 </div>
 
 <div id="modalData" class="hidden">
-  <div id="course2ModalData">
-    <h3 class="text-gold uppercase tracking-widest font-bold mb-2">1 Year Diploma</h3>
-    <h2 class="text-3xl text-navy font-bold mb-6">Food Production & Culinary Arts</h2>
-    <div class="space-y-4 text-gray-600">
-      <p><strong>Duration:</strong> 2 Semesters (6 Months Theory + 6 Months Internship)</p>
-      <p><strong>Curriculum:</strong> Indian & Global Cuisines, Kitchen Hygiene, Menu Planning, and Bulk Food
-        Production.</p>
+  <div id="course1ModalData">
+    <h3 class="text-gold uppercase tracking-widest font-bold mb-2 text-xs">1 Year Diploma</h3>
+    <h2 class="text-3xl text-navy font-bold mb-6 italic serif">Hotel Management</h2>
+    <div class="space-y-4 text-gray-600 leading-relaxed">
+      <p><strong class="text-navy">Duration:</strong> 1 Year (6 Months Theory + 6 Months Industrial Training)</p>
+      <p><strong class="text-navy">Curriculum:</strong> Front Office, Housekeeping, F&B Service, and Basic Food Production.</p>
+      <p><strong class="text-navy">Objective:</strong> To create multi-skilled professionals capable of handling various departments in luxury hotels.</p>
     </div>
   </div>
-</div>
+
+  <div id="course2ModalData">
+    <h3 class="text-gold uppercase tracking-widest font-bold mb-2 text-xs">1 Year Diploma</h3>
+    <h2 class="text-3xl text-navy font-bold mb-6 italic serif">Food Production & Culinary Arts</h2>
+    <div class="space-y-4 text-gray-600 leading-relaxed">
+      <p><strong class="text-navy">Duration:</strong> 1 Year (Theory & Practical + Internship)</p>
+      <p><strong class="text-navy">Curriculum:</strong> Indian & Global Cuisines, Kitchen Hygiene, Menu Planning, and Bulk Food Production.</p>
+    </div>
+  </div>
+  
+  </div>
 
 <script>
   function openCourseModal(id) {
     const overlay = document.getElementById('courseModalOverlay');
-    const content = document.getElementById('modalDynamicContent');
-    // Simple logic to show how content can be swapped
-    content.innerHTML = `
-            <h3 class="text-gold uppercase tracking-widest font-bold mb-2 text-xs">Course Details</h3>
-            <h2 class="text-3xl text-navy font-bold mb-6 italic serif">Program Overview</h2>
-            <div class="space-y-4 text-gray-600 leading-relaxed">
-                <p><strong class="text-navy">Duration:</strong> 1 Year (Split into two semesters)</p>
-                <p><strong class="text-navy">Training:</strong> Includes theory classes, hands-on practicals, and industry visits.</p>
-                <p><strong class="text-navy">Internship:</strong> Guaranteed internship placement in 4-star and 5-star properties.</p>
-            </div>
-            <button onclick="closeCourseModal()" class="mt-8 bg-navy text-white px-8 py-3 rounded font-bold uppercase text-xs tracking-widest hover:bg-gold transition">Close</button>
-        `;
+    const dynamicContainer = document.getElementById('modalDynamicContent');
+    const dataSource = document.getElementById(id + 'Data');
+
+    if (dataSource) {
+      dynamicContainer.innerHTML = dataSource.innerHTML + `
+        <button onclick="closeCourseModal()" class="mt-8 bg-navy text-white px-8 py-3 rounded font-bold uppercase text-xs tracking-widest hover:bg-gold transition">Close</button>
+      `;
+    } else {
+      // Fallback if specific data isn't found
+      dynamicContainer.innerHTML = `
+        <h3 class="text-gold uppercase tracking-widest font-bold mb-2 text-xs">Course Details</h3>
+        <h2 class="text-3xl text-navy font-bold mb-6 italic serif">Program Overview</h2>
+        <div class="space-y-4 text-gray-600 leading-relaxed">
+            <p><strong class="text-navy">Duration:</strong> 1 Year Diploma Program</p>
+            <p><strong class="text-navy">Training:</strong> Comprehensive theory and practical hands-on experience.</p>
+            <p><strong class="text-navy">Internship:</strong> Guaranteed placement support in luxury properties.</p>
+        </div>
+        <button onclick="closeCourseModal()" class="mt-8 bg-navy text-white px-8 py-3 rounded font-bold uppercase text-xs tracking-widest hover:bg-gold transition">Close</button>
+      `;
+    }
+    
     overlay.classList.remove('hidden');
     overlay.classList.add('flex');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
   }
 
   function closeCourseModal() {
     const overlay = document.getElementById('courseModalOverlay');
     overlay.classList.add('hidden');
     overlay.classList.remove('flex');
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
   }
 
   window.onclick = function (event) {
